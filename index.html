@@ -1566,11 +1566,10 @@
 <script>
 /* ============================================================
    GEMINI CHATBOT CONFIG
-   ⚠️  Replace GEMINI_API_KEY below with your actual key.
-   For GitHub Pages: restrict your key at console.cloud.google.com
-   → API Restrictions → limit to your domain only.
+   Routed via Cloudflare Worker proxy — API key is stored securely in Worker secrets.
+   Worker URL: https://gemini-proxy.rishabhprasad-academics.workers.dev/
 ============================================================ */
-const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY'; // ⚠️ Replace with a new key from aistudio.google.com
+const WORKER_URL = 'https://gemini-proxy.rishabhprasad-academics.workers.dev/';
 
 const SYSTEM_PROMPT = `You are a friendly AI assistant representing Rishabh Prasad on his personal portfolio website.
 ONLY answer questions about Rishabh — his background, education, skills, projects, and experience.
@@ -1943,11 +1942,8 @@ async function sendMsg() {
   const typing = addTyping();
 
   try {
-    if (!GEMINI_API_KEY || GEMINI_API_KEY === 'YOUR_GEMINI_API_KEY') {
-      throw new Error('NO_KEY');
-    }
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`,
+      WORKER_URL,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1966,7 +1962,7 @@ async function sendMsg() {
   } catch (err) {
     typing.remove();
     const msg = err.message === 'NO_KEY'
-      ? "⚙️ API key not configured yet. Add your Gemini key to the GEMINI_API_KEY variable in the HTML to enable the chatbot."
+      ? "⚙️ Chatbot temporarily unavailable."
       : "Sorry, I couldn't connect right now. Try reaching Rishabh directly on LinkedIn! 💼";
     addMsg(msg, 'bot');
   }
