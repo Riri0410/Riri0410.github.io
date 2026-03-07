@@ -1,3 +1,5 @@
+import { EmailMessage } from "cloudflare:email";
+
 const ALLOWED_ORIGINS = [
   'https://rishabhprasad.dev',
   'https://riri0410.github.io',
@@ -55,38 +57,42 @@ export default {
           });
         }
 
-        // Forward to Web3Forms securely
-        const web3Response = await fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            access_key: env.WEB3FORMS_ACCESS_KEY,
-            name: name,
-            email: email,
-            subject: subject,
-            message: message,
-          })
-        });
-
-        let web3Result;
-        const rawText = await web3Response.text();
-        try {
-          web3Result = JSON.parse(rawText);
-        } catch (e) {
-          // Cloudflare might return an HTML error page (e.g. error code: 1106)
-          console.error("Non-JSON returned from Web3Forms: ", rawText);
-          web3Result = { success: false, message: "Error contacting mail server (1106). Please try again later." };
+        // ==========================================
+        // Forward to Destination via Cloudflare Native Email
+        // ==========================================
+        if (!env.SEB) {
+          return new Response(JSON.stringify({ 
+            success: false, 
+            message: "Missing 'SEB' (Send Email) binding in Cloudflare." 
+          }), { status: 500, headers: { 'Access-Control-Allow-Origin': origin, 'Content-Type': 'application/json' } });
         }
 
-        return new Response(JSON.stringify(web3Result), {
-          headers: {
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': origin,
-          }
-        });
+        const destination = env.DESTINATION_EMAIL || 'rishabhprasad.academics@gmail.com'; 
+        const sender = env.SENDER_EMAIL || 'noreply@rishabhprasad.dev'; // Must be a verified sender in Cloudflare
+
+        // Construct raw RFC 5322 MIME string manually
+        const rawEmail = `From: "Portfolio Contact Form" <${sender}>\r\n` +
+                         `To: <${destination}>\r\n` +
+                         `Reply-To: <${email}>\r\n` +
+                         `Subject: New Portfolio Message from ${name}: ${subject}\r\n` +
+                         `Content-Type: text/plain; charset="utf-8"\r\n\r\n` +
+                         `Name: ${name}\r\n` +
+                         `Email: ${email}\r\n\r\n` +
+                         `Message:\r\n${message}\r\n`;
+
+        try {
+          const emailMsg = new EmailMessage(sender, destination, rawEmail);
+          await env.SEB.send(emailMsg);
+          
+          return new Response(JSON.stringify({ success: true, message: "Email natively dispatched." }), {
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': origin }
+          });
+        } catch (e) {
+          return new Response(JSON.stringify({ success: false, message: "Cloudflare Email Failed: " + e.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': origin }
+          });
+        }
       }
 
       // ==========================================
