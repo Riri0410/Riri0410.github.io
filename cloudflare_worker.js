@@ -71,7 +71,16 @@ export default {
           })
         });
 
-        const web3Result = await web3Response.json();
+        let web3Result;
+        const rawText = await web3Response.text();
+        try {
+          web3Result = JSON.parse(rawText);
+        } catch (e) {
+          // Cloudflare might return an HTML error page (e.g. error code: 1106)
+          console.error("Non-JSON returned from Web3Forms: ", rawText);
+          web3Result = { success: false, message: "Error contacting mail server (1106). Please try again later." };
+        }
+
         return new Response(JSON.stringify(web3Result), {
           headers: {
             'Content-Type': 'application/json',
