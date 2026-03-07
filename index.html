@@ -73,6 +73,10 @@
       --glass-bd: rgba(124, 58, 237, .15);
     }
 
+    html[data-theme="light"] nav.scrolled {
+      background: rgba(255, 255, 255, .9);
+    }
+
     html {
       scroll-behavior: smooth;
       overflow-x: hidden
@@ -300,19 +304,23 @@
     }
 
     .nav-text-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       background: transparent;
-      border: none;
+      border: 1px solid transparent;
       color: var(--t2);
       font-family: var(--fc);
       font-weight: 700;
       font-size: 1.15rem;
       cursor: none;
       padding: 0 0.5rem;
+      height: 36px;
       transition: color .2s, transform .2s;
     }
     
     .nav-text-btn:hover {
-      color: var(--t1);
+      color: var(--cl);
       transform: translateY(-2px);
     }
 
@@ -4006,6 +4014,8 @@ Do NOT share any phone number or email address.`;
       "Hi Rishabh...": "Hallo Rishabh..."
     };
 
+    let currentLang = localStorage.getItem('lang') || 'en';
+
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('lang', lang);
@@ -4051,6 +4061,8 @@ Do NOT share any phone number or email address.`;
          window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT;
       }
     }
+
+    if (langToggle) langToggle.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'de' : 'en'));
 
     let currentTheme = localStorage.getItem('theme') || 'dark';
     function setTheme(theme) {
