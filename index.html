@@ -299,6 +299,23 @@
       transform: translateY(-2px);
     }
 
+    .nav-text-btn {
+      background: transparent;
+      border: none;
+      color: var(--t2);
+      font-family: var(--fc);
+      font-weight: 700;
+      font-size: 1.15rem;
+      cursor: none;
+      padding: 0 0.5rem;
+      transition: color .2s, transform .2s;
+    }
+    
+    .nav-text-btn:hover {
+      color: var(--t1);
+      transform: translateY(-2px);
+    }
+
     .nav-cta {
       background: linear-gradient(135deg, var(--p), var(--c));
       color: #fff;
@@ -847,7 +864,7 @@
     }
 
     .btn-p:hover {
-      transform: translate(var(--mx, 0), var(--my, 0)) scale(1.05);
+      transform: translateY(-2px) scale(1.05);
       box-shadow: 0 14px 40px rgba(124, 58, 237, .45)
     }
 
@@ -2544,9 +2561,8 @@
             d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
         </svg>
       </a>
-      <button id="theme-toggle" class="nav-icon-link" title="Toggle Theme" style="cursor:inherit">☀️</button>
-      <button id="lang-toggle" class="nav-icon-link" title="Toggle Language"
-        style="cursor:inherit;font-family:var(--fc);font-weight:700;font-size:.85rem">DE</button>
+      <button id="theme-toggle" class="nav-text-btn" title="Toggle Theme" style="cursor:inherit">☀️</button>
+      <button id="lang-toggle" class="nav-text-btn" title="Toggle Language" style="cursor:inherit">DE</button>
       <a href="#contact" class="nav-cta" data-i18n="nav.contact">Contact</a>
     </div>
     <button class="ham" id="ham" aria-label="Open menu">
@@ -2637,30 +2653,27 @@
         </div>
       </div>
     </div>
-    <div class="scroll-hint">
+    <div class="scroll-hint" style="bottom: 5.5rem;">
       <div class="line"></div><span>Scroll</span>
     </div>
-  </section>
 
-  <!-- ============================================================ COMPANY TICKER -->
-  <section id="ticker" style="padding: 2.5rem 0; border-bottom: 1px solid var(--bd); background: rgba(0,0,0,0.15)">
-    <div
-      style="text-align:center; font-family:var(--fc); font-size:0.75rem; color:var(--t3); letter-spacing:0.1em; text-transform:uppercase; margin-bottom:1.5rem"
-      data-i18n="ticker.title">Previously worked with &amp; currently at</div>
-    <div class="ticker-wrap flex">
-      <div class="ticker-track">
-        <!-- Group 1 -->
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🚀</span> Prodapt R&amp;D</div>
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">📡</span> Sunrise GmbH</div>
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">💻</span> Tech Mahindra</div>
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🎓</span> University of Edinburgh</div>
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🏛️</span> VIT Vellore</div>
-        <!-- Group 2 (Duplicate for infinite scroll) -->
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🚀</span> Prodapt R&amp;D</div>
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">📡</span> Sunrise GmbH</div>
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">💻</span> Tech Mahindra</div>
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🎓</span> University of Edinburgh</div>
-        <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🏛️</span> VIT Vellore</div>
+    <!-- ============================================================ COMPANY TICKER (Landing Page View) -->
+    <div style="position:absolute; bottom:0; left:0; width:100%; z-index:10; background:linear-gradient(to top, var(--bg0) 10%, transparent); padding-bottom:1.5rem; padding-top:2.5rem;">
+      <div class="ticker-wrap flex">
+        <div class="ticker-track">
+          <!-- Group 1 -->
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🚀</span> Prodapt R&amp;D</div>
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">📡</span> Sunrise GmbH</div>
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">💻</span> Tech Mahindra</div>
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🎓</span> University of Edinburgh</div>
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🏛️</span> VIT Vellore</div>
+          <!-- Group 2 (Duplicate for infinite scroll) -->
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🚀</span> Prodapt R&amp;D</div>
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">📡</span> Sunrise GmbH</div>
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">💻</span> Tech Mahindra</div>
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🎓</span> University of Edinburgh</div>
+          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🏛️</span> VIT Vellore</div>
+        </div>
       </div>
     </div>
   </section>
@@ -3343,8 +3356,7 @@
         </div> OPEN TO OPPORTUNITIES
       </div>
     </div>
-    <p>Reach out: <a href="javascript:location.href='mailto:'+['rishabhprasad0410','gmail.com'].join('@')"
-        style="font-weight:600">rishabhprasad0410 [at] gmail.com</a></p>
+
     <p style="margin-top:.4rem">Designed &amp; built by <a href="https://www.linkedin.com/in/prasad-rishabh/"
         target="_blank" style="font-weight:600">Rishabh Prasad</a> &copy; 2026</p>
   </footer>
