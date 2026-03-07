@@ -987,6 +987,8 @@
     #chat-btn{bottom:1.5rem;right:1.5rem;width:56px;height:56px}
   }
   </style>
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 <body>
 
@@ -1659,9 +1661,7 @@
             <div class="copt-d" style="text-align:left">Drop me a message directly to my inbox.</div>
           </div>
         </div>
-        <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" class="cform" style="width:100%">
-          <input type="hidden" name="access_key" value="a134bb71-c967-432b-beee-6cc19baf6876">
-          <input type="hidden" name="subject" value="New message from portfolio V2">
+        <form action="#" method="POST" id="contactForm" class="cform" style="width:100%">
           <div class="cform-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;width:100%;margin-bottom:1.5rem">
             <div style="display:flex;flex-direction:column;gap:.5rem">
               <label>Name</label>
@@ -1673,9 +1673,14 @@
             </div>
           </div>
           <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
+            <label>Subject</label>
+            <input type="text" name="subject" required placeholder="Project Inquiry, AI Research, etc.">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
             <label>Message</label>
             <textarea name="message" rows="4" required placeholder="Hi Rishabh..."></textarea>
           </div>
+          <div class="cf-turnstile" data-sitekey="YOUR_TURNSTILE_SITEKEY_HERE" data-theme="dark" style="margin-bottom:1.5rem"></div>
           <button type="submit" class="btn-p"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg> <span>Send Message</span></button>
           <div id="formResult" style="display:none;margin-top:1rem;font-size:1rem;font-weight:600;text-align:center;padding:.8rem;border-radius:10px;background:rgba(16,185,129,.1);color:#10b981;border:1px solid rgba(16,185,129,.2)"></div>
         </form>
@@ -1830,7 +1835,7 @@ document.addEventListener('mousemove', e => {
     spotlight.style.setProperty('--spot-x', `${cx}px`);
     spotlight.style.setProperty('--spot-y', `${cy}px`);
   }
-  document.querySelectorAll('.hl-box, .stat-c, .pc, .ach-c').forEach(el => {
+  document.querySelectorAll('.hl-box, .stat-c, .pc, .ach-c, .copt, .tl-card, .cert-c').forEach(el => {
     const rect = el.getBoundingClientRect();
     el.style.setProperty('--mx', `${cx - rect.left}px`);
     el.style.setProperty('--my', `${cy - rect.top}px`);
@@ -2255,21 +2260,44 @@ if(contactForm) {
     const formData = new FormData(contactForm);
     const btn = contactForm.querySelector('button[type="submit"]');
     const originalText = btn.innerHTML;
+    const turnstileToken = formData.get('cf-turnstile-response');
+
+    if (!turnstileToken) {
+      formResult.style.display = 'block';
+      formResult.style.color = '#ef4444';
+      formResult.style.background = 'rgba(239,68,68,.1)';
+      formResult.style.borderColor = 'rgba(239,68,68,.2)';
+      formResult.innerHTML = 'Please check the CAPTCHA box.';
+      return;
+    }
+
     btn.innerHTML = 'Sending... ⏳';
     btn.style.opacity = '0.7';
 
-    fetch('https://api.web3forms.com/submit', {
+    const payload = {
+      type: 'contact',
+      name: formData.get('name'),
+      email: formData.get('email'),
+      subject: formData.get('subject'),
+      message: formData.get('message'),
+      turnstileToken: turnstileToken
+    };
+
+    fetch(WORKER_URL, {
       method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: formData
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
     })
     .then(async (response) => {
       let json = await response.json();
-      if (response.status == 200) {
+      if (response.ok && json.success) {
         formResult.style.display = 'block';
+        formResult.style.color = '#10b981';
+        formResult.style.background = 'rgba(16,185,129,.1)';
+        formResult.style.borderColor = 'rgba(16,185,129,.2)';
         formResult.innerHTML = '✅ Message sent successfully! I will get back to you soon.';
         contactForm.reset();
-        // Confetti animation effect could go here
+        try { turnstile.reset(); } catch(e) {}
       } else {
         console.log(response);
         formResult.style.display = 'block';
