@@ -1302,8 +1302,33 @@
       transform: translateY(-4px)
     }
 
+    .tl-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .tl-logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      background-color: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1), inset 0 0 0 1px var(--glass-bd);
+      padding: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    
+    html[data-theme="light"] .tl-logo {
+      background-color: #fff;
+    }
+
     .tl-company {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--t1);
       margin-bottom: .2rem
@@ -2589,7 +2614,7 @@
     <div class="hero-inner" id="hero-inner">
       <!-- Left: photo -->
       <div class="hero-left rev">
-        <img src="1721769679431-5.jpeg" alt="Rishabh Prasad" class="hero-photo" />
+        <img src="images/Profile Photo.jpeg" alt="Rishabh Prasad" class="hero-photo" />
       </div>
       <!-- Vertical divider -->
       <div class="hero-divider"></div>
@@ -2661,18 +2686,18 @@
     <div style="position:absolute; bottom:0; left:0; width:100%; z-index:10; background:linear-gradient(to top, var(--bg0) 10%, transparent); padding-bottom:1.5rem; padding-top:2.5rem;">
       <div class="ticker-wrap flex">
         <div class="ticker-track">
-          <!-- Group 1 -->
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🚀</span> Prodapt R&amp;D</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">📡</span> Sunrise GmbH</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">💻</span> Tech Mahindra</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🎓</span> University of Edinburgh</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🏛️</span> VIT Vellore</div>
-          <!-- Group 2 (Duplicate for infinite scroll) -->
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🚀</span> Prodapt R&amp;D</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">📡</span> Sunrise GmbH</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">💻</span> Tech Mahindra</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🎓</span> University of Edinburgh</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🏛️</span> VIT Vellore</div>
+          <!-- Duplicated for infinite scroll -->
+          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Prodapt R&amp;D</div>
+          <div class="ticker-item"><img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Sunrise GmbH</div>
+          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Tech Mahindra" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Tech Mahindra</div>
+          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> University of Edinburgh</div>
+          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> VIT Vellore</div>
+          
+          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Prodapt R&amp;D</div>
+          <div class="ticker-item"><img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Sunrise GmbH</div>
+          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Tech Mahindra" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Tech Mahindra</div>
+          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> University of Edinburgh</div>
+          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> VIT Vellore</div>
         </div>
       </div>
     </div>
@@ -2757,8 +2782,13 @@
         <!-- Prodapt -->
         <div class="tl-item">
           <div class="tl-card revL">
-            <div class="tl-company">Prodapt · NextGen Labs (R&D)</div>
-            <div class="tl-role">Generative AI Developer — Intern</div>
+            <div class="tl-header">
+              <img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt Logo" class="tl-logo" />
+              <div>
+                <div class="tl-company">Prodapt · NextGen Labs (R&D)</div>
+                <div class="tl-role">Generative AI Developer — Intern</div>
+              </div>
+            </div>
             <span class="tl-date">January 2025 – July 2025</span>
             <ul class="tl-bullets" style="text-align:left">
               <li>Contributed to NextGen Labs (R&D), a team of 50+ developers focused on researching cutting-edge GenAI
@@ -2799,8 +2829,13 @@
             <div class="tl-dot"></div>
           </div>
           <div class="tl-card revR">
-            <div class="tl-company">Tech Mahindra · Sunrise GmbH</div>
-            <div class="tl-role">Full Stack Developer — Intern</div>
+            <div class="tl-header">
+              <img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise Logo" class="tl-logo" />
+              <div>
+                <div class="tl-company">Tech Mahindra · Sunrise GmbH</div>
+                <div class="tl-role">Full Stack Developer — Intern</div>
+              </div>
+            </div>
             <span class="tl-date">September 2023 – December 2023</span>
             <ul class="tl-bullets">
               <li>Contributed to SWEEP — B2B wholesale app for Switzerland's 2nd-largest telecom carrier</li>
@@ -3125,11 +3160,13 @@
         <!-- University of Edinburgh -->
         <div class="tl-item">
           <div class="tl-card revL">
-            <div style="display:flex;align-items:center;justify-content:flex-end;gap:.5rem;margin-bottom:.25rem">
-              <div class="tl-company">University of Edinburgh</div>
-              <span style="font-size:1.3rem">🎓</span>
+            <div class="tl-header" style="justify-content:flex-end; text-align:right">
+              <div>
+                <div class="tl-company">University of Edinburgh</div>
+                <div class="tl-role">MSc Artificial Intelligence</div>
+              </div>
+              <img src="images/uoe-crest.png" alt="University of Edinburgh Logo" class="tl-logo" />
             </div>
-            <div class="tl-role">MSc Artificial Intelligence</div>
             <span class="tl-date">September 2025 – August 2026 · 1 year</span>
             <ul class="tl-bullets" style="text-align:left">
               <li>Accelerated Natural Language Processing</li>
@@ -3155,11 +3192,13 @@
             <div class="tl-dot"></div>
           </div>
           <div class="tl-card revR">
-            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">
-              <span style="font-size:1.3rem">🏛️</span>
-              <div class="tl-company">Vellore Institute of Technology</div>
+            <div class="tl-header">
+              <img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT Vellore Logo" class="tl-logo" />
+              <div>
+                <div class="tl-company">Vellore Institute of Technology</div>
+                <div class="tl-role">BTech Computer Science &amp; Engineering</div>
+              </div>
             </div>
-            <div class="tl-role">BTech Computer Science &amp; Engineering</div>
             <span class="tl-date">September 2021 – July 2025 · 4 years</span>
             <ul class="tl-bullets">
               <li>Artificial Intelligence &amp; Machine Learning</li>
