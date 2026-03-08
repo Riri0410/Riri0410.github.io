@@ -100,7 +100,7 @@
     }
 
     /* ================================================================
-     CUSTOM CURSOR — DOT & RING & SPOTLIGHT
+     ORIGINAL CURSOR & ROAMING PET
   ================================================================ */
     #cursor-dot,
     #cursor-ring {
@@ -108,7 +108,7 @@
       top: 0;
       left: 0;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 9990;
       border-radius: 50%;
       transform: translate(-50%, -50%);
       opacity: 0;
@@ -154,6 +154,187 @@
       height: 38px;
       border-color: var(--pk);
     }
+
+    .pet-trail-dot {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: var(--cl);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9980;
+      box-shadow: 0 0 10px var(--cl);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    #ai-pet {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      will-change: transform, left, top;
+    }
+    
+    .pet-body {
+      width: 32px;
+      height: 32px;
+      background: var(--cardh);
+      border: 2px solid var(--pl);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.4), inset 0 0 10px rgba(6, 182, 212, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: border-radius 0.3s, background 0.3s;
+      position: relative;
+    }
+
+    @keyframes petFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+    #ai-pet.state-idle .pet-body { animation: petFloat 3s ease-in-out infinite; }
+    
+    #ai-pet.state-hover .pet-body {
+      border-radius: 50%;
+      background: var(--p);
+      transform: scale(1.2);
+      border-color: var(--cl);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+    }
+
+    #ai-pet.state-grabbed .pet-body {
+      transform: scale(0.9) rotate(-10deg);
+      border-color: var(--pk);
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.8);
+      animation: petShake 0.2s infinite;
+    }
+
+    @keyframes petShake {
+      0%, 100% { transform: translate(0, 0) rotate(-10deg); }
+      25% { transform: translate(-2px, 2px) rotate(-5deg); }
+      50% { transform: translate(2px, -2px) rotate(-15deg); }
+      75% { transform: translate(2px, 2px) rotate(-8deg); }
+    }
+
+    .pet-face {
+      display: flex;
+      gap: 6px;
+      margin-top: -2px;
+      transition: transform 0.2s ease-out;
+    }
+    .pet-eye {
+      width: 6px;
+      height: 8px;
+      background: var(--cl);
+      border-radius: 4px;
+      transition: transform 0.1s, height 0.1s, background 0.3s;
+      box-shadow: 0 0 5px var(--cl);
+    }
+    
+    @keyframes petBlink {
+      0%, 96%, 100% { transform: scaleY(1); }
+      98% { transform: scaleY(0.1); }
+    }
+    #ai-pet.state-idle .pet-eye { animation: petBlink 4s infinite; }
+    #ai-pet.state-hover .pet-eye { background: #fff; height: 10px; box-shadow: 0 0 8px #fff; }
+    #ai-pet.state-grabbed .pet-face { gap: 10px; }
+    #ai-pet.state-grabbed .pet-eye {
+      background: var(--t1);
+      width: 8px;
+      height: 4px;
+      border-radius: 2px;
+      transform: rotate(15deg);
+    }
+    #ai-pet.state-grabbed .pet-eye:nth-child(2) { transform: rotate(-15deg); }
+
+    .pet-mouth {
+      width: 10px;
+      height: 4px;
+      border: 2px solid var(--t1);
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      margin-top: 3px;
+      transition: all 0.2s;
+    }
+    #ai-pet.state-idle .pet-mouth { width: 8px; height: 3px; }
+    #ai-pet.state-hover .pet-mouth { width: 12px; height: 6px; }
+    #ai-pet.state-grabbed .pet-mouth {
+      width: 10px; height: 4px;
+      border-radius: 10px 10px 0 0;
+      border-top: 2px solid var(--t1);
+      border-bottom: none;
+      margin-top: 6px;
+    }
+    #ai-pet.state-falling .pet-mouth {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      border-top: 2px solid var(--t1);
+      background: rgba(0,0,0,0.2);
+    }
+    
+    #ai-pet.state-looking .pet-mouth {
+      width: 8px; height: 3px;
+      background: var(--t1);
+      border: none;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+
+    #ai-pet.state-falling .pet-body {
+      transform: scaleY(1.1) scaleX(0.9);
+      border-color: var(--pk);
+    }
+    #ai-pet.state-falling .pet-eye { width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+
+    .pet-chat {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px) scale(0.8);
+      background: var(--cardh);
+      color: var(--t1);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-family: var(--fc);
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid var(--bd);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      z-index: 1000;
+    }
+    .pet-chat::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      margin-left: -4px;
+      width: 8px;
+      height: 8px;
+      background: var(--cardh);
+      border-right: 1px solid var(--bd);
+      border-bottom: 1px solid var(--bd);
+      transform: rotate(45deg);
+    }
+    .pet-chat.visible { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+    
+    .pet-hitbox {
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      pointer-events: auto;
+      cursor: grab;
+      z-index: 2;
+    }
+    #ai-pet.state-grabbed .pet-hitbox { cursor: grabbing; }
 
     #spotlight {
       position: fixed;
@@ -2655,9 +2836,22 @@
 
 <body>
 
-  <!-- CURSOR & SPOTLIGHT -->
+  <!-- ORIGINAL CURSOR -->
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
+
+  <!-- ROAMING AI COMPANION (PET) & SPOTLIGHT -->
+  <div id="ai-pet" class="state-idle">
+    <div class="pet-hitbox"></div>
+    <div class="pet-chat">Hello!</div>
+    <div class="pet-body">
+      <div class="pet-face">
+        <div class="pet-eye"></div>
+        <div class="pet-eye"></div>
+      </div>
+      <div class="pet-mouth"></div>
+    </div>
+  </div>
   <div id="spotlight"></div>
 
   <!-- Scroll progress -->
@@ -3789,12 +3983,13 @@ CONTACT: LinkedIn — linkedin.com/in/prasad-rishabh/ | GitHub — github.com/Ri
 Do NOT share any phone number or email address.`;
 
     /* ============================================================
-       CURSOR & SPOTLIGHT
+       ORIGINAL CURSOR & SPOTLIGHT
     ============================================================ */
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
     const spotlight = document.getElementById('spotlight');
-    let cx = -200, cy = -200, rx = -200, ry = -200;
+    let cx = window.innerWidth/2, cy = window.innerHeight/2; 
+    let rx = cx, ry = cy;
 
     document.addEventListener('mousemove', e => {
       cx = e.clientX; cy = e.clientY;
@@ -3824,13 +4019,219 @@ Do NOT share any phone number or email address.`;
       requestAnimationFrame(trackCursor);
     })();
 
-    // Hover states
+    // Hover states for cursor
     document.querySelectorAll('a, button, .pc, .hl-box, .stat-c, .ach-c, .tl-card, .copt, .cert-c, .chat-sug').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('c-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('c-hover'));
     });
     document.addEventListener('mousedown', () => document.body.classList.add('c-click'));
     document.addEventListener('mouseup', () => document.body.classList.remove('c-click'));
+
+    /* ============================================================
+       ROAMING AI COMPANION (PET)
+    ============================================================ */
+    const aiPet = document.getElementById('ai-pet');
+    const petChat = aiPet ? aiPet.querySelector('.pet-chat') : null;
+    
+    // Physics & Roaming variables
+    let petX = window.innerWidth/2, petY = window.innerHeight/2;
+    let targetX = petX, targetY = petY;
+    let petVx = 0, petVy = 0;
+    let isPetGrabbed = false;
+    let isPetFalling = false;
+    let grabOffsetX = 0, grabOffsetY = 0;
+
+    // Chat phrases
+    const funnyChats = ["Oops!", "Woah!", "Hey!", "Put me down!", "I'm flying!", "Gravity who?"];
+    let chatTimeout;
+    
+    function showPetChat(text, duration=2500) {
+      if(!petChat) return;
+      petChat.textContent = text;
+      petChat.classList.add('visible');
+      clearTimeout(chatTimeout);
+      chatTimeout = setTimeout(() => {
+        petChat.classList.remove('visible');
+      }, duration);
+    }
+
+    // Intro greeting
+    setTimeout(() => { showPetChat("Hello! Let's explore."); }, 1000);
+
+    // Pick a new place to roam (below the cursor, sweeping wide)
+    function pickNewTarget() {
+      if(!isPetGrabbed && !isPetFalling) {
+        // Sweeps horizontally wide (e.g. up to 300px away)
+        const offsetX = 300; 
+        targetX = cx + ((Math.random() * offsetX * 2) - offsetX);
+        
+        // Stays predominantly below the cursor (20px to 250px below)
+        targetY = cy + 20 + (Math.random() * 230);
+        
+        targetX = Math.max(50, Math.min(window.innerWidth - 50, targetX));
+        targetY = Math.max(50, Math.min(window.innerHeight - 50, targetY));
+      }
+      // Even slower frequency
+      setTimeout(pickNewTarget, 4000 + Math.random() * 5000);
+    }
+    pickNewTarget();
+
+    // Alternate eye expressions
+    let isLookingAtCursor = false;
+    setInterval(() => {
+      isLookingAtCursor = !isLookingAtCursor;
+      if (!isPetGrabbed && !isPetFalling && aiPet) {
+        if (isLookingAtCursor) aiPet.classList.add('state-looking');
+        else aiPet.classList.remove('state-looking');
+      }
+    }, 3000);
+
+    // Trail logic
+    const trailDots = [];
+    const MAX_TRAIL_DOTS = 7;
+    let lastTrailPos = {x: petX, y: petY};
+    
+    function createTrailDot(x, y) {
+      const dist = Math.hypot(x - lastTrailPos.x, y - lastTrailPos.y);
+      if(dist > 30) {
+        lastTrailPos = {x, y};
+        const dot = document.createElement('div');
+        dot.className = 'pet-trail-dot';
+        dot.style.left = x + 'px';
+        dot.style.top = y + 'px';
+        document.body.appendChild(dot);
+        trailDots.push(dot);
+        
+        // fade out mechanism
+        setTimeout(() => {
+          dot.style.opacity = '0';
+          dot.style.transform = 'translate(-50%, -50%) scale(0.1)';
+          setTimeout(() => dot.remove(), 500);
+          const index = trailDots.indexOf(dot);
+          if (index > -1) trailDots.splice(index, 1);
+        }, 750); // Each dot appears for 0.75s
+
+        if(trailDots.length > MAX_TRAIL_DOTS) {
+          const oldDot = trailDots.shift();
+          oldDot.style.opacity = '0';
+          setTimeout(() => oldDot.remove(), 500);
+        }
+      }
+    }
+
+    // Pet Physics Engine
+    (function trackPetPosition() {
+      if(aiPet) {
+        const face = aiPet.querySelector('.pet-face');
+        const body = aiPet.querySelector('.pet-body');
+        
+        if(isPetGrabbed) {
+          // Follow exact mouse when grabbed
+          petX = cx - grabOffsetX;
+          petY = cy - grabOffsetY;
+          if(face) face.style.transform = `translate(0px, 0px)`;
+        } else if (!isPetFalling) {
+          // Normal Roaming
+          petVx += (targetX - petX) * 0.0003; // SLOWER
+          petVy += (targetY - petY) * 0.0003;
+          petVx *= 0.96; // smooth gliding friction
+          petVy *= 0.96;
+          petX += petVx;
+          petY += petVy;
+          createTrailDot(petX, petY);
+          
+          if(isLookingAtCursor && face) {
+            const dx = cx - petX;
+            const dy = cy - petY;
+            const dist = Math.hypot(dx, dy);
+            const moveAmt = 4;
+            const ex = dist > 0 ? (dx/dist)*moveAmt : 0;
+            const ey = dist > 0 ? (dy/dist)*moveAmt : 0;
+            face.style.transform = `translate(${ex}px, ${ey}px)`;
+          } else if(face) {
+            face.style.transform = `translate(0px, 0px)`;
+          }
+
+        } else {
+          // Gravity falling
+          petVy += 0.9;
+          petY += petVy;
+          petX += petVx;
+          // Bounce off bottom
+          if (petY > window.innerHeight - 30) {
+            petY = window.innerHeight - 30;
+            petVy *= -0.6; // bounce
+            petVx *= 0.9;
+            if(Math.abs(petVy) < 2) {
+              isPetFalling = false;
+              showPetChat("Jetpack active...", 1500);
+              aiPet.classList.remove('state-falling');
+              aiPet.classList.add('state-idle');
+              // resume roaming near where it landed
+              targetX = petX;
+              targetY = petY;
+            }
+          }
+           // Bounce off sides
+          if (petX < 0) { petX = 0; petVx *= -0.9; }
+          if (petX > window.innerWidth) { petX = window.innerWidth; petVx *= -0.9; }
+        }
+
+        aiPet.style.left = petX + 'px';
+        aiPet.style.top = petY + 'px';
+        
+        // Face rotation based on velocity
+        if(body && !isPetGrabbed) {
+           const rot = Math.max(-25, Math.min(25, petVx * 1.5));
+           body.style.transform = `rotate(${rot}deg)`;
+        }
+      }
+      requestAnimationFrame(trackPetPosition);
+    })();
+
+    // Pet Grab Interactions
+    const petHitbox = aiPet ? aiPet.querySelector('.pet-hitbox') : null;
+    if(petHitbox) {
+      petHitbox.addEventListener('mousedown', (e) => {
+        isPetGrabbed = true;
+        isPetFalling = false;
+        grabOffsetX = cx - petX;
+        grabOffsetY = cy - petY;
+        aiPet.className = 'state-grabbed';
+        showPetChat(funnyChats[Math.floor(Math.random() * funnyChats.length)], 3000);
+        e.preventDefault();
+      });
+    }
+
+    document.addEventListener('mouseup', () => {
+      if(isPetGrabbed) {
+        isPetGrabbed = false;
+        isPetFalling = true;
+        aiPet.className = 'state-falling';
+        showPetChat("Ahhhhh!", 2000);
+      }
+    });
+
+    // Section Intersection Observer for Pet Comments
+    const sections = document.querySelectorAll('section');
+    const petSectObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting && !isPetGrabbed && !isPetFalling) {
+           let msg = "";
+           if(entry.target.id === 'about') msg = "Let's learn a bit about Rishabh!";
+           else if(entry.target.id === 'experience') msg = "Here's his professional journey.";
+           else if(entry.target.id === 'projects') msg = "Rishabh has worked on some amazing projects, check them out!";
+           else if(entry.target.id === 'skills') msg = "He's got some serious tech skills!";
+           else if(entry.target.id === 'education') msg = "His academic background is solid.";
+           else if(entry.target.id === 'achievements') msg = "Look at all these achievements!";
+           else if(entry.target.id === 'certifications') msg = "Wow, look at all these certifications!";
+           else if(entry.target.id === 'contact') msg = "Want to collaborate? Let's connect!";
+           
+           if(msg !== "") showPetChat(msg, 3500);
+        }
+      });
+    }, { threshold: 0.35 });
+    sections.forEach(s => petSectObs.observe(s));
 
     /* ============================================================
        SCROLL PROGRESS
@@ -3856,6 +4257,8 @@ Do NOT share any phone number or email address.`;
     ham.addEventListener('click', () => mobNav.classList.toggle('open'));
     document.getElementById('mob-close').addEventListener('click', () => mobNav.classList.remove('open'));
     document.querySelectorAll('.mob-lnk').forEach(a => a.addEventListener('click', () => mobNav.classList.remove('open')));
+
+
 
     /* ============================================================
        INTERSECTION OBSERVER — APPLE-STYLE REVEAL
