@@ -177,7 +177,7 @@
       transform: translate(-50%, -50%);
       will-change: transform, left, top;
     }
-    
+
     .pet-body {
       width: 32px;
       height: 32px;
@@ -194,11 +194,21 @@
     }
 
     @keyframes petFloat {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
     }
-    #ai-pet.state-idle .pet-body { animation: petFloat 3s ease-in-out infinite; }
-    
+
+    #ai-pet.state-idle .pet-body {
+      animation: petFloat 3s ease-in-out infinite;
+    }
+
     #ai-pet.state-hover .pet-body {
       border-radius: 50%;
       background: var(--p);
@@ -215,10 +225,23 @@
     }
 
     @keyframes petShake {
-      0%, 100% { transform: translate(0, 0) rotate(-10deg); }
-      25% { transform: translate(-2px, 2px) rotate(-5deg); }
-      50% { transform: translate(2px, -2px) rotate(-15deg); }
-      75% { transform: translate(2px, 2px) rotate(-8deg); }
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(-10deg);
+      }
+
+      25% {
+        transform: translate(-2px, 2px) rotate(-5deg);
+      }
+
+      50% {
+        transform: translate(2px, -2px) rotate(-15deg);
+      }
+
+      75% {
+        transform: translate(2px, 2px) rotate(-8deg);
+      }
     }
 
     .pet-face {
@@ -227,6 +250,7 @@
       margin-top: -2px;
       transition: transform 0.2s ease-out;
     }
+
     .pet-eye {
       width: 6px;
       height: 8px;
@@ -235,14 +259,34 @@
       transition: transform 0.1s, height 0.1s, background 0.3s;
       box-shadow: 0 0 5px var(--cl);
     }
-    
+
     @keyframes petBlink {
-      0%, 96%, 100% { transform: scaleY(1); }
-      98% { transform: scaleY(0.1); }
+
+      0%,
+      96%,
+      100% {
+        transform: scaleY(1);
+      }
+
+      98% {
+        transform: scaleY(0.1);
+      }
     }
-    #ai-pet.state-idle .pet-eye { animation: petBlink 4s infinite; }
-    #ai-pet.state-hover .pet-eye { background: #fff; height: 10px; box-shadow: 0 0 8px #fff; }
-    #ai-pet.state-grabbed .pet-face { gap: 10px; }
+
+    #ai-pet.state-idle .pet-eye {
+      animation: petBlink 4s infinite;
+    }
+
+    #ai-pet.state-hover .pet-eye {
+      background: #fff;
+      height: 10px;
+      box-shadow: 0 0 8px #fff;
+    }
+
+    #ai-pet.state-grabbed .pet-face {
+      gap: 10px;
+    }
+
     #ai-pet.state-grabbed .pet-eye {
       background: var(--t1);
       width: 8px;
@@ -250,7 +294,10 @@
       border-radius: 2px;
       transform: rotate(15deg);
     }
-    #ai-pet.state-grabbed .pet-eye:nth-child(2) { transform: rotate(-15deg); }
+
+    #ai-pet.state-grabbed .pet-eye:nth-child(2) {
+      transform: rotate(-15deg);
+    }
 
     .pet-mouth {
       width: 10px;
@@ -261,24 +308,37 @@
       margin-top: 3px;
       transition: all 0.2s;
     }
-    #ai-pet.state-idle .pet-mouth { width: 8px; height: 3px; }
-    #ai-pet.state-hover .pet-mouth { width: 12px; height: 6px; }
+
+    #ai-pet.state-idle .pet-mouth {
+      width: 8px;
+      height: 3px;
+    }
+
+    #ai-pet.state-hover .pet-mouth {
+      width: 12px;
+      height: 6px;
+    }
+
     #ai-pet.state-grabbed .pet-mouth {
-      width: 10px; height: 4px;
+      width: 10px;
+      height: 4px;
       border-radius: 10px 10px 0 0;
       border-top: 2px solid var(--t1);
       border-bottom: none;
       margin-top: 6px;
     }
+
     #ai-pet.state-falling .pet-mouth {
-      width: 6px; height: 6px;
+      width: 6px;
+      height: 6px;
       border-radius: 50%;
       border-top: 2px solid var(--t1);
-      background: rgba(0,0,0,0.2);
+      background: rgba(0, 0, 0, 0.2);
     }
-    
+
     #ai-pet.state-looking .pet-mouth {
-      width: 8px; height: 3px;
+      width: 8px;
+      height: 3px;
       background: var(--t1);
       border: none;
       border-radius: 4px;
@@ -289,7 +349,13 @@
       transform: scaleY(1.1) scaleX(0.9);
       border-color: var(--pk);
     }
-    #ai-pet.state-falling .pet-eye { width: 6px; height: 6px; border-radius: 50%; background: #fff; }
+
+    #ai-pet.state-falling .pet-eye {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
 
     .pet-chat {
       position: absolute;
@@ -308,9 +374,10 @@
       pointer-events: none;
       transition: opacity 0.3s, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       border: 1px solid var(--bd);
-      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
       z-index: 1000;
     }
+
     .pet-chat::after {
       content: '';
       position: absolute;
@@ -324,8 +391,12 @@
       border-bottom: 1px solid var(--bd);
       transform: rotate(45deg);
     }
-    .pet-chat.visible { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
-    
+
+    .pet-chat.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
     .pet-hitbox {
       position: absolute;
       inset: -20px;
@@ -334,7 +405,10 @@
       cursor: grab;
       z-index: 2;
     }
-    #ai-pet.state-grabbed .pet-hitbox { cursor: grabbing; }
+
+    #ai-pet.state-grabbed .pet-hitbox {
+      cursor: grabbing;
+    }
 
     #spotlight {
       position: fixed;
@@ -491,7 +565,7 @@
       padding: 0 0.5rem;
       transition: color .2s, transform .2s;
     }
-    
+
     .nav-text-btn:hover {
       color: var(--t1);
       transform: translateY(-2px);
@@ -1498,14 +1572,14 @@
       object-fit: contain;
       background-color: var(--card);
       border-radius: 16px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.15), inset 0 0 0 1px var(--glass-bd);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 0 0 1px var(--glass-bd);
       padding: 10px;
       display: flex;
       align-items: center;
       justify-content: center;
       flex-shrink: 0;
     }
-    
+
     html[data-theme="light"] .tl-logo {
       background-color: #fff;
     }
@@ -1673,10 +1747,12 @@
     .pc.feat:nth-child(even) {
       grid-template-columns: 0.8fr 1.2fr;
     }
-    .pc.feat:nth-child(even) > div:first-child {
+
+    .pc.feat:nth-child(even)>div:first-child {
       order: 2;
     }
-    .pc.feat:nth-child(even) > div:last-child {
+
+    .pc.feat:nth-child(even)>div:last-child {
       order: 1;
     }
 
@@ -1953,7 +2029,8 @@
     .cert-wrap {
       max-width: 1200px;
       margin: 0 auto;
-      perspective: 1500px; /* Required for rich 3D tilting */
+      perspective: 1500px;
+      /* Required for rich 3D tilting */
     }
 
     .cert-grid {
@@ -1984,8 +2061,11 @@
     .cert-c::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: linear-gradient(125deg, transparent 20%, rgba(255,255,255,0.08) 40%, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.08) 60%, transparent 80%);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(125deg, transparent 20%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.08) 60%, transparent 80%);
       background-size: 200% 200%;
       background-position: -200% -200%;
       z-index: 5;
@@ -2010,7 +2090,7 @@
       border-color: var(--pl);
       box-shadow: 0 30px 60px rgba(124, 58, 237, 0.25), inset 0 0 20px rgba(124, 58, 237, 0.1);
     }
-    
+
     .cert-c:nth-child(3n):hover {
       border-color: #22c55e;
       box-shadow: 0 30px 60px rgba(34, 197, 94, 0.25), inset 0 0 20px rgba(34, 197, 94, 0.1);
@@ -2022,15 +2102,15 @@
       align-items: center;
       justify-content: center;
       position: relative;
-      background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
       overflow: hidden;
     }
 
     /* Abstract background grid for the hero stage */
     .cert-hero::after {
-      content:'';
-      position:absolute;
-      inset:0;
+      content: '';
+      position: absolute;
+      inset: 0;
       background-image: linear-gradient(var(--glass-bd) 1px, transparent 1px), linear-gradient(90deg, var(--glass-bd) 1px, transparent 1px);
       background-size: 20px 20px;
       opacity: 0.3;
@@ -2042,7 +2122,7 @@
       width: 140px;
       height: 140px;
       object-fit: contain;
-      filter: drop-shadow(0 20px 30px rgba(0,0,0,0.5));
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
       transform: translateZ(50px);
       transition: transform 0.4s ease;
       z-index: 2;
@@ -2072,8 +2152,13 @@
       display: block;
     }
 
-    .cert-c:nth-child(even) .cert-tag { color: var(--pl); }
-    .cert-c:nth-child(3n) .cert-tag { color: #22c55e; }
+    .cert-c:nth-child(even) .cert-tag {
+      color: var(--pl);
+    }
+
+    .cert-c:nth-child(3n) .cert-tag {
+      color: #22c55e;
+    }
 
     .cert-name {
       font-size: 1.15rem;
@@ -2830,11 +2915,40 @@
       }
     }
   </style>
+  <style>
+    /* Hiding Google Translate Banner & Tools */
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
+    }
+    body {
+      top: 0px !important;
+    }
+    .goog-tooltip {
+      display: none !important;
+    }
+    .goog-tooltip:hover {
+      display: none !important;
+    }
+    .goog-text-highlight {
+      background-color: transparent !important;
+      border: none !important; 
+      box-shadow: none !important;
+    }
+  </style>
+
   <!-- Cloudflare Turnstile -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <!-- Google Translate -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'de,en', autoDisplay: false}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
+  <div id="google_translate_element" style="display:none;"></div>
 
   <!-- ORIGINAL CURSOR -->
   <div id="cursor-dot"></div>
@@ -2979,21 +3093,36 @@
     </div>
 
     <!-- ============================================================ COMPANY TICKER (Landing Page View) -->
-    <div style="position:absolute; bottom:0; left:0; width:100%; z-index:10; background:linear-gradient(to top, var(--bg0) 10%, transparent); padding-bottom:1.5rem; padding-top:2.5rem;">
+    <div
+      style="position:absolute; bottom:0; left:0; width:100%; z-index:10; background:linear-gradient(to top, var(--bg0) 10%, transparent); padding-bottom:1.5rem; padding-top:2.5rem;">
       <div class="ticker-wrap flex">
         <div class="ticker-track">
           <!-- Duplicated for infinite scroll -->
-          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Prodapt R&amp;D</div>
-          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Sunrise" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Sunrise GmbH</div>
-          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Tech Mahindra" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Tech Mahindra</div>
-          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> University of Edinburgh</div>
-          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> VIT Vellore</div>
-          
-          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Prodapt R&amp;D</div>
-          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Sunrise" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Sunrise GmbH</div>
-          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Tech Mahindra" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> Tech Mahindra</div>
-          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> University of Edinburgh</div>
-          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT" style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" /> VIT Vellore</div>
+          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            Prodapt R&amp;D</div>
+          <div class="ticker-item"><img src="images/sunrise-logo.webp" alt="Sunrise"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            Sunrise GmbH</div>
+          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            University of Edinburgh</div>
+          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            VIT Vellore</div>
+
+          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            Prodapt R&amp;D</div>
+          <div class="ticker-item"><img src="images/sunrise-logo.webp" alt="Sunrise"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            Sunrise GmbH</div>
+          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            University of Edinburgh</div>
+          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            VIT Vellore</div>
         </div>
       </div>
     </div>
@@ -3118,7 +3247,7 @@
           <div class="tl-empty"></div>
         </div>
 
-        <!-- Tech Mahindra / Sunrise -->
+        <!-- Sunrise -->
         <div class="tl-item">
           <div class="tl-empty"></div>
           <div class="tl-dot-w">
@@ -3126,9 +3255,9 @@
           </div>
           <div class="tl-card revR">
             <div class="tl-header">
-              <img src="images/Tech_Mahindra.png" alt="Sunrise Logo" class="tl-logo" />
+              <img src="images/sunrise-logo.webp" alt="Sunrise Logo" class="tl-logo" />
               <div>
-                <div class="tl-company">Tech Mahindra · Sunrise GmbH</div>
+                <div class="tl-company">Sunrise GmbH</div>
                 <div class="tl-role">Full Stack Developer — Intern</div>
               </div>
             </div>
@@ -3229,7 +3358,8 @@
           <div class="pc-title" style="font-size:1.45rem">AccessAI – Universal Accessibility Browser Extension</div>
           <p class="pc-desc" style="font-size:.92rem">
             AI-powered Chrome extension with three real-time tools: voice-controlled agentic navigator, social cue
-            coaching assistant, and autonomous documentation engine. Multimodal pipeline combining Whisper + GPT-4o Vision for live lecture capture.
+            coaching assistant, and autonomous documentation engine. Multimodal pipeline combining Whisper + GPT-4o
+            Vision for live lecture capture.
             Low-latency architecture using WebSockets and GPT-4o function calling.
           </p>
           <div class="pc-tags" style="margin-top:auto;padding-top:1rem">
@@ -3249,16 +3379,33 @@
           </div>
         </div>
         <!-- Right side: Mock UI for AccessAI -->
-        <div style="background:rgba(0,0,0,0.25);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-          <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(6,182,212,.15), transparent 70%)"></div>
-          <div style="width:75%;background:var(--bg0);border:1px solid var(--bd);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5);position:relative;z-index:1;overflow:hidden;transform:perspective(800px) rotateY(6deg) rotateX(2deg);transition:transform .3s">
-            <div style="background:var(--bg1);padding:8px 12px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px">
-              <div style="width:24px;height:24px;background:var(--c);border-radius:6px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-              <span style="font-family:var(--fc);font-size:.7rem;color:var(--t1);font-weight:600">AccessAI Voice Nav</span>
+        <div
+          style="background:rgba(0,0,0,0.25);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div
+            style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(6,182,212,.15), transparent 70%)">
+          </div>
+          <div
+            style="width:75%;background:var(--bg0);border:1px solid var(--bd);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5);position:relative;z-index:1;overflow:hidden;transform:perspective(800px) rotateY(6deg) rotateX(2deg);transition:transform .3s">
+            <div
+              style="background:var(--bg1);padding:8px 12px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px">
+              <div
+                style="width:24px;height:24px;background:var(--c);border-radius:6px;display:flex;align-items:center;justify-content:center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg></div>
+              <span style="font-family:var(--fc);font-size:.7rem;color:var(--t1);font-weight:600">AccessAI Voice
+                Nav</span>
             </div>
-            <div style="padding:1.2rem;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
-              <div style="width:40px;height:40px;border-radius:50%;background:rgba(6,182,212,.15);display:flex;align-items:center;justify-content:center;color:var(--c);position:relative;box-shadow:0 0 0 4px rgba(6,182,212,.05);animation:photoglow 3s infinite">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+            <div
+              style="padding:1.2rem;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+              <div
+                style="width:40px;height:40px;border-radius:50%;background:rgba(6,182,212,.15);display:flex;align-items:center;justify-content:center;color:var(--c);position:relative;box-shadow:0 0 0 4px rgba(6,182,212,.05);animation:photoglow 3s infinite">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
               </div>
               <div style="font-family:var(--fc);font-size:.7rem;color:var(--t2)">Listening...</div>
               <div style="display:flex;gap:4px;height:12px;align-items:flex-end">
@@ -3268,7 +3415,8 @@
                 <div style="width:4px;height:10px;background:var(--p);border-radius:2px"></div>
                 <div style="width:4px;height:4px;background:var(--c);border-radius:2px"></div>
               </div>
-              <div style="margin-top:4px;font-family:var(--fm);font-size:.75rem;color:var(--t1);background:var(--card);padding:6px 10px;border-radius:6px;border:1px solid var(--bd)">
+              <div
+                style="margin-top:4px;font-family:var(--fm);font-size:.75rem;color:var(--t1);background:var(--card);padding:6px 10px;border-radius:6px;border:1px solid var(--bd)">
                 "Click the 'Apply Now' button"
               </div>
             </div>
@@ -3279,10 +3427,12 @@
       <div class="pc feat rev d2">
         <div style="display:flex;flex-direction:column;height:100%">
           <div class="pc-lbl">🔬 ML Research · University of Edinburgh · 2026</div>
-          <div class="pc-title" style="font-size:1.45rem">Vision-Language Models for Fashion Description Generation</div>
+          <div class="pc-title" style="font-size:1.45rem">Vision-Language Models for Fashion Description Generation
+          </div>
           <p class="pc-desc" style="font-size:.92rem">
             Fine-tuned & benchmarked CLIP, BLIP, BLIP-2, OFA on FashionGen dataset using LoRA, full fine-tuning, and
-            mapping-network tuning. Accelerated training 250%+ via multi-GPU parallelisation. Unified evaluation across CIDEr, BLEU-4, METEOR, ROUGE-L.
+            mapping-network tuning. Accelerated training 250%+ via multi-GPU parallelisation. Unified evaluation across
+            CIDEr, BLEU-4, METEOR, ROUGE-L.
           </p>
           <div class="pc-tags" style="margin-top:auto;padding-top:1rem">
             <span class="pt">CLIP</span><span class="pt">BLIP-2</span>
@@ -3301,36 +3451,56 @@
           </div>
         </div>
         <!-- Right side: Mock UI for VLM -->
-        <div style="background:var(--bg1);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-          <div style="display:flex;gap:1.5rem;align-items:center;z-index:1;transform:perspective(800px) rotateY(-5deg) scale(0.9)">
+        <div
+          style="background:var(--bg1);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div
+            style="display:flex;gap:1.5rem;align-items:center;z-index:1;transform:perspective(800px) rotateY(-5deg) scale(0.9)">
             <!-- Input Image Mock -->
-            <div style="width:90px;height:120px;background:#1e1e38;border:2px dashed var(--p);border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--pl)" stroke-width="1.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            <div
+              style="width:90px;height:120px;background:#1e1e38;border:2px dashed var(--p);border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--pl)" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
             </div>
-            
+
             <!-- Process Flow -->
             <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
               <div style="display:flex;gap:6px">
-                <div style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.5);border-radius:4px;color:#ec4899">OFA</div>
-                <div style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.5);border-radius:4px;color:var(--c)">CLIP</div>
+                <div
+                  style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.5);border-radius:4px;color:#ec4899">
+                  OFA</div>
+                <div
+                  style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.5);border-radius:4px;color:var(--c)">
+                  CLIP</div>
               </div>
               <div style="display:flex;gap:6px">
-                <div style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.5);border-radius:4px;color:var(--pl)">BLIP</div>
-                <div style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.5);border-radius:4px;color:#22c55e">BLIP-2</div>
+                <div
+                  style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.5);border-radius:4px;color:var(--pl)">
+                  BLIP</div>
+                <div
+                  style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.5);border-radius:4px;color:#22c55e">
+                  BLIP-2</div>
               </div>
               <div style="width:20px;height:2px;background:var(--c);transform:rotate(90deg);margin-top:4px"></div>
-              <div style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--c);transform:rotate(90deg);margin-top:4px"></div>
+              <div
+                style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--c);transform:rotate(90deg);margin-top:4px">
+              </div>
             </div>
-            
+
             <!-- Output Mock -->
             <div style="display:flex;flex-direction:column;gap:8px">
-              <div style="background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:#ec4899">
+              <div
+                style="background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:#ec4899">
                 <span style="opacity:0.6">[CLS]</span> A floral
               </div>
-              <div style="background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:var(--cl)">
+              <div
+                style="background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:var(--cl)">
                 print summer
               </div>
-              <div style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:var(--pl)">
+              <div
+                style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:var(--pl)">
                 dress <span style="opacity:0.6">[SEP]</span>
               </div>
             </div>
@@ -3363,25 +3533,42 @@
           </div>
         </div>
         <!-- Right side: Mock UI for Video Editor -->
-        <div style="background:rgba(0,0,0,0.25);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden">
-          <div style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(236,72,153,.1), transparent 70%)"></div>
-          <div style="width:85%;display:flex;flex-direction:column;gap:1rem;z-index:1;transform:perspective(800px) rotateY(4deg)">
+        <div
+          style="background:rgba(0,0,0,0.25);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div
+            style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(236,72,153,.1), transparent 70%)">
+          </div>
+          <div
+            style="width:85%;display:flex;flex-direction:column;gap:1rem;z-index:1;transform:perspective(800px) rotateY(4deg)">
             <!-- Chat bubble -->
-            <div style="align-self:flex-end;background:linear-gradient(135deg, var(--p), var(--c));padding:8px 14px;border-radius:16px 16px 4px 16px;color:white;font-size:.75rem;box-shadow:0 4px 12px rgba(6,182,212,.2);text-align:right">
+            <div
+              style="align-self:flex-end;background:linear-gradient(135deg, var(--p), var(--c));padding:8px 14px;border-radius:16px 16px 4px 16px;color:white;font-size:.75rem;box-shadow:0 4px 12px rgba(6,182,212,.2);text-align:right">
               "Blur the cat and add subtitles in german"
             </div>
             <!-- Video Mock -->
             <div style="background:var(--bg1);border:1px solid var(--bd);border-radius:8px;overflow:hidden">
-              <div style="height:80px;background:#000;position:relative;display:flex;align-items:center;justify-content:center">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
-                <div style="position:absolute;bottom:8px;background:rgba(0,0,0,0.6);padding:2px 8px;border-radius:4px;font-family:var(--fc);font-size:.6rem;color:#f1f5f9">Subtitles Generating...</div>
+              <div
+                style="height:80px;background:#000;position:relative;display:flex;align-items:center;justify-content:center">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <div
+                  style="position:absolute;bottom:8px;background:rgba(0,0,0,0.6);padding:2px 8px;border-radius:4px;font-family:var(--fc);font-size:.6rem;color:#f1f5f9">
+                  Subtitles Generating...</div>
               </div>
               <!-- Scrubber -->
               <div style="display:flex;align-items:center;padding:8px 12px;gap:8px;background:var(--card)">
-                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--t2)"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--t2)">
+                  <rect x="6" y="4" width="4" height="16"></rect>
+                  <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
                 <div style="flex:1;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;position:relative">
-                  <div style="position:absolute;left:0;top:0;width:30%;height:100%;background:var(--pk);border-radius:2px"></div>
-                  <div style="position:absolute;left:30%;top:-3px;width:10px;height:10px;background:#fff;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,0.5)"></div>
+                  <div
+                    style="position:absolute;left:0;top:0;width:30%;height:100%;background:var(--pk);border-radius:2px">
+                  </div>
+                  <div
+                    style="position:absolute;left:30%;top:-3px;width:10px;height:10px;background:#fff;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,0.5)">
+                  </div>
                 </div>
                 <span style="font-family:var(--fc);font-size:.6rem;color:var(--t2)">0:05 / 2:30</span>
               </div>
@@ -3415,21 +3602,31 @@
           </div>
         </div>
         <!-- Right side: Mock UI for YOLO -->
-        <div style="background:#0f172a;border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
-          <div style="width:100%;height:100%;background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);background-size:20px 20px;display:flex;align-items:center;justify-content:center;position:relative">
+        <div
+          style="background:#0f172a;border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div
+            style="width:100%;height:100%;background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);background-size:20px 20px;display:flex;align-items:center;justify-content:center;position:relative">
             <!-- Traffic Sign (Stop) -->
-            <div style="width:64px;height:64px;background:#ef4444;clip-path:polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.8);box-shadow:inset 0 0 0 2px #ef4444;position:relative;z-index:2">
-              <span style="color:#fff;font-family:var(--fc);font-weight:900;font-size:14px;letter-spacing:1px;text-align:center;line-height:1">STOP</span>
+            <div
+              style="width:64px;height:64px;background:#ef4444;clip-path:polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.8);box-shadow:inset 0 0 0 2px #ef4444;position:relative;z-index:2">
+              <span
+                style="color:#fff;font-family:var(--fc);font-weight:900;font-size:14px;letter-spacing:1px;text-align:center;line-height:1">STOP</span>
             </div>
             <!-- Bounding Box -->
-            <div style="position:absolute;width:94px;height:94px;border:2px solid #22c55e;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(34,197,94,0.2);z-index:3">
-              <div style="position:absolute;top:-22px;left:-2px;background:#22c55e;color:#000;font-family:var(--fc);font-size:.65rem;font-weight:700;padding:2px 8px">
+            <div
+              style="position:absolute;width:94px;height:94px;border:2px solid #22c55e;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(34,197,94,0.2);z-index:3">
+              <div
+                style="position:absolute;top:-22px;left:-2px;background:#22c55e;color:#000;font-family:var(--fc);font-size:.65rem;font-weight:700;padding:2px 8px">
                 Stop Sign 0.98
               </div>
             </div>
             <!-- Crosshairs -->
-            <div style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(34,197,94,0.3);pointer-events:none"></div>
-            <div style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(34,197,94,0.3);pointer-events:none"></div>
+            <div
+              style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(34,197,94,0.3);pointer-events:none">
+            </div>
+            <div
+              style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(34,197,94,0.3);pointer-events:none">
+            </div>
           </div>
         </div>
       </div>
@@ -3458,24 +3655,29 @@
           </div>
         </div>
         <!-- Right side: Mock UI for Multi-Agent -->
-        <div style="background:var(--bg0);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+        <div
+          style="background:var(--bg0);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
           <svg width="100%" height="100%" style="position:absolute;inset:0">
             <path d="M 100 120 Q 150 70 200 70" fill="none" stroke="var(--bd)" stroke-width="2" stroke-dasharray="4" />
-            <path d="M 100 120 Q 150 170 200 170" fill="none" stroke="var(--bd)" stroke-width="2" stroke-dasharray="4" />
+            <path d="M 100 120 Q 150 170 200 170" fill="none" stroke="var(--bd)" stroke-width="2"
+              stroke-dasharray="4" />
           </svg>
           <div style="display:flex;gap:3rem;align-items:center;position:relative;z-index:1">
             <!-- Router -->
-            <div style="width:60px;height:60px;background:rgba(124,58,237,.15);border:2px solid var(--pl);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(124,58,237,.2)">
+            <div
+              style="width:60px;height:60px;background:rgba(124,58,237,.15);border:2px solid var(--pl);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(124,58,237,.2)">
               <span style="font-size:1.5rem">🧠</span>
             </div>
-            
+
             <div style="display:flex;flex-direction:column;gap:1.5rem">
               <!-- CrewAI Node -->
-              <div style="background:var(--card);border:1px solid rgba(6,182,212,.3);padding:6px 12px;border-radius:6px;display:flex;align-items:center;gap:8px;font-family:var(--fc);font-size:.7rem;color:var(--t1)">
+              <div
+                style="background:var(--card);border:1px solid rgba(6,182,212,.3);padding:6px 12px;border-radius:6px;display:flex;align-items:center;gap:8px;font-family:var(--fc);font-size:.7rem;color:var(--t1)">
                 <div style="width:8px;height:8px;background:var(--c);border-radius:50%"></div> Billing Agent
               </div>
               <!-- AutoGen Node -->
-              <div style="background:var(--card);border:1px solid rgba(236,72,153,.3);padding:6px 12px;border-radius:6px;display:flex;align-items:center;gap:8px;font-family:var(--fc);font-size:.7rem;color:var(--t1)">
+              <div
+                style="background:var(--card);border:1px solid rgba(236,72,153,.3);padding:6px 12px;border-radius:6px;display:flex;align-items:center;gap:8px;font-family:var(--fc);font-size:.7rem;color:var(--t1)">
                 <div style="width:8px;height:8px;background:var(--pk);border-radius:50%"></div> Trouble Agent
               </div>
             </div>
@@ -3592,11 +3794,11 @@
         <div class="tl-item">
           <div class="tl-card revL">
             <div class="tl-header" style="justify-content:flex-end; text-align:right">
+              <img src="images/uoe-crest.png" alt="University of Edinburgh Logo" class="tl-logo" />
               <div>
                 <div class="tl-company">University of Edinburgh</div>
                 <div class="tl-role">MSc Artificial Intelligence</div>
               </div>
-              <img src="images/uoe-crest.png" alt="University of Edinburgh Logo" class="tl-logo" />
             </div>
             <span class="tl-date">September 2025 – August 2026 · 1 year</span>
             <ul class="tl-bullets" style="text-align:left">
@@ -3624,7 +3826,8 @@
           </div>
           <div class="tl-card revR">
             <div class="tl-header">
-              <img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT Vellore Logo" class="tl-logo" />
+              <img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT Vellore Logo"
+                class="tl-logo" />
               <div>
                 <div class="tl-company">Vellore Institute of Technology</div>
                 <div class="tl-role">BTech Computer Science &amp; Engineering</div>
@@ -3693,18 +3896,25 @@
       </p>
 
       <div class="cert-grid">
-        
+
         <!-- Google Cloud -->
-        <a href="https://www.credly.com/earner/earned/badge/something" target="_blank" rel="noopener" class="cert-c rev">
-          <div class="cert-hero" style="background: radial-gradient(circle at center, rgba(66,133,244,0.15) 0%, transparent 70%)">
-             <div style="position:absolute; width:150px; height:150px; background:#4285F4; filter:blur(60px); opacity:0.3; border-radius:50%"></div>
-             <img src="images/google-cloud.png" alt="Google Cloud" class="cert-img" />
+        <a href="https://www.credly.com/earner/earned/badge/something" target="_blank" rel="noopener"
+          class="cert-c rev">
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(66,133,244,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#4285F4; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <img src="images/google-cloud.png" alt="Google Cloud" class="cert-img" />
           </div>
           <div class="cert-info">
             <span class="cert-tag">Architecture</span>
             <div class="cert-name">Google Cloud Digital Leader</div>
             <div class="cert-iss">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c)">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
               Google Cloud
             </div>
           </div>
@@ -3712,15 +3922,21 @@
 
         <!-- AWS -->
         <a href="https://www.credly.com/" target="_blank" rel="noopener" class="cert-c rev d1">
-          <div class="cert-hero" style="background: radial-gradient(circle at center, rgba(255,153,0,0.15) 0%, transparent 70%)">
-             <div style="position:absolute; width:150px; height:150px; background:#FF9900; filter:blur(60px); opacity:0.3; border-radius:50%"></div>
-             <img src="images/aws.png" alt="AWS" class="cert-img" />
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(255,153,0,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#FF9900; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <img src="images/aws.png" alt="AWS" class="cert-img" />
           </div>
           <div class="cert-info">
             <span class="cert-tag">Cloud</span>
             <div class="cert-name">AWS Academy Cloud Foundations</div>
             <div class="cert-iss">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--pl)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--pl)">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
               Amazon Web Services
             </div>
           </div>
@@ -3728,32 +3944,46 @@
 
         <!-- HackerRank -->
         <a href="https://www.hackerrank.com/profile/p_rishabh2014" target="_blank" rel="noopener" class="cert-c rev d2">
-          <div class="cert-hero" style="background: radial-gradient(circle at center, rgba(34,197,94,0.15) 0%, transparent 70%)">
-             <div style="position:absolute; width:150px; height:150px; background:#22c55e; filter:blur(60px); opacity:0.3; border-radius:50%"></div>
-             <!-- Using styling to nicely round the hackerrank jpeg -->
-             <img src="images/hackerrank_logo.jpeg" alt="HackerRank" class="cert-img" style="border-radius:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(255,255,255,0.1)" />
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(34,197,94,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#22c55e; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <!-- Using styling to nicely round the hackerrank jpeg -->
+            <img src="images/hackerrank_logo.jpeg" alt="HackerRank" class="cert-img"
+              style="border-radius:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(255,255,255,0.1)" />
           </div>
           <div class="cert-info">
             <span class="cert-tag">Algorithms</span>
             <div class="cert-name">Python &amp; Java 5★</div>
             <div class="cert-iss">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#22c55e"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#22c55e">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
               HackerRank (Verified)
             </div>
           </div>
         </a>
-        
+
         <!-- SmartInternz Vertex AI -->
         <a href="#" class="cert-c rev">
-          <div class="cert-hero" style="background: radial-gradient(circle at center, rgba(236,72,153,0.15) 0%, transparent 70%)">
-             <div style="position:absolute; width:150px; height:150px; background:#ec4899; filter:blur(60px); opacity:0.3; border-radius:50%"></div>
-             <div style="font-size:5rem; filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transform:translateZ(50px)">🤖</div>
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(236,72,153,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#ec4899; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <div style="font-size:5rem; filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transform:translateZ(50px)">🤖
+            </div>
           </div>
           <div class="cert-info">
             <span class="cert-tag">Generative AI</span>
             <div class="cert-name">Generative AI Apps (Vertex AI)</div>
             <div class="cert-iss">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c)">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
               Smart Internz · Google
             </div>
           </div>
@@ -3761,15 +3991,22 @@
 
         <!-- IELTS -->
         <a href="#" class="cert-c rev d1">
-          <div class="cert-hero" style="background: radial-gradient(circle at center, rgba(239,68,68,0.15) 0%, transparent 70%)">
-             <div style="position:absolute; width:150px; height:150px; background:#ef4444; filter:blur(60px); opacity:0.3; border-radius:50%"></div>
-             <img src="images/ielts.png" alt="IELTS" class="cert-img" style="height:100px; padding:10px; background:rgba(255,255,255,0.9); border-radius:12px;" />
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(239,68,68,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#ef4444; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <img src="images/ielts.png" alt="IELTS" class="cert-img"
+              style="height:100px; padding:10px; background:rgba(255,255,255,0.9); border-radius:12px;" />
           </div>
           <div class="cert-info">
             <span class="cert-tag">Language</span>
             <div class="cert-name">IELTS C1 — Band 7.5 / 9</div>
             <div class="cert-iss">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--pl)"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--pl)">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
               British Council
             </div>
           </div>
@@ -3942,7 +4179,7 @@ WORK EXPERIENCE:
    Co-developed a Conversational AI Video Editor (LangGraph + MoviePy)
    3-month training: LangChain, LangGraph, LlamaIndex, AutoGen, CrewAI, RAG, MCP
 
-2. Tech Mahindra / Sunrise GmbH – Full Stack Developer Intern (Sep 2023 – Dec 2023)
+2. Sunrise GmbH – Full Stack Developer Intern (Sep 2023 – Dec 2023)
    Worked on SWEEP, B2B wholesale app for Switzerland's 2nd-largest telecom carrier
    Built self-service product configuration framework (Angular + Apollo GraphQL + Java + Oracle DB)
    Designed Figma prototypes, Confluence specs, Selenium test automation
@@ -3988,7 +4225,7 @@ Do NOT share any phone number or email address.`;
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
     const spotlight = document.getElementById('spotlight');
-    let cx = window.innerWidth/2, cy = window.innerHeight/2; 
+    let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
     let rx = cx, ry = cy;
 
     document.addEventListener('mousemove', e => {
@@ -4032,9 +4269,9 @@ Do NOT share any phone number or email address.`;
     ============================================================ */
     const aiPet = document.getElementById('ai-pet');
     const petChat = aiPet ? aiPet.querySelector('.pet-chat') : null;
-    
+
     // Physics & Roaming variables
-    let petX = window.innerWidth/2, petY = window.innerHeight/2;
+    let petX = window.innerWidth / 2, petY = window.innerHeight / 2;
     let targetX = petX, targetY = petY;
     let petVx = 0, petVy = 0;
     let isPetGrabbed = false;
@@ -4044,9 +4281,9 @@ Do NOT share any phone number or email address.`;
     // Chat phrases
     const funnyChats = ["Oops!", "Woah!", "Hey!", "Put me down!", "I'm flying!", "Gravity who?"];
     let chatTimeout;
-    
-    function showPetChat(text, duration=2500) {
-      if(!petChat) return;
+
+    function showPetChat(text, duration = 2500) {
+      if (!petChat) return;
       petChat.textContent = text;
       petChat.classList.add('visible');
       clearTimeout(chatTimeout);
@@ -4060,14 +4297,14 @@ Do NOT share any phone number or email address.`;
 
     // Pick a new place to roam (below the cursor, sweeping wide)
     function pickNewTarget() {
-      if(!isPetGrabbed && !isPetFalling) {
+      if (!isPetGrabbed && !isPetFalling) {
         // Sweeps horizontally wide (e.g. up to 300px away)
-        const offsetX = 300; 
+        const offsetX = 300;
         targetX = cx + ((Math.random() * offsetX * 2) - offsetX);
-        
+
         // Stays predominantly below the cursor (20px to 250px below)
         targetY = cy + 20 + (Math.random() * 230);
-        
+
         targetX = Math.max(50, Math.min(window.innerWidth - 50, targetX));
         targetY = Math.max(50, Math.min(window.innerHeight - 50, targetY));
       }
@@ -4089,19 +4326,19 @@ Do NOT share any phone number or email address.`;
     // Trail logic
     const trailDots = [];
     const MAX_TRAIL_DOTS = 7;
-    let lastTrailPos = {x: petX, y: petY};
-    
+    let lastTrailPos = { x: petX, y: petY };
+
     function createTrailDot(x, y) {
       const dist = Math.hypot(x - lastTrailPos.x, y - lastTrailPos.y);
-      if(dist > 30) {
-        lastTrailPos = {x, y};
+      if (dist > 30) {
+        lastTrailPos = { x, y };
         const dot = document.createElement('div');
         dot.className = 'pet-trail-dot';
         dot.style.left = x + 'px';
         dot.style.top = y + 'px';
         document.body.appendChild(dot);
         trailDots.push(dot);
-        
+
         // fade out mechanism
         setTimeout(() => {
           dot.style.opacity = '0';
@@ -4111,7 +4348,7 @@ Do NOT share any phone number or email address.`;
           if (index > -1) trailDots.splice(index, 1);
         }, 750); // Each dot appears for 0.75s
 
-        if(trailDots.length > MAX_TRAIL_DOTS) {
+        if (trailDots.length > MAX_TRAIL_DOTS) {
           const oldDot = trailDots.shift();
           oldDot.style.opacity = '0';
           setTimeout(() => oldDot.remove(), 500);
@@ -4121,15 +4358,15 @@ Do NOT share any phone number or email address.`;
 
     // Pet Physics Engine
     (function trackPetPosition() {
-      if(aiPet) {
+      if (aiPet) {
         const face = aiPet.querySelector('.pet-face');
         const body = aiPet.querySelector('.pet-body');
-        
-        if(isPetGrabbed) {
+
+        if (isPetGrabbed) {
           // Follow exact mouse when grabbed
           petX = cx - grabOffsetX;
           petY = cy - grabOffsetY;
-          if(face) face.style.transform = `translate(0px, 0px)`;
+          if (face) face.style.transform = `translate(0px, 0px)`;
         } else if (!isPetFalling) {
           // Normal Roaming
           petVx += (targetX - petX) * 0.0003; // SLOWER
@@ -4139,16 +4376,16 @@ Do NOT share any phone number or email address.`;
           petX += petVx;
           petY += petVy;
           createTrailDot(petX, petY);
-          
-          if(isLookingAtCursor && face) {
+
+          if (isLookingAtCursor && face) {
             const dx = cx - petX;
             const dy = cy - petY;
             const dist = Math.hypot(dx, dy);
             const moveAmt = 4;
-            const ex = dist > 0 ? (dx/dist)*moveAmt : 0;
-            const ey = dist > 0 ? (dy/dist)*moveAmt : 0;
+            const ex = dist > 0 ? (dx / dist) * moveAmt : 0;
+            const ey = dist > 0 ? (dy / dist) * moveAmt : 0;
             face.style.transform = `translate(${ex}px, ${ey}px)`;
-          } else if(face) {
+          } else if (face) {
             face.style.transform = `translate(0px, 0px)`;
           }
 
@@ -4162,7 +4399,7 @@ Do NOT share any phone number or email address.`;
             petY = window.innerHeight - 30;
             petVy *= -0.6; // bounce
             petVx *= 0.9;
-            if(Math.abs(petVy) < 2) {
+            if (Math.abs(petVy) < 2) {
               isPetFalling = false;
               showPetChat("Jetpack active...", 1500);
               aiPet.classList.remove('state-falling');
@@ -4172,18 +4409,18 @@ Do NOT share any phone number or email address.`;
               targetY = petY;
             }
           }
-           // Bounce off sides
+          // Bounce off sides
           if (petX < 0) { petX = 0; petVx *= -0.9; }
           if (petX > window.innerWidth) { petX = window.innerWidth; petVx *= -0.9; }
         }
 
         aiPet.style.left = petX + 'px';
         aiPet.style.top = petY + 'px';
-        
+
         // Face rotation based on velocity
-        if(body && !isPetGrabbed) {
-           const rot = Math.max(-25, Math.min(25, petVx * 1.5));
-           body.style.transform = `rotate(${rot}deg)`;
+        if (body && !isPetGrabbed) {
+          const rot = Math.max(-25, Math.min(25, petVx * 1.5));
+          body.style.transform = `rotate(${rot}deg)`;
         }
       }
       requestAnimationFrame(trackPetPosition);
@@ -4191,7 +4428,7 @@ Do NOT share any phone number or email address.`;
 
     // Pet Grab Interactions
     const petHitbox = aiPet ? aiPet.querySelector('.pet-hitbox') : null;
-    if(petHitbox) {
+    if (petHitbox) {
       petHitbox.addEventListener('mousedown', (e) => {
         isPetGrabbed = true;
         isPetFalling = false;
@@ -4204,7 +4441,7 @@ Do NOT share any phone number or email address.`;
     }
 
     document.addEventListener('mouseup', () => {
-      if(isPetGrabbed) {
+      if (isPetGrabbed) {
         isPetGrabbed = false;
         isPetFalling = true;
         aiPet.className = 'state-falling';
@@ -4216,18 +4453,18 @@ Do NOT share any phone number or email address.`;
     const sections = document.querySelectorAll('section');
     const petSectObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if(entry.isIntersecting && !isPetGrabbed && !isPetFalling) {
-           let msg = "";
-           if(entry.target.id === 'about') msg = "Let's learn a bit about Rishabh!";
-           else if(entry.target.id === 'experience') msg = "Here's his professional journey.";
-           else if(entry.target.id === 'projects') msg = "Rishabh has worked on some amazing projects, check them out!";
-           else if(entry.target.id === 'skills') msg = "He's got some serious tech skills!";
-           else if(entry.target.id === 'education') msg = "His academic background is solid.";
-           else if(entry.target.id === 'achievements') msg = "Look at all these achievements!";
-           else if(entry.target.id === 'certifications') msg = "Wow, look at all these certifications!";
-           else if(entry.target.id === 'contact') msg = "Want to collaborate? Let's connect!";
-           
-           if(msg !== "") showPetChat(msg, 3500);
+        if (entry.isIntersecting && !isPetGrabbed && !isPetFalling) {
+          let msg = "";
+          if (entry.target.id === 'about') msg = "Let's learn a bit about Rishabh!";
+          else if (entry.target.id === 'experience') msg = "Here's his professional journey.";
+          else if (entry.target.id === 'projects') msg = "Rishabh has worked on some amazing projects, check them out!";
+          else if (entry.target.id === 'skills') msg = "He's got some serious tech skills!";
+          else if (entry.target.id === 'education') msg = "His academic background is solid.";
+          else if (entry.target.id === 'achievements') msg = "Look at all these achievements!";
+          else if (entry.target.id === 'certifications') msg = "Wow, look at all these certifications!";
+          else if (entry.target.id === 'contact') msg = "Want to collaborate? Let's connect!";
+
+          if (msg !== "") showPetChat(msg, 3500);
         }
       });
     }, { threshold: 0.35 });
@@ -4568,193 +4805,31 @@ Do NOT share any phone number or email address.`;
     const themeToggle = document.getElementById('theme-toggle');
     const langToggle = document.getElementById('lang-toggle');
 
-    const translations = {
-      nav: {
-        about: { en: "About", de: "Über mich" },
-        exp: { en: "Experience", de: "Erfahrung" },
-        proj: { en: "Projects", de: "Projekte" },
-        skills: { en: "Skills", de: "Fähigkeiten" },
-        edu: { en: "Education", de: "Ausbildung" },
-        contact: { en: "Contact", de: "Kontakt" }
+    function triggerGoogleTranslate(lang) {
+      const select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
       }
-    };
-
-    const siteTranslations = {
-      "Currently @ University of Edinburgh · MSc AI": "Derzeit @ University of Edinburgh · MSc AI",
-      "AI Engineer building enterprise-grade agentic systems, multi-modal pipelines and intelligent automation. Turning cutting-edge research into production-ready solutions.": "AI-Ingenieur, der agentische Systeme auf Unternehmensebene, multimodale Pipelines und intelligente Automatisierung entwickelt. Verwandelt modernste Forschung in produktionsreife Lösungen.",
-      "View Projects": "Projekte ansehen",
-      "About Me": "Über mich",
-      "Building the Future<br>with Intelligence": "Die Zukunft mit Intelligenz gestalten",
-      "I'm an <strong>AI Engineer</strong> currently pursuing my Master's in Artificial Intelligence at <strong>The University of Edinburgh</strong>. My work lives at the intersection of cutting-edge research and real-world enterprise AI.": "Ich bin ein <strong>AI Engineer</strong> und absolviere derzeit meinen Master in Künstlicher Intelligenz an <strong>The University of Edinburgh</strong>. Meine Arbeit bewegt sich an der Schnittstelle von modernster Forschung und realer angewandter Unternehmens-KI.",
-      "At <strong>Prodapt's NextGen Labs (R&D)</strong>, I was part of a team of 50+ developers focused on researching and integrating cutting-edge GenAI tools into enterprise workflows. I personally built 30+ modular AI agents covering everything from voice navigation to medical data digitisation.": "Bei <strong>Prodapt's NextGen Labs (R&D)</strong> war ich Teil eines Teams von 50+ Entwicklern, das sich auf die Erforschung und Integration neuartiger GenAI-Tools in Unternehmensabläufe konzentrierte. Ich baute persönlich 30+ modulare KI-Agenten, von der Sprachnavigation bis zur Digitalisierung medizinischer Daten.",
-      "Research Focus": "Forschungsschwerpunkte",
-      "Agentic AI, LLM orchestration, RAG, Vision-Language Models, NL2SQL — applied to real-world problems.": "Agentische KI, LLM-Orchestrierung, RAG, Vision-Language Models, NL2SQL — angewendet auf reale Probleme.",
-      "Languages": "Sprachen",
-      "English (Professional · IELTS C1) · Hindi (Native) · Japanese (Basic)": "Englisch (Fließend · IELTS C1) · Hindi (Muttersprache) · Japanisch (Grundkenntnisse)",
-      "Professional Journey": "Beruflicher Werdegang",
-      "Experience": "Erfahrung",
-      "Where I've built and learned.": "Wo ich gebaut und gelernt habe.",
-      "Generative AI Developer — Intern": "Generative KI Entwickler — Praktikant",
-      "January 2025 – July 2025": "Januar 2025 – Juli 2025",
-      "Contributed to NextGen Labs (R&D), a team of 50+ developers focused on researching cutting-edge GenAI tools and integrating them into enterprise workflows": "Mitarbeit bei NextGen Labs (R&D), einem Team von 50+ Entwicklern zur Erforschung und Integration von GenAI-Tools in Unternehmensabläufe.",
-      "Developed 30+ modular AI plugin agents as API endpoints — including Excel-to-Chart (PandasAI), Automated Browser Testing (CrewAI + MCP Playwright), Text-to-Human Audio, and Handwritten Medical Form Digitiser": "Entwicklung von 30+ modularen KI-Plugin-Agenten als API-Endpunkte — einschließlich Excel-zu-Chart (PandasAI), automatisierter Browsertests und handschriftlicher Krankenakten-Digitalisierung.",
-      "Built an Interactive Screen Navigation Assistant — real-time voice agent using Gemini Live API that verbally guides employees through portals, pre-loaded with company context": "Aufbau eines interaktiven Bildschirm-Navigationsassistenten — ein Echtzeit-Sprachagent mit Gemini Live API, der Mitarbeiter mündlich durch Portale führt.",
-      "Co-developed a Conversational AI Video Editor using LangGraph + MoviePy — trim, blur, subtitle, translate via natural language chat": "Mitentwicklung eines Conversational AI Video Editors (LangGraph + MoviePy) — trimmen, unschärfen, untertiteln, übersetzen via einfachem Chat.",
-      "Completed intensive 3-month training covering LangChain, LangGraph, LlamaIndex, AutoGen, CrewAI, RAG, MCP, Big Data and Telecom fundamentals": "Abschluss eines 3-monatigen Intensivtrainings mit Fokus auf LangChain, LangGraph, LLMs, RAG, MCP und Telekommunikations-Grundlagen.",
-      "View full experience on LinkedIn": "Volle Erfahrung auf LinkedIn ansehen",
-      "Full Stack Developer — Intern": "Full Stack Entwickler — Praktikant",
-      "September 2023 – December 2023": "September 2023 – Dezember 2023",
-      "Contributed to SWEEP — B2B wholesale app for Switzerland's 2nd-largest telecom carrier": "Beitrag zu SWEEP — B2B Großhandelsanwendung für den zweitgrößten Telekommunikationsanbieter der Schweiz.",
-      "Built self-service product configuration framework (Angular frontend + Apollo GraphQL + Java backend + Oracle DB via JPA), eliminating developer dependency for new B2B product launches": "Aufbau eines Self-Service-Produktkonfigurations-Frameworks (Angular, Apollo GraphQL, Java, Oracle DB), wodurch bei Produktneueinführungen keine Entwicklerabhängigkeit mehr bestand.",
-      "Designed interactive UI prototypes in Figma; translated business requirements into Confluence technical specs": "Entwurf interaktiver UI-Prototypen in Figma; Übersetzung von Geschäftsanforderungen in technische Confluence-Spezifikationen.",
-      "Automated Selenium test scripts, improving test coverage and reducing manual QA effort across the product": "Automatisierung von Selenium-Testskripten, was die Testabdeckung erhöhte und den manuellen QA-Aufwand reduzierte.",
-      "Selected Work": "Ausgewählte Arbeiten",
-      "Projects": "Projekte",
-      "From dissertation research to hackathon finalists — building AI that matters.": "Von der Forschung bis zu den Hackathon-Finalisten — Aufbau von KI, die zählt.",
-      "LLM Agentic Chatbot for IUPHAR": "Agentischer LLM-Chatbot für IUPHAR",
-      "Agentic chatbot that translates natural language queries into SQL to retrieve live data from the IUPHAR Guide to Pharmacology PostgreSQL database — serving academic researchers and drug discovery teams. Evaluating LangGraph vs CrewAI pipelines with a PostgreSQL MCP server for schema-aware access.": "Agenten-Chatbot, der natürliche Sprachanfragen in SQL übersetzt, um Livedaten aus der Datenbank IUPHAR Guide to Pharmacology abzurufen — für Forscher und Arzneimittelentwicklungsteams.",
-      "Jan – Jul 2026": "Jan – Jul 2026",
-      "View on GitHub": "Auf GitHub ansehen",
-      "AccessAI – Universal Accessibility Browser Extension": "AccessAI – Universelle Browsererweiterung für Barrierefreiheit",
-      "AI-powered Chrome extension with three real-time tools: voice-controlled agentic navigator, social cue coaching assistant, and autonomous documentation engine. Multimodal pipeline combining Whisper + GPT-4o Vision for live lecture capture. Low-latency architecture using WebSockets and GPT-4o function calling.": "KI-gestützte Chrome-Erweiterung mit Echtzeit-Tools: sprachgesteuerter Agent, Coaching-Assistent für soziale Signale und Autodokumentation.",
-      "Feb 2026": "Feb 2026",
-      "Brain Tumor MRI Segmentation using UNet & SegResNet": "Hirntumor-MRT-Segmentierung (UNet & SegResNet)",
-      "Developed state-of-the-art segmentation models (UNet, SegResNet) using MONAI to trace boundaries of cancerous brain tissues in MRI scans, assisting neurologists with quantitative volumetric analysis.": "Entwicklung moderner Segmentierungsmodelle unter Verwendung von MONAI zur Verfolgung von Grenzen kanzerösen Hirngewebes in MRT-Scans, um Neurologen bei der Volumenanalyse zu unterstützen.",
-      "Spring 2026": "Frühling 2026",
-      "Technical Arsenal": "Technisches Arsenal",
-      "Skills & Technologies": "Fähigkeiten & Technologien",
-      "The tools I use to build intelligent systems.": "Die Werkzeuge, die ich zum Aufbau intelligenter Systeme nutze.",
-      "AI / ML / Agents": "KI / ML / Agenten",
-      "Languages & Frameworks": "Sprachen & Frameworks",
-      "Databases & Cloud": "Datenbanken & Cloud",
-      "Tools & Architecture": "Tools & Architektur",
-      "Milestones": "Meilensteine",
-      "Achievements": "Auszeichnungen",
-      "Top 8 / 35+ Teams — AccessAI Hackathon": "Top 8 / 35+ Teams — AccessAI Hackathon",
-      "University of Edinburgh (Feb 2026) — Built a multimodal browser extension for accessibility.": "University of Edinburgh (Feb 2026) — Bau einer multimodalen Browsererweiterung für Barrierefreiheit.",
-      "Finalist out of 3000+ Teams — AIXplore Hackathon": "Finalist von 3000+ Teams — AIXplore Hackathon",
-      "Ranked in the top echelon globally, demonstrating rapid prototyping of agentic systems under pressure.": "Weltweit an der Spitze platziert, schnelle Prototypenentwicklung von agenten-KI unter Zeitdruck bewiesen.",
-      "30+ AI Plugins & Agents Deployed": "Über 30 KI-Plugins & Agenten eingesetzt",
-      "Built and deployed dozens of scalable enterprise API agents at Prodapt NextGen Labs.": "Erstellung und Bereitstellung Dutzender skalierbarer Unternehmens-API-Agenten in den Prodapt NextGen Labs.",
-      "Academic Background": "Akademischer Hintergrund",
-      "Education": "Ausbildung",
-      "The diverse foundation behind my AI engineering.": "Das breite Fundament hinter meiner KI-Entwicklung.",
-      "Master of Science in Artificial Intelligence": "Master of Science in Künstlicher Intelligenz",
-      "The University of Edinburgh, UK": "The University of Edinburgh, UK",
-      "September 2025 – August 2026": "September 2025 – August 2026",
-      "Taught courses spanning from foundation ML theories to practical engineering.": "Kurse von grundlegenden ML-Theorien bis hin zu praktischem Engineering.",
-      "Focusing heavily on agentic pipelines and natural language processing.": "Starker Fokus auf agentischen Pipelines und natürlicher Sprachverarbeitung.",
-      "Bachelor of Technology in Computer Science": "Bachelor of Technology in Informatik",
-      "Vellore Institute of Technology (VIT), India": "Vellore Institute of Technology (VIT), Indien",
-      "July 2020 – May 2024": "Juli 2020 – Mai 2024",
-      "Graduated with 8.78 CGPA (First Class with Distinction)": "Abschluss mit 8.78 CGPA (Mit Auszeichnung bestanden)",
-      "Core Modules: SWE, Cloud Architecture, DBMS, Web Development, Artificial Intelligence": "Kernmodule: SWE, Cloud Architecture, DBMS, Web Development, Künstliche Intelligenz",
-      "Verified Skills": "Geprüfte Fähigkeiten",
-      "Certifications": "Zertifizierungen",
-      "Cloud & Architecture": "Cloud & Architektur",
-      "Google Cloud Digital Leader": "Google Cloud Digital Leader",
-      "AWS Cloud Foundations": "AWS Cloud Foundations",
-      "Language Proficiency": "Sprachkenntnisse",
-      "IELTS — Band 7.5 (C1)": "IELTS — Band 7.5 (C1)",
-      "Coding Platforms": "Coding-Plattformen",
-      "HackerRank — Python 5★": "HackerRank — Python 5★",
-      "HackerRank — Java 5★": "HackerRank — Java 5★",
-      "Let's Connect": "Lassen Sie uns Kontakt aufnehmen",
-      "Open to Opportunities<br>& Collaborations": "Offen für berufliche Gelegenheiten<br>& Zusammenarbeit",
-      "I'm open to AI research collaborations, internships, and interesting projects. Connect on LinkedIn or send me a message — no spam, just good conversations.": "Ich bin offen für KI-Forschungs-Kollaborationen, Praktika und interessante Projekte. Einfach auf LinkedIn verbinden oder eine Nachricht schicken — kein Spam, nur gute Gespräche.",
-      "Best way to reach me. Connect and chat about AI, research, or opportunities.": "Der beste Weg mich zu erreichen. Verbinden und Chatten über KI und Gelegenheiten.",
-      "Check out my open-source projects, research code, and hackathon submissions.": "Sehen Sie sich meine Open-Source-Projekte, Forschungscodes und Hackathon-Beiträge an.",
-      "Send an Email": "Eine E-Mail senden",
-      "Drop me a message directly to my inbox.": "Schreiben Sie mir direkt in meinen Posteingang.",
-      "Name": "Name",
-      "Email": "E-Mail",
-      "Subject": "Betreff",
-      "Message": "Nachricht",
-      "Send Message": "Nachricht senden",
-      "Designed & built by": "Entworfen & entwickelt von",
-      "AI AGENTS BUILT": "KI AGENTEN",
-      "COMPANIES": "FIRMEN",
-      "PERSONAL PROJECTS": "PROJEKTE",
-      "CERTIFICATIONS": "ZERTIFIKATE"
-    };
-
-    let originalDb = {};
-
-    function storeOriginals() {
-      // Find all elements to possibly translate and store original english versions
-      // We will look for elements containing exact strings matching our keys
-      const allElems = document.body.querySelectorAll('h1, h2, span, p, label, a, div, strong, li');
-      allElems.forEach(el => {
-         // Skip if mostly code/script
-         if(el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return;
-         // Store elements that contain exact english.
-         // We do this by iterating keys.
-         for (let key in siteTranslations) {
-           if (el.innerHTML.trim() === key) {
-             el.setAttribute('data-tx-key', key);
-           }
-         }
-      });
-      
-      // Select input placeholders
-      document.querySelectorAll('input, textarea').forEach(el => {
-         if (el.placeholder === "John Doe") el.setAttribute('data-tx-ph', 'John Doe');
-         if (el.placeholder === "john@example.com") el.setAttribute('data-tx-ph', 'john@example.com');
-         if (el.placeholder === "Project Inquiry, AI Research, etc.") el.setAttribute('data-tx-ph', 'Project Inquiry, AI Research, etc.');
-         if (el.placeholder === "Hi Rishabh...") el.setAttribute('data-tx-ph', 'Hi Rishabh...');
-      });
     }
-
-    const phTrans = {
-      "John Doe": "Max Mustermann",
-      "john@example.com": "max@beispiel.de",
-      "Project Inquiry, AI Research, etc.": "Projektanfrage, KI-Forschung, usw.",
-      "Hi Rishabh...": "Hallo Rishabh..."
-    };
 
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('lang', lang);
       if (langToggle) langToggle.textContent = lang === 'en' ? 'DE' : 'EN';
-      
-      // Swap simple translations from data-i18n
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const keys = el.getAttribute('data-i18n').split('.');
-        let val = translations;
-        for (const key of keys) {
-          if (val[key]) val = val[key];
-          else { val = null; break; }
-        }
-        if (val && val[lang]) {
-          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = val[lang];
-          else el.innerHTML = val[lang];
-        }
-      });
 
-      // Apply siteTranslations logic
-      document.querySelectorAll('[data-tx-key]').forEach(el => {
-        const k = el.getAttribute('data-tx-key');
-        if (lang === 'de') {
-           if(siteTranslations[k]) el.innerHTML = siteTranslations[k];
-        } else {
-           el.innerHTML = k;
-        }
-      });
-      
-      document.querySelectorAll('[data-tx-ph]').forEach(el => {
-        const k = el.getAttribute('data-tx-ph');
-        if (lang === 'de') {
-           if(phTrans[k]) el.placeholder = phTrans[k];
-        } else {
-           el.placeholder = k;
-        }
-      });
-      
+      // Trigger Google Translate manually
+      if (lang === 'de') {
+        triggerGoogleTranslate('de');
+      } else {
+        triggerGoogleTranslate('en');
+      }
+
       // Update SYSTEM PROMPT for Chatbot
       if (lang === 'de') {
-         window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT + "\n\nIMPORTANT NOTIFICATION: The user has switched the website language to Deutsch (German). You MUST respond in fluent German for the remainder of this conversation.";
+        window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT + "\n\nIMPORTANT NOTIFICATION: The user has switched the website language to Deutsch (German). You MUST respond in fluent German for the remainder of this conversation.";
       } else {
-         window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT;
+        window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT;
       }
     }
 
@@ -4771,10 +4846,13 @@ Do NOT share any phone number or email address.`;
       }
     }
     if (themeToggle) themeToggle.addEventListener('click', () => setTheme(currentTheme === 'dark' ? 'light' : 'dark'));
+    if (langToggle) langToggle.addEventListener('click', () => setLanguage(currentLang === 'de' ? 'en' : 'de'));
 
     // Initialize on load
-    storeOriginals();
-    setLanguage(currentLang);
+    // Need a slight delay for Google Translate to load before we can trigger it
+    setTimeout(() => {
+      setLanguage(currentLang);
+    }, 1000);
     setTheme(currentTheme);
 
     /* ============================================================
