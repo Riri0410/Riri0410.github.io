@@ -2952,7 +2952,7 @@
 </head>
 
 <body>
-  <div id="google_translate_element" style="display:none;"></div>
+
 
   <!-- ORIGINAL CURSOR -->
   <div id="cursor-dot"></div>
@@ -2985,7 +2985,7 @@
       <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
       <li><a href="#education" data-i18n="nav.edu">Education</a></li>
       <li><a href="#achievements" data-i18n="nav.achievements">Achievements</a></li>
-      <li><a href="#certifications" data-i18n="nav.certifications">Certifications</a></li>
+      <li><a href="#certifications" data-i18n="nav.certs">Certifications</a></li>
     </ul>
     <div class="nav-right">
       <a href="https://www.linkedin.com/in/prasad-rishabh/" target="_blank" rel="noopener" class="nav-icon-link"
@@ -3014,14 +3014,14 @@
   <!-- Mobile nav -->
   <div class="mob-nav" id="mob-nav">
     <button class="mob-close" id="mob-close">✕</button>
-    <a href="#about" class="mob-lnk">About</a>
-    <a href="#experience" class="mob-lnk">Experience</a>
-    <a href="#projects" class="mob-lnk">Projects</a>
-    <a href="#skills" class="mob-lnk">Skills</a>
-    <a href="#education" class="mob-lnk">Education</a>
-    <a href="#achievements" class="mob-lnk">Achievements</a>
-    <a href="#certifications" class="mob-lnk">Certifications</a>
-    <a href="#contact" class="mob-lnk">Contact</a>
+    <a href="#about" class="mob-lnk" data-i18n="nav.about">About</a>
+    <a href="#experience" class="mob-lnk" data-i18n="nav.exp">Experience</a>
+    <a href="#projects" class="mob-lnk" data-i18n="nav.proj">Projects</a>
+    <a href="#skills" class="mob-lnk" data-i18n="nav.skills">Skills</a>
+    <a href="#education" class="mob-lnk" data-i18n="nav.edu">Education</a>
+    <a href="#achievements" class="mob-lnk" data-i18n="nav.achievements">Achievements</a>
+    <a href="#certifications" class="mob-lnk" data-i18n="nav.certs">Certifications</a>
+    <a href="#contact" class="mob-lnk" data-i18n="nav.contact">Contact</a>
   </div>
 
   <!-- ============================================================ HERO -->
@@ -3039,7 +3039,7 @@
       <div class="hero-right">
         <div class="hero-badge rev d1">
           <span class="dot"></span>
-          Currently @ University of Edinburgh · MSc AI
+          <span data-i18n="hero.badge">Currently @ University of Edinburgh · MSc AI</span>
         </div>
         <h1 class="hero-name rev d2">
           <span class="hn-first">Rishabh</span>
@@ -3048,7 +3048,7 @@
         <div class="hero-tw rev d3">
           <span id="tw"></span><span class="tw-cursor"></span>
         </div>
-        <p class="hero-desc rev d3">
+        <p class="hero-desc rev d3" data-i18n="hero.desc">
           AI Engineer building enterprise-grade agentic systems, multi-modal pipelines and intelligent automation.
           Turning cutting-edge research into production-ready solutions.
         </p>
@@ -3057,7 +3057,7 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
-            View Projects
+            <span data-i18n="hero.btn">View Projects</span>
           </a>
           <a href="https://www.linkedin.com/in/prasad-rishabh/" target="_blank" rel="noopener" class="btn-s">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -3139,14 +3139,14 @@
   <section id="about">
     <div class="about-wrap">
       <div class="about-text">
-        <div class="lbl rev">About Me</div>
-        <h2 class="stitle rev d1">Building the Future<br>with Intelligence</h2>
-        <p class="rev d2">
+        <div class="lbl rev" data-i18n="about.lbl">About Me</div>
+        <h2 class="stitle rev d1" data-i18n="about.title">Building the Future<br>with Intelligence</h2>
+        <p class="rev d2" data-i18n="about.p1">
           I'm an <strong>AI Engineer</strong> currently pursuing my Master's in Artificial Intelligence at
           <strong>The University of Edinburgh</strong>. My work lives at the intersection of
           cutting-edge research and real-world enterprise AI.
         </p>
-        <p class="rev d3">
+        <p class="rev d3" data-i18n="about.p2">
           At <strong>Prodapt's NextGen Labs (R&D)</strong>, I was part of a team of 50+ developers focused on
           researching and integrating cutting-edge GenAI tools into enterprise workflows.
           I personally built 30+ modular AI agents covering everything from voice navigation to medical data
@@ -3155,15 +3155,15 @@
         <div class="hl-box rev d3">
           <div class="ico">🧠</div>
           <div>
-            <strong>Research Focus</strong>
-            <p>Agentic AI, LLM orchestration, RAG, Vision-Language Models, NL2SQL — applied to real-world problems.</p>
+            <strong data-i18n="about.focus.title">Research Focus</strong>
+            <p data-i18n="about.focus.desc">Agentic AI, LLM orchestration, RAG, Vision-Language Models, NL2SQL — applied to real-world problems.</p>
           </div>
         </div>
         <div class="hl-box rev d4">
           <div class="ico">🌍</div>
           <div>
-            <strong>Languages</strong>
-            <p>English (Professional · IELTS C1) · Hindi (Native) · Japanese (Basic)</p>
+            <strong data-i18n="about.lang.title">Languages</strong>
+            <p data-i18n="about.lang.desc">English (Professional · IELTS C1) · Hindi (Native) · Japanese (Basic)</p>
           </div>
         </div>
       </div>
@@ -3187,10 +3187,10 @@
           </div>
         </div>
         <div class="rev d3" style="margin-top:1.5rem">
-          <div class="lbl" style="margin-bottom:.9rem">Currently Studying</div>
+          <div class="lbl" style="margin-bottom:.9rem" data-i18n="about.curr">Currently Studying</div>
           <div style="background:var(--card);border:1px solid rgba(124,58,237,.32);border-radius:12px;padding:1.2rem">
-            <div style="color:var(--t1);font-weight:700;margin-bottom:.25rem">MSc Artificial Intelligence</div>
-            <div style="color:var(--cl);font-family:var(--fc);font-size:.84rem;margin-bottom:.8rem">University of
+            <div style="color:var(--t1);font-weight:700;margin-bottom:.25rem" data-i18n="about.degree">MSc Artificial Intelligence</div>
+            <div style="color:var(--cl);font-family:var(--fc);font-size:.84rem;margin-bottom:.8rem" data-i18n="about.uni">University of
               Edinburgh</div>
             <div style="display:flex;flex-wrap:wrap;gap:.38rem">
               <span class="tag">NLP</span>
@@ -3207,8 +3207,8 @@
   <!-- ============================================================ EXPERIENCE -->
   <section id="experience">
     <div class="xp-wrap">
-      <div class="lbl rev">Work History</div>
-      <h2 class="stitle rev d1">Experience</h2>
+      <div class="lbl rev" data-i18n="exp.lbl">Work History</div>
+      <h2 class="stitle rev d1" data-i18n="exp.title">Experience</h2>
       <div class="timeline">
 
         <!-- Prodapt -->
@@ -3218,10 +3218,10 @@
               <img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt Logo" class="tl-logo" />
               <div>
                 <div class="tl-company">Prodapt · NextGen Labs (R&D)</div>
-                <div class="tl-role">Generative AI Developer — Intern</div>
+                <div class="tl-role" data-i18n="exp.prodapt.role">Generative AI Developer — Intern</div>
               </div>
             </div>
-            <span class="tl-date">January 2025 – July 2025</span>
+            <span class="tl-date" data-i18n="exp.prodapt.date">January 2025 – July 2025</span>
             <ul class="tl-bullets" style="text-align:left">
               <li>Contributed to NextGen Labs (R&D), a team of 50+ developers focused on researching cutting-edge GenAI
                 tools and integrating them into enterprise workflows</li>
@@ -3265,10 +3265,10 @@
               <img src="images/sunrise-logo.webp" alt="Sunrise Logo" class="tl-logo" />
               <div>
                 <div class="tl-company">Sunrise GmbH</div>
-                <div class="tl-role">Full Stack Developer — Intern</div>
+                <div class="tl-role" data-i18n="exp.sunrise.role">Full Stack Developer — Intern</div>
               </div>
             </div>
-            <span class="tl-date">September 2023 – December 2023</span>
+            <span class="tl-date" data-i18n="exp.sunrise.date">September 2023 – December 2023</span>
             <ul class="tl-bullets">
               <li>Contributed to SWEEP — B2B wholesale app for Switzerland's 2nd-largest telecom carrier</li>
               <li>Built self-service product configuration framework (Angular frontend + Apollo GraphQL + Java backend +
@@ -3284,7 +3284,7 @@
               <span class="tag">Selenium</span><span class="tag">Oracle DB</span>
             </div>
             <a href="https://www.linkedin.com/in/prasad-rishabh/details/experience/" target="_blank" rel="noopener"
-              class="xp-detail">
+              class="xp-detail" data-i18n="exp.link">
               View full experience on LinkedIn
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
@@ -3300,9 +3300,9 @@
   <!-- ============================================================ PROJECTS -->
   <section id="projects">
     <div class="proj-hd">
-      <div class="lbl rev">Selected Work</div>
-      <h2 class="stitle rev d1">Projects</h2>
-      <p class="rev d2" style="color:var(--t2);max-width:580px">
+      <div class="lbl rev" data-i18n="proj.lbl">Selected Work</div>
+      <h2 class="stitle rev d1" data-i18n="proj.title">Projects</h2>
+      <p class="rev d2" style="color:var(--t2);max-width:580px" data-i18n="proj.desc">
         From dissertation research to hackathon finalists — building AI that matters.
       </p>
     </div>
@@ -3698,8 +3698,8 @@
   <!-- ============================================================ SKILLS -->
   <section id="skills">
     <div class="sk-wrap">
-      <div class="lbl rev">Technical Toolkit</div>
-      <h2 class="stitle rev d1">Skills</h2>
+      <div class="lbl rev" data-i18n="skills.lbl">Technical Toolkit</div>
+      <h2 class="stitle rev d1" data-i18n="skills.title">Skills</h2>
       <div class="sk-grid">
 
         <div class="sk-row rev">
@@ -3793,8 +3793,8 @@
   <!-- ============================================================ EDUCATION -->
   <section id="education">
     <div class="xp-wrap">
-      <div class="lbl rev">Academic Background</div>
-      <h2 class="stitle rev d1">Education</h2>
+      <div class="lbl rev" data-i18n="edu.lbl">Academic Background</div>
+      <h2 class="stitle rev d1" data-i18n="edu.title">Education</h2>
       <div class="timeline">
 
         <!-- University of Edinburgh -->
@@ -3861,8 +3861,8 @@
   <!-- ============================================================ ACHIEVEMENTS -->
   <section id="achievements">
     <div style="max-width:1200px;margin:0 auto 0">
-      <div class="lbl rev">Recognition</div>
-      <h2 class="stitle rev d1">Achievements</h2>
+      <div class="lbl rev" data-i18n="ach.lbl">Recognition</div>
+      <h2 class="stitle rev d1" data-i18n="ach.title">Achievements</h2>
     </div>
     <div class="ach-grid">
       <div class="ach-c rev">
@@ -3896,8 +3896,8 @@
   <!-- ============================================================ CERTIFICATIONS -->
   <section id="certifications">
     <div class="cert-wrap">
-      <div class="lbl rev">Verified Credentials</div>
-      <h2 class="stitle rev d1">Certifications</h2>
+      <div class="lbl rev" data-i18n="cert.lbl">Verified Credentials</div>
+      <h2 class="stitle rev d1" data-i18n="cert.title">Certifications</h2>
       <p class="rev d2" style="color:var(--t2); max-width:580px; margin-bottom:2rem;">
         Official validations of my expertise across logic, cloud architecture, AI, and language.
       </p>
@@ -4026,9 +4026,9 @@
   <!-- ============================================================ CONTACT -->
   <section id="contact">
     <div class="contact-wrap">
-      <div class="lbl rev" style="justify-content:center">Let's Connect</div>
-      <h2 class="stitle rev d1" style="text-align:center">Open to Opportunities<br>&amp; Collaborations</h2>
-      <p class="contact-desc rev d2">
+      <div class="lbl rev" style="justify-content:center" data-i18n="contact.lbl">Let's Connect</div>
+      <h2 class="stitle rev d1" style="text-align:center" data-i18n="contact.title">Open to Opportunities<br>&amp; Collaborations</h2>
+      <p class="contact-desc rev d2" data-i18n="contact.desc">
         I'm open to AI research collaborations, internships, and interesting projects.
         Connect on LinkedIn or send me a message — no spam, just good conversations.
       </p>
@@ -4036,27 +4036,27 @@
         <a href="https://www.linkedin.com/in/prasad-rishabh/" target="_blank" rel="noopener" class="copt">
           <span class="copt-ico">💼</span>
           <span class="copt-t">LinkedIn</span>
-          <span class="copt-d">Best way to reach me. Connect and chat about AI, research, or opportunities.</span>
+          <span class="copt-d" data-i18n="contact.li.d">Best way to reach me. Connect and chat about AI, research, or opportunities.</span>
         </a>
         <a href="https://github.com/Riri0410" target="_blank" rel="noopener" class="copt">
           <span class="copt-ico">🐙</span>
           <span class="copt-t">GitHub</span>
-          <span class="copt-d">Check out my open-source projects, research code, and hackathon submissions.</span>
+          <span class="copt-d" data-i18n="contact.gh.d">Check out my open-source projects, research code, and hackathon submissions.</span>
         </a>
         <!-- Email Form Web3Forms -->
         <div class="copt" style="grid-column:1/-1; padding:2.5rem; align-items:flex-start">
           <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
             <span class="copt-ico" style="font-size:2.2rem">📬</span>
             <div style="text-align:left">
-              <div class="copt-t" style="text-align:left;font-size:1.1rem">Send an Email</div>
-              <div class="copt-d" style="text-align:left">Drop me a message directly to my inbox.</div>
+              <div class="copt-t" style="text-align:left;font-size:1.1rem" data-i18n="contact.email">Send an Email</div>
+              <div class="copt-d" style="text-align:left" data-i18n="contact.email.d">Drop me a message directly to my inbox.</div>
             </div>
           </div>
           <form action="#" method="POST" id="contactForm" class="cform" style="width:100%">
             <div class="cform-grid"
               style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;width:100%;margin-bottom:1.5rem">
               <div style="display:flex;flex-direction:column;gap:.5rem">
-                <label>Name</label>
+                <label data-i18n="contact.f.name">Name</label>
                 <input type="text" name="name" required placeholder="John Doe">
               </div>
               <div style="display:flex;flex-direction:column;gap:.5rem">
@@ -4065,11 +4065,11 @@
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
-              <label>Subject</label>
+              <label data-i18n="contact.f.subject">Subject</label>
               <input type="text" name="subject" required placeholder="Project Inquiry, AI Research, etc.">
             </div>
             <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
-              <label>Message</label>
+              <label data-i18n="contact.f.msg">Message</label>
               <textarea name="message" rows="4" required placeholder="Hi Rishabh..."></textarea>
             </div>
             <div class="cf-turnstile" data-sitekey="0x4AAAAAACnyyL5W6UCkN4OP" data-theme="dark"
@@ -4077,7 +4077,7 @@
             <button type="submit" class="btn-p"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2.2">
                 <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" />
-              </svg> <span>Send Message</span></button>
+              </svg>             <span data-i18n="contact.f.send">Send Message</span></button>
             <div id="formResult"
               style="display:none;margin-top:1rem;font-size:1rem;font-weight:600;text-align:center;padding:.8rem;border-radius:10px;background:rgba(16,185,129,.1);color:#10b981;border:1px solid rgba(16,185,129,.2)">
             </div>
@@ -4094,7 +4094,7 @@
         style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#22c55e;padding:.4rem 1rem;border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:.05em">
         <div
           style="width:7px;height:7px;background:#22c55e;border-radius:50%;box-shadow:0 0 8px #22c55e;animation:pulseg 2s infinite">
-        </div> OPEN TO OPPORTUNITIES
+        </div> <span data-i18n="footer.open">OPEN TO OPPORTUNITIES</span>
       </div>
     </div>
 
@@ -4809,29 +4809,120 @@ Do NOT share any phone number or email address.`;
     /* ============================================================
        THEME & LANGUAGE TOGGLING
     ============================================================ */
+    /* ============================================================
+       NATIVE TRANSLATION DICTIONARY
+    ============================================================ */
+    const translations = {
+      en: {
+        'nav.about': 'About', 'nav.exp': 'Experience', 'nav.proj': 'Projects',
+        'nav.skills': 'Skills', 'nav.edu': 'Education', 'nav.achievements': 'Achievements',
+        'nav.certs': 'Certifications', 'nav.contact': 'Contact',
+        'hero.badge': 'Currently @ University of Edinburgh &middot; MSc AI',
+        'hero.desc': 'AI Engineer building enterprise-grade agentic systems, multi-modal pipelines and intelligent automation. Turning cutting-edge research into production-ready solutions.',
+        'hero.btn': 'View Projects',
+        'about.lbl': 'About Me',
+        'about.title': 'Building the Future<br>with Intelligence',
+        'about.p1': "I'm an <strong>AI Engineer</strong> currently pursuing my Master's in Artificial Intelligence at <strong>The University of Edinburgh</strong>. My work lives at the intersection of cutting-edge research and real-world enterprise AI.",
+        'about.p2': "At <strong>Prodapt's NextGen Labs (R&D)</strong>, I was part of a team of 50+ developers focused on researching and integrating cutting-edge GenAI tools into enterprise workflows. I personally built 30+ modular AI agents covering everything from voice navigation to medical data digitisation.",
+        'about.focus.title': 'Research Focus',
+        'about.focus.desc': 'Agentic AI, LLM orchestration, RAG, Vision-Language Models, NL2SQL &mdash; applied to real-world problems.',
+        'about.lang.title': 'Languages',
+        'about.lang.desc': 'English (Professional &middot; IELTS C1) &middot; Hindi (Native) &middot; Japanese (Basic)',
+        'about.curr': 'Currently Studying',
+        'about.degree': 'MSc Artificial Intelligence',
+        'about.uni': 'University of Edinburgh',
+        'exp.lbl': 'Work History', 'exp.title': 'Experience',
+        'exp.prodapt.role': 'Generative AI Developer &mdash; Intern',
+        'exp.prodapt.date': 'January 2025 &ndash; July 2025',
+        'exp.sunrise.role': 'Full Stack Developer &mdash; Intern',
+        'exp.sunrise.date': 'September 2023 &ndash; December 2023',
+        'exp.link': 'View full experience on LinkedIn',
+        'proj.lbl': 'Selected Work', 'proj.title': 'Projects',
+        'proj.desc': 'From dissertation research to hackathon finalists &mdash; building AI that matters.',
+        'proj.link': 'View on GitHub',
+        'skills.lbl': 'Technical Toolkit', 'skills.title': 'Skills &amp; Expertise',
+        'edu.lbl': 'Academic Background', 'edu.title': 'Education',
+        'ach.lbl': 'Recognition', 'ach.title': 'Achievements',
+        'cert.lbl': 'Verified Credentials', 'cert.title': 'Certifications',
+        'contact.lbl': "Let's Connect",
+        'contact.title': 'Open to Opportunities<br>&amp; Collaborations',
+        'contact.desc': "I'm open to AI research collaborations, internships, and interesting projects. Connect on LinkedIn or send me a message &mdash; no spam, just good conversations.",
+        'contact.li.d': 'Best way to reach me. Connect and chat about AI, research, or opportunities.',
+        'contact.gh.d': 'Check out my open-source projects, research code, and hackathon submissions.',
+        'contact.email': 'Send an Email',
+        'contact.email.d': 'Drop me a message directly to my inbox.',
+        'contact.f.name': 'Name', 'contact.f.subject': 'Subject',
+        'contact.f.msg': 'Message', 'contact.f.send': 'Send Message',
+        'footer.open': 'OPEN TO OPPORTUNITIES'
+      },
+      de: {
+        'nav.about': '\u00DCber mich', 'nav.exp': 'Erfahrung', 'nav.proj': 'Projekte',
+        'nav.skills': 'F\u00E4higkeiten', 'nav.edu': 'Ausbildung', 'nav.achievements': 'Leistungen',
+        'nav.certs': 'Zertifikate', 'nav.contact': 'Kontakt',
+        'hero.badge': 'Derzeit @ University of Edinburgh &middot; MSc KI',
+        'hero.desc': 'KI-Ingenieur, der agentenbasierte Systeme, multimodale Pipelines und intelligente Automatisierung f\u00FCr Unternehmen entwickelt. Spitzenforschung in produktionsreife L\u00F6sungen verwandeln.',
+        'hero.btn': 'Projekte ansehen',
+        'about.lbl': '\u00DCber Mich',
+        'about.title': 'Die Zukunft mit<br>Intelligenz bauen',
+        'about.p1': 'Ich bin ein <strong>KI-Ingenieur</strong> und absolviere derzeit meinen Master in K\u00FCnstlicher Intelligenz an der <strong>University of Edinburgh</strong>. Meine Arbeit liegt an der Schnittstelle zwischen Spitzenforschung und realer Unternehmens-KI.',
+        'about.p2': 'In den <strong>NextGen Labs (F&E) von Prodapt</strong> war ich Teil eines 50-k\u00F6pfigen Entwicklerteams, das modernste GenAI-Tools in Unternehmensabl\u00E4ufe integrierte. Ich habe pers\u00F6nlich 30+ modulare KI-Agenten entwickelt, von Sprachnavigation bis zur medizinischen Digitalisierung.',
+        'about.focus.title': 'Forschungsschwerpunkt',
+        'about.focus.desc': 'Agentische KI, LLM-Orchestrierung, RAG, Vision-Language-Modelle, NL2SQL &mdash; angewendet auf reale Probleme.',
+        'about.lang.title': 'Sprachen',
+        'about.lang.desc': 'Englisch (Professionell &middot; IELTS C1) &middot; Hindi (Muttersprache) &middot; Japanisch (Grundkenntnisse)',
+        'about.curr': 'Derzeitiges Studium',
+        'about.degree': 'MSc K\u00FCnstliche Intelligenz',
+        'about.uni': 'University of Edinburgh',
+        'exp.lbl': 'Beruflicher Werdegang', 'exp.title': 'Erfahrung',
+        'exp.prodapt.role': 'Entwickler f\u00FCr Generative KI &mdash; Praktikant',
+        'exp.prodapt.date': 'Januar 2025 &ndash; Juli 2025',
+        'exp.sunrise.role': 'Full Stack Entwickler &mdash; Praktikant',
+        'exp.sunrise.date': 'September 2023 &ndash; Dezember 2023',
+        'exp.link': 'Vollst\u00E4ndige Erfahrung auf LinkedIn ansehen',
+        'proj.lbl': 'Ausgew\u00E4hlte Arbeiten', 'proj.title': 'Projekte',
+        'proj.desc': 'Von Dissertationsforschung bis Hackathon-Finalisten &mdash; KI bauen, die wichtig ist.',
+        'proj.link': 'Auf GitHub ansehen',
+        'skills.lbl': 'Technisches Toolkit', 'skills.title': 'F\u00E4higkeiten &amp; Fachwissen',
+        'edu.lbl': 'Akademischer Hintergrund', 'edu.title': 'Ausbildung',
+        'ach.lbl': 'Meilensteine', 'ach.title': 'Leistungen',
+        'cert.lbl': 'Qualifikationen', 'cert.title': 'Zertifikate',
+        'contact.lbl': 'Kontakt aufnehmen',
+        'contact.title': 'Offen f\u00FCr Chancen<br>&amp; Kooperationen',
+        'contact.desc': 'Ich bin offen f\u00FCr KI-Forschungskooperationen, Praktika und interessante Projekte. Vernetzen Sie sich mit mir &mdash; kein Spam, nur gute Gespr\u00E4che.',
+        'contact.li.d': 'Der beste Weg, mich zu erreichen. \u00DCber KI, Forschung oder Chancen austauschen.',
+        'contact.gh.d': 'Sehen Sie sich meine Open-Source-Projekte und Hackathon-Einreichungen an.',
+        'contact.email': 'Eine E-Mail senden',
+        'contact.email.d': 'Hinterlassen Sie mir eine Nachricht direkt in meinem Posteingang.',
+        'contact.f.name': 'Name', 'contact.f.subject': 'Betreff',
+        'contact.f.msg': 'Nachricht', 'contact.f.send': 'Nachricht senden',
+        'footer.open': 'OFFEN F\u00DCR CHANCEN'
+      }
+    };
+
+    function applyTranslations(lang) {
+      const t = translations[lang];
+      if (!t) return;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = t[key].replace(/<[^>]*>/g, '');
+          } else {
+            el.innerHTML = t[key];
+          }
+        }
+      });
+    }
+
     let currentLang = localStorage.getItem('lang') || 'en';
     const themeToggle = document.getElementById('theme-toggle');
     const langToggle = document.getElementById('lang-toggle');
-
-    function triggerGoogleTranslate(lang) {
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = lang;
-        select.dispatchEvent(new Event('change'));
-      }
-    }
 
     function setLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('lang', lang);
       if (langToggle) langToggle.textContent = lang === 'en' ? 'DE' : 'EN';
-
-      // Trigger Google Translate manually
-      if (lang === 'de') {
-        triggerGoogleTranslate('de');
-      } else {
-        triggerGoogleTranslate('en');
-      }
+      applyTranslations(lang);
 
       // Update SYSTEM PROMPT for Chatbot
       if (lang === 'de') {
@@ -4857,10 +4948,7 @@ Do NOT share any phone number or email address.`;
     if (langToggle) langToggle.addEventListener('click', () => setLanguage(currentLang === 'de' ? 'en' : 'de'));
 
     // Initialize on load
-    // Need a slight delay for Google Translate to load before we can trigger it
-    setTimeout(() => {
-      setLanguage(currentLang);
-    }, 1000);
+    setLanguage(currentLang);
     setTheme(currentTheme);
 
     /* ============================================================
