@@ -104,7 +104,7 @@
     }
 
     /* ================================================================
-     CUSTOM CURSOR — DOT & RING & SPOTLIGHT
+     ORIGINAL CURSOR & ROAMING PET
   ================================================================ */
     #cursor-dot,
     #cursor-ring {
@@ -112,7 +112,7 @@
       top: 0;
       left: 0;
       pointer-events: none;
-      z-index: 9999;
+      z-index: 9990;
       border-radius: 50%;
       transform: translate(-50%, -50%);
       opacity: 0;
@@ -157,6 +157,261 @@
       width: 38px;
       height: 38px;
       border-color: var(--pk);
+    }
+
+    .pet-trail-dot {
+      position: fixed;
+      width: 6px;
+      height: 6px;
+      background: var(--cl);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 9980;
+      box-shadow: 0 0 10px var(--cl);
+      transition: opacity 0.5s, transform 0.5s;
+    }
+
+    #ai-pet {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9999;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      will-change: transform, left, top;
+    }
+
+    .pet-body {
+      width: 32px;
+      height: 32px;
+      background: var(--cardh);
+      border: 2px solid var(--pl);
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(124, 58, 237, 0.4), inset 0 0 10px rgba(6, 182, 212, 0.2);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: border-radius 0.3s, background 0.3s;
+      position: relative;
+    }
+
+    @keyframes petFloat {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-4px);
+      }
+    }
+
+    #ai-pet.state-idle .pet-body {
+      animation: petFloat 3s ease-in-out infinite;
+    }
+
+    #ai-pet.state-hover .pet-body {
+      border-radius: 50%;
+      background: var(--p);
+      transform: scale(1.2);
+      border-color: var(--cl);
+      box-shadow: 0 0 25px rgba(6, 182, 212, 0.6);
+    }
+
+    #ai-pet.state-grabbed .pet-body {
+      transform: scale(0.9) rotate(-10deg);
+      border-color: var(--pk);
+      box-shadow: 0 0 20px rgba(236, 72, 153, 0.8);
+      animation: petShake 0.2s infinite;
+    }
+
+    @keyframes petShake {
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(-10deg);
+      }
+
+      25% {
+        transform: translate(-2px, 2px) rotate(-5deg);
+      }
+
+      50% {
+        transform: translate(2px, -2px) rotate(-15deg);
+      }
+
+      75% {
+        transform: translate(2px, 2px) rotate(-8deg);
+      }
+    }
+
+    .pet-face {
+      display: flex;
+      gap: 6px;
+      margin-top: -2px;
+      transition: transform 0.2s ease-out;
+    }
+
+    .pet-eye {
+      width: 6px;
+      height: 8px;
+      background: var(--cl);
+      border-radius: 4px;
+      transition: transform 0.1s, height 0.1s, background 0.3s;
+      box-shadow: 0 0 5px var(--cl);
+    }
+
+    @keyframes petBlink {
+
+      0%,
+      96%,
+      100% {
+        transform: scaleY(1);
+      }
+
+      98% {
+        transform: scaleY(0.1);
+      }
+    }
+
+    #ai-pet.state-idle .pet-eye {
+      animation: petBlink 4s infinite;
+    }
+
+    #ai-pet.state-hover .pet-eye {
+      background: #fff;
+      height: 10px;
+      box-shadow: 0 0 8px #fff;
+    }
+
+    #ai-pet.state-grabbed .pet-face {
+      gap: 10px;
+    }
+
+    #ai-pet.state-grabbed .pet-eye {
+      background: var(--t1);
+      width: 8px;
+      height: 4px;
+      border-radius: 2px;
+      transform: rotate(15deg);
+    }
+
+    #ai-pet.state-grabbed .pet-eye:nth-child(2) {
+      transform: rotate(-15deg);
+    }
+
+    .pet-mouth {
+      width: 10px;
+      height: 4px;
+      border: 2px solid var(--t1);
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      margin-top: 3px;
+      transition: all 0.2s;
+    }
+
+    #ai-pet.state-idle .pet-mouth {
+      width: 8px;
+      height: 3px;
+    }
+
+    #ai-pet.state-hover .pet-mouth {
+      width: 12px;
+      height: 6px;
+    }
+
+    #ai-pet.state-grabbed .pet-mouth {
+      width: 10px;
+      height: 4px;
+      border-radius: 10px 10px 0 0;
+      border-top: 2px solid var(--t1);
+      border-bottom: none;
+      margin-top: 6px;
+    }
+
+    #ai-pet.state-falling .pet-mouth {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      border-top: 2px solid var(--t1);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    #ai-pet.state-looking .pet-mouth {
+      width: 8px;
+      height: 3px;
+      background: var(--t1);
+      border: none;
+      border-radius: 4px;
+      margin-top: 5px;
+    }
+
+    #ai-pet.state-falling .pet-body {
+      transform: scaleY(1.1) scaleX(0.9);
+      border-color: var(--pk);
+    }
+
+    #ai-pet.state-falling .pet-eye {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .pet-chat {
+      position: absolute;
+      top: -40px;
+      left: 50%;
+      transform: translateX(-50%) translateY(10px) scale(0.8);
+      background: var(--cardh);
+      color: var(--t1);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-family: var(--fc);
+      font-weight: 600;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid var(--bd);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+    }
+
+    .pet-chat::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 50%;
+      margin-left: -4px;
+      width: 8px;
+      height: 8px;
+      background: var(--cardh);
+      border-right: 1px solid var(--bd);
+      border-bottom: 1px solid var(--bd);
+      transform: rotate(45deg);
+    }
+
+    .pet-chat.visible {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+
+    .pet-hitbox {
+      position: absolute;
+      inset: -20px;
+      border-radius: 50%;
+      pointer-events: auto;
+      cursor: grab;
+      z-index: 2;
+    }
+
+    #ai-pet.state-grabbed .pet-hitbox {
+      cursor: grabbing;
     }
 
     #spotlight {
@@ -228,6 +483,10 @@
       border-bottom: 1px solid var(--bd);
     }
 
+    html[data-theme="light"] nav.scrolled {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
     .nav-logo {
       font-family: var(--fc);
       font-size: 1.05rem;
@@ -277,6 +536,13 @@
       width: 100%
     }
 
+    .nav-center a.active {
+      color: var(--t1);
+    }
+    .nav-center a.active::after {
+      width: 100%;
+    }
+
     .nav-right {
       display: flex;
       align-items: center;
@@ -318,7 +584,7 @@
       height: 36px;
       transition: color .2s, transform .2s;
     }
-    
+
     .nav-text-btn:hover {
       color: var(--cl);
       transform: translateY(-2px);
@@ -1289,7 +1555,7 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow-p), transparent 60%);
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow-c), transparent 60%);
       transition: opacity .3s;
       pointer-events: none;
       z-index: 0;
@@ -1305,13 +1571,40 @@
     }
 
     .tl-card:hover {
-      border-color: var(--p);
-      box-shadow: 0 14px 40px rgba(124, 58, 237, .18);
+      border-color: var(--c);
+      box-shadow: 0 14px 40px rgba(6, 182, 212, .18);
       transform: translateY(-4px)
     }
 
+    .tl-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tl-logo {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      background-color: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 0 0 1px var(--glass-bd);
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    html[data-theme="light"] .tl-logo {
+      background-color: #fff;
+    }
+
     .tl-company {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
       font-weight: 700;
       color: var(--t1);
       margin-bottom: .2rem
@@ -1470,6 +1763,18 @@
       background: rgba(124, 58, 237, .03)
     }
 
+    .pc.feat:nth-child(even) {
+      grid-template-columns: 0.8fr 1.2fr;
+    }
+
+    .pc.feat:nth-child(even)>div:first-child {
+      order: 2;
+    }
+
+    .pc.feat:nth-child(even)>div:last-child {
+      order: 1;
+    }
+
     .pc-lbl {
       font-family: var(--fc);
       font-size: .67rem;
@@ -1483,6 +1788,12 @@
       font-size: 1.08rem;
       font-weight: 700;
       color: var(--t1);
+      background: linear-gradient(135deg, var(--pl) 0%, var(--cl) 50%, var(--pk) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      background-size: 200% 200%;
+      animation: gshift 5s ease-in-out infinite;
       margin-bottom: .7rem;
       line-height: 1.4
     }
@@ -1727,63 +2038,156 @@
     }
 
     /* ================================================================
-     CERTIFICATIONS
+     CERTIFICATIONS (INSANE 3D HOLOGRAPHIC CARDS)
   ================================================================ */
     #certifications {
-      background: var(--bg1)
+      background: var(--bg1);
+      position: relative;
     }
 
     .cert-wrap {
       max-width: 1200px;
-      margin: 0 auto
+      margin: 0 auto;
+      perspective: 1500px;
+      /* Required for rich 3D tilting */
     }
 
     .cert-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-      gap: .9rem;
-      margin-top: 3rem;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 2rem;
+      margin-top: 3.5rem;
     }
 
     .cert-c {
-      background: var(--card);
-      border: 1px solid var(--bd);
-      border-radius: 12px;
-      padding: 1.1rem 1.4rem;
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--glass-bd);
+      border-radius: 24px;
+      overflow: hidden;
       display: flex;
-      align-items: center;
-      gap: .9rem;
-      transition: transform .25s, border-color .3s, box-shadow .3s;
+      flex-direction: column;
       text-decoration: none;
+      position: relative;
+      height: 380px;
+      transform-style: preserve-3d;
+      transition: transform 0.4s var(--ease-spring), box-shadow 0.4s ease, border-color 0.4s ease;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+    }
+
+    .cert-c::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(125deg, transparent 20%, rgba(255, 255, 255, 0.08) 40%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.08) 60%, transparent 80%);
+      background-size: 200% 200%;
+      background-position: -200% -200%;
+      z-index: 5;
+      pointer-events: none;
+      transition: background-position 0.6s ease;
+      mix-blend-mode: overlay;
+    }
+
+    .cert-c:hover::before {
+      background-position: 200% 200%;
     }
 
     .cert-c:hover {
-      transform: translateX(5px);
-      border-color: var(--cl);
-      box-shadow: 0 8px 24px rgba(6, 182, 212, .12)
+      transform: translateY(-15px) rotateX(8deg) rotateY(-5deg) scale(1.02);
+      border-color: var(--c);
+      box-shadow: 0 30px 60px rgba(6, 182, 212, 0.25), 0 0 0 1px rgba(6, 182, 212, 0.1), inset 0 0 20px rgba(6, 182, 212, 0.1);
+      z-index: 10;
     }
 
-    .cert-ico {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
+    .cert-c:nth-child(even):hover {
+      transform: translateY(-15px) rotateX(8deg) rotateY(5deg) scale(1.02);
+      border-color: var(--pl);
+      box-shadow: 0 30px 60px rgba(124, 58, 237, 0.25), inset 0 0 20px rgba(124, 58, 237, 0.1);
+    }
+
+    .cert-c:nth-child(3n):hover {
+      border-color: #22c55e;
+      box-shadow: 0 30px 60px rgba(34, 197, 94, 0.25), inset 0 0 20px rgba(34, 197, 94, 0.1);
+    }
+
+    .cert-hero {
+      flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.2rem;
-      flex-shrink: 0;
+      position: relative;
+      background: radial-gradient(circle at center, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+      overflow: hidden;
+    }
+
+    /* Abstract background grid for the hero stage */
+    .cert-hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(var(--glass-bd) 1px, transparent 1px), linear-gradient(90deg, var(--glass-bd) 1px, transparent 1px);
+      background-size: 20px 20px;
+      opacity: 0.3;
+      transform: perspective(500px) rotateX(60deg) scale(2);
+      transform-origin: bottom;
+    }
+
+    .cert-img {
+      width: 140px;
+      height: 140px;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
+      transform: translateZ(50px);
+      transition: transform 0.4s ease;
+      z-index: 2;
+    }
+
+    .cert-c:hover .cert-img {
+      transform: translateZ(80px) scale(1.15);
+    }
+
+    .cert-info {
+      padding: 1.5rem;
+      background: var(--bg0);
+      border-top: 1px solid var(--glass-bd);
+      position: relative;
+      z-index: 2;
+      transform: translateZ(30px);
+    }
+
+    .cert-tag {
+      font-family: var(--fc);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--c);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .cert-c:nth-child(even) .cert-tag {
+      color: var(--pl);
+    }
+
+    .cert-c:nth-child(3n) .cert-tag {
+      color: #22c55e;
     }
 
     .cert-name {
-      font-size: .855rem;
-      font-weight: 600;
+      font-size: 1.15rem;
+      font-weight: 700;
       color: var(--t1);
-      line-height: 1.35
+      line-height: 1.35;
+      margin-bottom: 0.4rem;
     }
 
     .cert-iss {
-      font-size: .72rem;
-      color: var(--t3);
       margin-top: .18rem
     }
 
@@ -1834,7 +2238,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow-p), transparent 60%);
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow-c), transparent 60%);
       opacity: 0;
       transition: opacity .3s;
       pointer-events: none;
@@ -1852,8 +2256,8 @@
 
     .copt:hover {
       transform: translateY(-7px);
-      border-color: var(--p);
-      box-shadow: 0 12px 30px rgba(124, 58, 237, .15)
+      border-color: var(--c);
+      box-shadow: 0 12px 30px rgba(6, 182, 212, .15)
     }
 
     .copt-ico {
@@ -2530,15 +2934,57 @@
       }
     }
   </style>
+  <style>
+    /* Hiding Google Translate Banner & Tools */
+    .goog-te-banner-frame.skiptranslate {
+      display: none !important;
+    }
+    body {
+      top: 0px !important;
+    }
+    .goog-tooltip {
+      display: none !important;
+    }
+    .goog-tooltip:hover {
+      display: none !important;
+    }
+    .goog-text-highlight {
+      background-color: transparent !important;
+      border: none !important; 
+      box-shadow: none !important;
+    }
+  </style>
+
   <!-- Cloudflare Turnstile -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <!-- Google Translate -->
+  <script type="text/javascript">
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement({pageLanguage: 'en', includedLanguages: 'de,en', autoDisplay: false}, 'google_translate_element');
+    }
+  </script>
+  <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 </head>
 
 <body>
 
-  <!-- CURSOR & SPOTLIGHT -->
+
+  <!-- ORIGINAL CURSOR -->
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
+
+  <!-- ROAMING AI COMPANION (PET) & SPOTLIGHT -->
+  <div id="ai-pet" class="state-idle">
+    <div class="pet-hitbox"></div>
+    <div class="pet-chat">Hello!</div>
+    <div class="pet-body">
+      <div class="pet-face">
+        <div class="pet-eye"></div>
+        <div class="pet-eye"></div>
+      </div>
+      <div class="pet-mouth"></div>
+    </div>
+  </div>
   <div id="spotlight"></div>
 
   <!-- Scroll progress -->
@@ -2553,6 +2999,8 @@
       <li><a href="#projects" data-i18n="nav.proj">Projects</a></li>
       <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
       <li><a href="#education" data-i18n="nav.edu">Education</a></li>
+      <li><a href="#achievements" data-i18n="nav.achievements">Achievements</a></li>
+      <li><a href="#certifications" data-i18n="nav.certs">Certifications</a></li>
     </ul>
     <div class="nav-right">
       <a href="https://www.linkedin.com/in/prasad-rishabh/" target="_blank" rel="noopener" class="nav-icon-link"
@@ -2581,13 +3029,14 @@
   <!-- Mobile nav -->
   <div class="mob-nav" id="mob-nav">
     <button class="mob-close" id="mob-close">✕</button>
-    <a href="#about" class="mob-lnk">About</a>
-    <a href="#experience" class="mob-lnk">Experience</a>
-    <a href="#projects" class="mob-lnk">Projects</a>
-    <a href="#skills" class="mob-lnk">Skills</a>
-    <a href="#education" class="mob-lnk">Education</a>
-    <a href="#achievements" class="mob-lnk">Achievements</a>
-    <a href="#contact" class="mob-lnk">Contact</a>
+    <a href="#about" class="mob-lnk" data-i18n="nav.about">About</a>
+    <a href="#experience" class="mob-lnk" data-i18n="nav.exp">Experience</a>
+    <a href="#projects" class="mob-lnk" data-i18n="nav.proj">Projects</a>
+    <a href="#skills" class="mob-lnk" data-i18n="nav.skills">Skills</a>
+    <a href="#education" class="mob-lnk" data-i18n="nav.edu">Education</a>
+    <a href="#achievements" class="mob-lnk" data-i18n="nav.achievements">Achievements</a>
+    <a href="#certifications" class="mob-lnk" data-i18n="nav.certs">Certifications</a>
+    <a href="#contact" class="mob-lnk" data-i18n="nav.contact">Contact</a>
   </div>
 
   <!-- ============================================================ HERO -->
@@ -2597,7 +3046,7 @@
     <div class="hero-inner" id="hero-inner">
       <!-- Left: photo -->
       <div class="hero-left rev">
-        <img src="1721769679431-5.jpeg" alt="Rishabh Prasad" class="hero-photo" />
+        <img src="images/Profile Photo.jpeg" alt="Rishabh Prasad" class="hero-photo" />
       </div>
       <!-- Vertical divider -->
       <div class="hero-divider"></div>
@@ -2605,7 +3054,11 @@
       <div class="hero-right">
         <div class="hero-badge rev d1">
           <span class="dot"></span>
-          Currently @ University of Edinburgh · MSc AI
+          <span data-i18n="hero.badge">Currently @ University of Edinburgh · MSc AI</span>
+        </div>
+        <div class="hero-badge rev" style="margin-top:.5rem;background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.35);color:#22c55e;animation-delay:.1s">
+          <span style="width:7px;height:7px;background:#22c55e;border-radius:50%;box-shadow:0 0 8px #22c55e;display:inline-block;animation:pulseg 2s infinite"></span>
+          <span data-i18n="footer.open">OPEN TO OPPORTUNITIES</span>
         </div>
         <h1 class="hero-name rev d2">
           <span class="hn-first">Rishabh</span>
@@ -2614,7 +3067,7 @@
         <div class="hero-tw rev d3">
           <span id="tw"></span><span class="tw-cursor"></span>
         </div>
-        <p class="hero-desc rev d3">
+        <p class="hero-desc rev d3" data-i18n="hero.desc">
           AI Engineer building enterprise-grade agentic systems, multi-modal pipelines and intelligent automation.
           Turning cutting-edge research into production-ready solutions.
         </p>
@@ -2623,7 +3076,7 @@
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
               <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
             </svg>
-            View Projects
+            <span data-i18n="hero.btn">View Projects</span>
           </a>
           <a href="https://www.linkedin.com/in/prasad-rishabh/" target="_blank" rel="noopener" class="btn-s">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
@@ -2666,21 +3119,36 @@
     </div>
 
     <!-- ============================================================ COMPANY TICKER (Landing Page View) -->
-    <div style="position:absolute; bottom:0; left:0; width:100%; z-index:10; background:linear-gradient(to top, var(--bg0) 10%, transparent); padding-bottom:1.5rem; padding-top:2.5rem;">
+    <div
+      style="position:absolute; bottom:0; left:0; width:100%; z-index:10; background:linear-gradient(to top, var(--bg0) 10%, transparent); padding-bottom:1.5rem; padding-top:2.5rem;">
       <div class="ticker-wrap flex">
         <div class="ticker-track">
-          <!-- Group 1 -->
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🚀</span> Prodapt R&amp;D</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">📡</span> Sunrise GmbH</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">💻</span> Tech Mahindra</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🎓</span> University of Edinburgh</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🏛️</span> VIT Vellore</div>
-          <!-- Group 2 (Duplicate for infinite scroll) -->
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🚀</span> Prodapt R&amp;D</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">📡</span> Sunrise GmbH</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">💻</span> Tech Mahindra</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🎓</span> University of Edinburgh</div>
-          <div class="ticker-item"><span class="ti-icon" style="font-size:1.5rem">🏛️</span> VIT Vellore</div>
+          <!-- Duplicated for infinite scroll -->
+          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            Prodapt</div>
+          <div class="ticker-item"><img src="images/sunrise-logo.webp" alt="Sunrise"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            Sunrise GmbH</div>
+          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            University of Edinburgh</div>
+          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            VIT Vellore</div>
+
+          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            Prodapt</div>
+          <div class="ticker-item"><img src="images/sunrise-logo.webp" alt="Sunrise"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            Sunrise GmbH</div>
+          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            University of Edinburgh</div>
+          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT"
+              style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
+            VIT Vellore</div>
         </div>
       </div>
     </div>
@@ -2690,14 +3158,14 @@
   <section id="about">
     <div class="about-wrap">
       <div class="about-text">
-        <div class="lbl rev">About Me</div>
-        <h2 class="stitle rev d1">Building the Future<br>with Intelligence</h2>
-        <p class="rev d2">
+        <div class="lbl rev" data-i18n="about.lbl">About Me</div>
+        <h2 class="stitle rev d1" data-i18n="about.title">Building the Future<br>with Intelligence</h2>
+        <p class="rev d2" data-i18n="about.p1">
           I'm an <strong>AI Engineer</strong> currently pursuing my Master's in Artificial Intelligence at
           <strong>The University of Edinburgh</strong>. My work lives at the intersection of
           cutting-edge research and real-world enterprise AI.
         </p>
-        <p class="rev d3">
+        <p class="rev d3" data-i18n="about.p2">
           At <strong>Prodapt's NextGen Labs (R&D)</strong>, I was part of a team of 50+ developers focused on
           researching and integrating cutting-edge GenAI tools into enterprise workflows.
           I personally built 30+ modular AI agents covering everything from voice navigation to medical data
@@ -2706,15 +3174,15 @@
         <div class="hl-box rev d3">
           <div class="ico">🧠</div>
           <div>
-            <strong>Research Focus</strong>
-            <p>Agentic AI, LLM orchestration, RAG, Vision-Language Models, NL2SQL — applied to real-world problems.</p>
+            <strong data-i18n="about.focus.title">Research Focus</strong>
+            <p data-i18n="about.focus.desc">Agentic AI, LLM orchestration, RAG, Vision-Language Models, NL2SQL — applied to real-world problems.</p>
           </div>
         </div>
         <div class="hl-box rev d4">
           <div class="ico">🌍</div>
           <div>
-            <strong>Languages</strong>
-            <p>English (Professional · IELTS C1) · Hindi (Native) · Japanese (Basic)</p>
+            <strong data-i18n="about.lang.title">Languages</strong>
+            <p data-i18n="about.lang.desc">English (Professional · IELTS C1) · Hindi (Native) · Japanese (Basic)</p>
           </div>
         </div>
       </div>
@@ -2738,10 +3206,10 @@
           </div>
         </div>
         <div class="rev d3" style="margin-top:1.5rem">
-          <div class="lbl" style="margin-bottom:.9rem">Currently Studying</div>
+          <div class="lbl" style="margin-bottom:.9rem" data-i18n="about.curr">Currently Studying</div>
           <div style="background:var(--card);border:1px solid rgba(124,58,237,.32);border-radius:12px;padding:1.2rem">
-            <div style="color:var(--t1);font-weight:700;margin-bottom:.25rem">MSc Artificial Intelligence</div>
-            <div style="color:var(--cl);font-family:var(--fc);font-size:.84rem;margin-bottom:.8rem">University of
+            <div style="color:var(--t1);font-weight:700;margin-bottom:.25rem" data-i18n="about.degree">MSc Artificial Intelligence</div>
+            <div style="color:var(--cl);font-family:var(--fc);font-size:.84rem;margin-bottom:.8rem" data-i18n="about.uni">University of
               Edinburgh</div>
             <div style="display:flex;flex-wrap:wrap;gap:.38rem">
               <span class="tag">NLP</span>
@@ -2758,16 +3226,21 @@
   <!-- ============================================================ EXPERIENCE -->
   <section id="experience">
     <div class="xp-wrap">
-      <div class="lbl rev">Work History</div>
-      <h2 class="stitle rev d1">Experience</h2>
+      <div class="lbl rev" data-i18n="exp.lbl">Work History</div>
+      <h2 class="stitle rev d1" data-i18n="exp.title">Experience</h2>
       <div class="timeline">
 
         <!-- Prodapt -->
         <div class="tl-item">
           <div class="tl-card revL">
-            <div class="tl-company">Prodapt · NextGen Labs (R&D)</div>
-            <div class="tl-role">Generative AI Developer — Intern</div>
-            <span class="tl-date">January 2025 – July 2025</span>
+            <div class="tl-header">
+              <img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt Logo" class="tl-logo" />
+              <div>
+                <div class="tl-company">Prodapt · NextGen Labs (R&D)</div>
+                <div class="tl-role" data-i18n="exp.prodapt.role">Generative AI Developer — Intern</div>
+              </div>
+            </div>
+            <span class="tl-date" data-i18n="exp.prodapt.date">January 2025 – July 2025</span>
             <ul class="tl-bullets" style="text-align:left">
               <li>Contributed to NextGen Labs (R&D), a team of 50+ developers focused on researching cutting-edge GenAI
                 tools and integrating them into enterprise workflows</li>
@@ -2800,16 +3273,21 @@
           <div class="tl-empty"></div>
         </div>
 
-        <!-- Tech Mahindra / Sunrise -->
+        <!-- Sunrise -->
         <div class="tl-item">
           <div class="tl-empty"></div>
           <div class="tl-dot-w">
             <div class="tl-dot"></div>
           </div>
           <div class="tl-card revR">
-            <div class="tl-company">Tech Mahindra · Sunrise GmbH</div>
-            <div class="tl-role">Full Stack Developer — Intern</div>
-            <span class="tl-date">September 2023 – December 2023</span>
+            <div class="tl-header">
+              <img src="images/sunrise-logo.webp" alt="Sunrise Logo" class="tl-logo" />
+              <div>
+                <div class="tl-company">Sunrise GmbH</div>
+                <div class="tl-role" data-i18n="exp.sunrise.role">Full Stack Developer — Intern</div>
+              </div>
+            </div>
+            <span class="tl-date" data-i18n="exp.sunrise.date">September 2023 – December 2023</span>
             <ul class="tl-bullets">
               <li>Contributed to SWEEP — B2B wholesale app for Switzerland's 2nd-largest telecom carrier</li>
               <li>Built self-service product configuration framework (Angular frontend + Apollo GraphQL + Java backend +
@@ -2825,7 +3303,7 @@
               <span class="tag">Selenium</span><span class="tag">Oracle DB</span>
             </div>
             <a href="https://www.linkedin.com/in/prasad-rishabh/details/experience/" target="_blank" rel="noopener"
-              class="xp-detail">
+              class="xp-detail" data-i18n="exp.link">
               View full experience on LinkedIn
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <path d="M5 12h14M12 5l7 7-7 7" />
@@ -2841,9 +3319,9 @@
   <!-- ============================================================ PROJECTS -->
   <section id="projects">
     <div class="proj-hd">
-      <div class="lbl rev">Selected Work</div>
-      <h2 class="stitle rev d1">Projects</h2>
-      <p class="rev d2" style="color:var(--t2);max-width:580px">
+      <div class="lbl rev" data-i18n="proj.lbl">Selected Work</div>
+      <h2 class="stitle rev d1" data-i18n="proj.title">Projects</h2>
+      <p class="rev d2" style="color:var(--t2);max-width:580px" data-i18n="proj.desc">
         From dissertation research to hackathon finalists — building AI that matters.
       </p>
     </div>
@@ -2900,128 +3378,336 @@
         </div>
       </div>
 
-      <div class="pc rev d1">
-        <div class="pc-lbl">🏆 Hackathon Top 8/35+ · University of Edinburgh · Feb 2026</div>
-        <div class="pc-title">AccessAI – Universal Accessibility Browser Extension</div>
-        <p class="pc-desc">
-          AI-powered Chrome extension with three real-time tools: voice-controlled agentic navigator, social cue
-          coaching assistant,
-          and autonomous documentation engine. Multimodal pipeline combining Whisper + GPT-4o Vision for live lecture
-          capture.
-          Low-latency architecture using WebSockets and GPT-4o function calling.
-        </p>
-        <div class="pc-tags">
-          <span class="pt">GPT-4o</span><span class="pt">Whisper</span>
-          <span class="pt">WebSockets</span><span class="pt">Node.js</span>
-          <span class="pt">Chrome Extension</span><span class="pt">TypeScript</span>
+      <div class="pc feat rev d1">
+        <div style="display:flex;flex-direction:column;height:100%">
+          <div class="pc-lbl">🏆 Hackathon Top 8/35+ · University of Edinburgh · Feb 2026</div>
+          <div class="pc-title" style="font-size:1.45rem">AccessAI – Universal Accessibility Browser Extension</div>
+          <p class="pc-desc" style="font-size:.92rem">
+            AI-powered Chrome extension with three real-time tools: voice-controlled agentic navigator, social cue
+            coaching assistant, and autonomous documentation engine. Multimodal pipeline combining Whisper + GPT-4o
+            Vision for live lecture capture.
+            Low-latency architecture using WebSockets and GPT-4o function calling.
+          </p>
+          <div class="pc-tags" style="margin-top:auto;padding-top:1rem">
+            <span class="pt">GPT-4o</span><span class="pt">Whisper</span>
+            <span class="pt">WebSockets</span><span class="pt">Node.js</span>
+            <span class="pt">Chrome Extension</span><span class="pt">TypeScript</span>
+          </div>
+          <div class="pc-foot">
+            <a href="https://github.com/Riri0410/AccessAI-Universal_Accessibility_Browser_Extension/tree/main"
+              class="pc-link" target="_blank" rel="noopener">
+              View on GitHub
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <span class="pc-year">Feb 2026</span>
+          </div>
         </div>
-        <div class="pc-foot">
-          <a href="https://github.com/Riri0410/AccessAI-Universal_Accessibility_Browser_Extension/tree/main"
-            class="pc-link" target="_blank" rel="noopener">
-            View on GitHub
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <span class="pc-year">Feb 2026</span>
-        </div>
-      </div>
-
-      <div class="pc rev d2">
-        <div class="pc-lbl">🔬 ML Research · University of Edinburgh · 2026</div>
-        <div class="pc-title">Vision-Language Models for Fashion Description Generation</div>
-        <p class="pc-desc">
-          Fine-tuned & benchmarked CLIP, BLIP, BLIP-2, OFA on FashionGen dataset using LoRA, full fine-tuning, and
-          mapping-network tuning.
-          Accelerated training 250%+ via multi-GPU parallelisation. Unified evaluation across CIDEr, BLEU-4, METEOR,
-          ROUGE-L.
-        </p>
-        <div class="pc-tags">
-          <span class="pt">CLIP</span><span class="pt">BLIP-2</span>
-          <span class="pt">LoRA</span><span class="pt">PyTorch</span>
-          <span class="pt">Multi-GPU</span><span class="pt">HuggingFace</span>
-        </div>
-        <div class="pc-foot">
-          <a href="https://github.com/Riri0410/Comparative-Study-of-Vision-Language-Models-for-Fashion-Description-Generation-/tree/main"
-            class="pc-link" target="_blank" rel="noopener">
-            View on GitHub
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <span class="pc-year">Jan – Apr 2026</span>
-        </div>
-      </div>
-
-      <div class="pc rev">
-        <div class="pc-lbl">⚡ Enterprise R&D · Prodapt NextGen Labs · 2025</div>
-        <div class="pc-title">Conversational AI Video Editor</div>
-        <p class="pc-desc">
-          LangGraph-orchestrated agent interpreting natural language instructions and executing them via MoviePy.
-          Trim, crop, mute/bleep, blur, generate subtitles, and translate — all through chat. Deployed as a production
-          API endpoint for enterprise use.
-        </p>
-        <div class="pc-tags">
-          <span class="pt">LangGraph</span><span class="pt">MoviePy</span>
-          <span class="pt">FFmpeg</span><span class="pt">Gemini API</span>
-          <span class="pt">FastAPI</span>
-        </div>
-        <div class="pc-foot">
-          <a href="https://www.linkedin.com/in/prasad-rishabh/" class="pc-link" target="_blank" rel="noopener">
-            See on LinkedIn
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <span class="pc-year">2025</span>
+        <!-- Right side: Mock UI for AccessAI -->
+        <div
+          style="background:rgba(0,0,0,0.25);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div
+            style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(6,182,212,.15), transparent 70%)">
+          </div>
+          <div
+            style="width:75%;background:var(--bg0);border:1px solid var(--bd);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.5);position:relative;z-index:1;overflow:hidden;transform:perspective(800px) rotateY(6deg) rotateX(2deg);transition:transform .3s">
+            <div
+              style="background:var(--bg1);padding:8px 12px;border-bottom:1px solid var(--bd);display:flex;align-items:center;gap:8px">
+              <div
+                style="width:24px;height:24px;background:var(--c);border-radius:6px;display:flex;align-items:center;justify-content:center">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+                </svg></div>
+              <span style="font-family:var(--fc);font-size:.7rem;color:var(--t1);font-weight:600">AccessAI Voice
+                Nav</span>
+            </div>
+            <div
+              style="padding:1.2rem;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center">
+              <div
+                style="width:40px;height:40px;border-radius:50%;background:rgba(6,182,212,.15);display:flex;align-items:center;justify-content:center;color:var(--c);position:relative;box-shadow:0 0 0 4px rgba(6,182,212,.05);animation:photoglow 3s infinite">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+                  <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+                  <line x1="12" y1="19" x2="12" y2="23"></line>
+                  <line x1="8" y1="23" x2="16" y2="23"></line>
+                </svg>
+              </div>
+              <div style="font-family:var(--fc);font-size:.7rem;color:var(--t2)">Listening...</div>
+              <div style="display:flex;gap:4px;height:12px;align-items:flex-end">
+                <div style="width:4px;height:6px;background:var(--c);border-radius:2px"></div>
+                <div style="width:4px;height:12px;background:var(--p);border-radius:2px"></div>
+                <div style="width:4px;height:8px;background:var(--c);border-radius:2px"></div>
+                <div style="width:4px;height:10px;background:var(--p);border-radius:2px"></div>
+                <div style="width:4px;height:4px;background:var(--c);border-radius:2px"></div>
+              </div>
+              <div
+                style="margin-top:4px;font-family:var(--fm);font-size:.75rem;color:var(--t1);background:var(--card);padding:6px 10px;border-radius:6px;border:1px solid var(--bd)">
+                "Click the 'Apply Now' button"
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="pc rev d1">
-        <div class="pc-lbl">🚗 Final Year Project · VIT Vellore</div>
-        <div class="pc-title">Real-Time Traffic Sign Detection (YOLOv8)</div>
-        <p class="pc-desc">
-          Trained YOLOv8 from scratch on a combined Kaggle + Roboflow dataset spanning 59 unique traffic sign classes.
-          Deployed as a real-time Streamlit app with live camera input for detection.
-        </p>
-        <div class="pc-tags">
-          <span class="pt">YOLOv8</span><span class="pt">PyTorch</span>
-          <span class="pt">Streamlit</span><span class="pt">Roboflow</span>
-          <span class="pt">Ultralytics</span>
+      <div class="pc feat rev d2">
+        <div style="display:flex;flex-direction:column;height:100%">
+          <div class="pc-lbl">🔬 ML Research · University of Edinburgh · 2026</div>
+          <div class="pc-title" style="font-size:1.45rem">Vision-Language Models for Fashion Description Generation
+          </div>
+          <p class="pc-desc" style="font-size:.92rem">
+            Fine-tuned & benchmarked CLIP, BLIP, BLIP-2, OFA on FashionGen dataset using LoRA, full fine-tuning, and
+            mapping-network tuning. Accelerated training 250%+ via multi-GPU parallelisation. Unified evaluation across
+            CIDEr, BLEU-4, METEOR, ROUGE-L.
+          </p>
+          <div class="pc-tags" style="margin-top:auto;padding-top:1rem">
+            <span class="pt">CLIP</span><span class="pt">BLIP-2</span>
+            <span class="pt">LoRA</span><span class="pt">PyTorch</span>
+            <span class="pt">Multi-GPU</span><span class="pt">HuggingFace</span>
+          </div>
+          <div class="pc-foot">
+            <a href="https://github.com/Riri0410/Comparative-Study-of-Vision-Language-Models-for-Fashion-Description-Generation-/tree/main"
+              class="pc-link" target="_blank" rel="noopener">
+              View on GitHub
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <span class="pc-year">Jan – Apr 2026</span>
+          </div>
         </div>
-        <div class="pc-foot">
-          <a href="https://github.com/Riri0410/Real-Time-Traffic-Sign-Detection-using-YOLOv8" class="pc-link"
-            target="_blank" rel="noopener">
-            View on GitHub
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <span class="pc-year">Jun – Dec 2024</span>
+        <!-- Right side: Mock UI for VLM -->
+        <div
+          style="background:var(--bg1);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div
+            style="display:flex;gap:1.5rem;align-items:center;z-index:1;transform:perspective(800px) rotateY(-5deg) scale(0.9)">
+            <!-- Input Image Mock -->
+            <div
+              style="width:90px;height:120px;background:#1e1e38;border:2px dashed var(--p);border-radius:8px;display:flex;align-items:center;justify-content:center;position:relative">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--pl)" stroke-width="1.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="17 8 12 3 7 8" />
+                <line x1="12" y1="3" x2="12" y2="15" />
+              </svg>
+            </div>
+
+            <!-- Process Flow -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
+              <div style="display:flex;gap:6px">
+                <div
+                  style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.5);border-radius:4px;color:#ec4899">
+                  OFA</div>
+                <div
+                  style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.5);border-radius:4px;color:var(--c)">
+                  CLIP</div>
+              </div>
+              <div style="display:flex;gap:6px">
+                <div
+                  style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.5);border-radius:4px;color:var(--pl)">
+                  BLIP</div>
+                <div
+                  style="font-family:var(--fc);font-weight:700;font-size:.6rem;padding:4px 8px;background:rgba(34,197,94,.15);border:1px solid rgba(34,197,94,.5);border-radius:4px;color:#22c55e">
+                  BLIP-2</div>
+              </div>
+              <div style="width:20px;height:2px;background:var(--c);transform:rotate(90deg);margin-top:4px"></div>
+              <div
+                style="width:0;height:0;border-top:4px solid transparent;border-bottom:4px solid transparent;border-left:6px solid var(--c);transform:rotate(90deg);margin-top:4px">
+              </div>
+            </div>
+
+            <!-- Output Mock -->
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div
+                style="background:rgba(236,72,153,.15);border:1px solid rgba(236,72,153,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:#ec4899">
+                <span style="opacity:0.6">[CLS]</span> A floral
+              </div>
+              <div
+                style="background:rgba(6,182,212,.15);border:1px solid rgba(6,182,212,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:var(--cl)">
+                print summer
+              </div>
+              <div
+                style="background:rgba(124,58,237,.15);border:1px solid rgba(124,58,237,.3);padding:6px 10px;border-radius:6px;font-family:var(--fc);font-size:.7rem;color:var(--pl)">
+                dress <span style="opacity:0.6">[SEP]</span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="pc rev d2">
-        <div class="pc-lbl">🤖 Capstone · Prodapt Internship · 2025</div>
-        <div class="pc-title">Telecom Service Assistant (Multi-Agent)</div>
-        <p class="pc-desc">
-          LangGraph-orchestrated multi-agent system: CrewAI for billing, AutoGen for troubleshooting, LangChain for
-          recommendations.
-          LlamaIndex managed hybrid SQL + vector retrieval from telecom docs and SQLite DB.
-        </p>
-        <div class="pc-tags">
-          <span class="pt">LangGraph</span><span class="pt">LlamaIndex</span>
-          <span class="pt">CrewAI</span><span class="pt">AutoGen</span>
-          <span class="pt">RAG</span><span class="pt">Streamlit</span>
+      <div class="pc feat rev">
+        <div style="display:flex;flex-direction:column;height:100%">
+          <div class="pc-lbl">⚡ Enterprise R&D · Prodapt NextGen Labs · 2025</div>
+          <div class="pc-title" style="font-size:1.45rem">Conversational AI Video Editor</div>
+          <p class="pc-desc" style="font-size:.92rem">
+            LangGraph-orchestrated agent interpreting natural language instructions and executing them via MoviePy.
+            Trim, crop, mute/bleep, blur, generate subtitles, and translate — all through chat. Deployed as a production
+            API endpoint for enterprise use.
+          </p>
+          <div class="pc-tags" style="margin-top:auto;padding-top:1rem">
+            <span class="pt">LangGraph</span><span class="pt">MoviePy</span>
+            <span class="pt">FFmpeg</span><span class="pt">Gemini API</span>
+            <span class="pt">FastAPI</span>
+          </div>
+          <div class="pc-foot">
+            <a href="https://www.linkedin.com/in/prasad-rishabh/" class="pc-link" target="_blank" rel="noopener">
+              See on LinkedIn
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <span class="pc-year">2025</span>
+          </div>
         </div>
-        <div class="pc-foot">
-          <a href="https://www.linkedin.com/in/prasad-rishabh/" class="pc-link" target="_blank" rel="noopener">
-            See on LinkedIn
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </a>
-          <span class="pc-year">2025</span>
+        <!-- Right side: Mock UI for Video Editor -->
+        <div
+          style="background:rgba(0,0,0,0.25);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div
+            style="position:absolute;inset:0;background:radial-gradient(circle at center, rgba(236,72,153,.1), transparent 70%)">
+          </div>
+          <div
+            style="width:85%;display:flex;flex-direction:column;gap:1rem;z-index:1;transform:perspective(800px) rotateY(4deg)">
+            <!-- Chat bubble -->
+            <div
+              style="align-self:flex-end;background:linear-gradient(135deg, var(--p), var(--c));padding:8px 14px;border-radius:16px 16px 4px 16px;color:white;font-size:.75rem;box-shadow:0 4px 12px rgba(6,182,212,.2);text-align:right">
+              "Blur the cat and add subtitles in german"
+            </div>
+            <!-- Video Mock -->
+            <div style="background:var(--bg1);border:1px solid var(--bd);border-radius:8px;overflow:hidden">
+              <div
+                style="height:80px;background:#000;position:relative;display:flex;align-items:center;justify-content:center">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="rgba(255,255,255,0.8)">
+                  <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
+                <div
+                  style="position:absolute;bottom:8px;background:rgba(0,0,0,0.6);padding:2px 8px;border-radius:4px;font-family:var(--fc);font-size:.6rem;color:#f1f5f9">
+                  Subtitles Generating...</div>
+              </div>
+              <!-- Scrubber -->
+              <div style="display:flex;align-items:center;padding:8px 12px;gap:8px;background:var(--card)">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="var(--t2)">
+                  <rect x="6" y="4" width="4" height="16"></rect>
+                  <rect x="14" y="4" width="4" height="16"></rect>
+                </svg>
+                <div style="flex:1;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;position:relative">
+                  <div
+                    style="position:absolute;left:0;top:0;width:30%;height:100%;background:var(--pk);border-radius:2px">
+                  </div>
+                  <div
+                    style="position:absolute;left:30%;top:-3px;width:10px;height:10px;background:#fff;border-radius:50%;box-shadow:0 0 4px rgba(0,0,0,0.5)">
+                  </div>
+                </div>
+                <span style="font-family:var(--fc);font-size:.6rem;color:var(--t2)">0:05 / 2:30</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc feat rev d1">
+        <div style="display:flex;flex-direction:column;height:100%">
+          <div class="pc-lbl">🚗 Final Year Project · VIT Vellore</div>
+          <div class="pc-title" style="font-size:1.45rem">Real-Time Traffic Sign Detection (YOLOv8)</div>
+          <p class="pc-desc" style="font-size:.92rem">
+            Trained YOLOv8 from scratch on a combined Kaggle + Roboflow dataset spanning 59 unique traffic sign classes.
+            Deployed as a real-time Streamlit app with live camera input for detection.
+          </p>
+          <div class="pc-tags" style="margin-top:auto;padding-top:1rem">
+            <span class="pt">YOLOv8</span><span class="pt">PyTorch</span>
+            <span class="pt">Streamlit</span><span class="pt">Roboflow</span>
+            <span class="pt">Ultralytics</span>
+          </div>
+          <div class="pc-foot">
+            <a href="https://github.com/Riri0410/Real-Time-Traffic-Sign-Detection-using-YOLOv8" class="pc-link"
+              target="_blank" rel="noopener">
+              View on GitHub
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <span class="pc-year">Jun – Dec 2024</span>
+          </div>
+        </div>
+        <!-- Right side: Mock UI for YOLO -->
+        <div
+          style="background:#0f172a;border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <div
+            style="width:100%;height:100%;background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);background-size:20px 20px;display:flex;align-items:center;justify-content:center;position:relative">
+            <!-- Traffic Sign (Stop) -->
+            <div
+              style="width:64px;height:64px;background:#ef4444;clip-path:polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.8);box-shadow:inset 0 0 0 2px #ef4444;position:relative;z-index:2">
+              <span
+                style="color:#fff;font-family:var(--fc);font-weight:900;font-size:14px;letter-spacing:1px;text-align:center;line-height:1">STOP</span>
+            </div>
+            <!-- Bounding Box -->
+            <div
+              style="position:absolute;width:94px;height:94px;border:2px solid #22c55e;background:rgba(34,197,94,0.1);display:flex;align-items:center;justify-content:center;box-shadow:0 0 15px rgba(34,197,94,0.2);z-index:3">
+              <div
+                style="position:absolute;top:-22px;left:-2px;background:#22c55e;color:#000;font-family:var(--fc);font-size:.65rem;font-weight:700;padding:2px 8px">
+                Stop Sign 0.98
+              </div>
+            </div>
+            <!-- Crosshairs -->
+            <div
+              style="position:absolute;top:50%;left:0;width:100%;height:1px;background:rgba(34,197,94,0.3);pointer-events:none">
+            </div>
+            <div
+              style="position:absolute;top:0;left:50%;width:1px;height:100%;background:rgba(34,197,94,0.3);pointer-events:none">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pc feat rev d2">
+        <div style="display:flex;flex-direction:column;height:100%">
+          <div class="pc-lbl">🤖 Capstone · Prodapt Internship · 2025</div>
+          <div class="pc-title" style="font-size:1.45rem">Telecom Service Assistant (Multi-Agent)</div>
+          <p class="pc-desc" style="font-size:.92rem">
+            LangGraph-orchestrated multi-agent system: CrewAI for billing, AutoGen for troubleshooting, LangChain for
+            recommendations. LlamaIndex managed hybrid SQL + vector retrieval from telecom docs and SQLite DB.
+          </p>
+          <div class="pc-tags" style="margin-top:auto;padding-top:1rem">
+            <span class="pt">LangGraph</span><span class="pt">LlamaIndex</span>
+            <span class="pt">CrewAI</span><span class="pt">AutoGen</span>
+            <span class="pt">RAG</span><span class="pt">Streamlit</span>
+          </div>
+          <div class="pc-foot">
+            <a href="https://www.linkedin.com/in/prasad-rishabh/" class="pc-link" target="_blank" rel="noopener">
+              See on LinkedIn
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <span class="pc-year">2025</span>
+          </div>
+        </div>
+        <!-- Right side: Mock UI for Multi-Agent -->
+        <div
+          style="background:var(--bg0);border-radius:12px;border:1px solid var(--bd);height:100%;min-height:240px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden">
+          <svg width="100%" height="100%" style="position:absolute;inset:0">
+            <path d="M 100 120 Q 150 70 200 70" fill="none" stroke="var(--bd)" stroke-width="2" stroke-dasharray="4" />
+            <path d="M 100 120 Q 150 170 200 170" fill="none" stroke="var(--bd)" stroke-width="2"
+              stroke-dasharray="4" />
+          </svg>
+          <div style="display:flex;gap:3rem;align-items:center;position:relative;z-index:1">
+            <!-- Router -->
+            <div
+              style="width:60px;height:60px;background:rgba(124,58,237,.15);border:2px solid var(--pl);border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 20px rgba(124,58,237,.2)">
+              <span style="font-size:1.5rem">🧠</span>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:1.5rem">
+              <!-- CrewAI Node -->
+              <div
+                style="background:var(--card);border:1px solid rgba(6,182,212,.3);padding:6px 12px;border-radius:6px;display:flex;align-items:center;gap:8px;font-family:var(--fc);font-size:.7rem;color:var(--t1)">
+                <div style="width:8px;height:8px;background:var(--c);border-radius:50%"></div> Billing Agent
+              </div>
+              <!-- AutoGen Node -->
+              <div
+                style="background:var(--card);border:1px solid rgba(236,72,153,.3);padding:6px 12px;border-radius:6px;display:flex;align-items:center;gap:8px;font-family:var(--fc);font-size:.7rem;color:var(--t1)">
+                <div style="width:8px;height:8px;background:var(--pk);border-radius:50%"></div> Trouble Agent
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -3031,8 +3717,8 @@
   <!-- ============================================================ SKILLS -->
   <section id="skills">
     <div class="sk-wrap">
-      <div class="lbl rev">Technical Toolkit</div>
-      <h2 class="stitle rev d1">Skills</h2>
+      <div class="lbl rev" data-i18n="skills.lbl">Technical Toolkit</div>
+      <h2 class="stitle rev d1" data-i18n="skills.title">Skills</h2>
       <div class="sk-grid">
 
         <div class="sk-row rev">
@@ -3126,18 +3812,20 @@
   <!-- ============================================================ EDUCATION -->
   <section id="education">
     <div class="xp-wrap">
-      <div class="lbl rev">Academic Background</div>
-      <h2 class="stitle rev d1">Education</h2>
+      <div class="lbl rev" data-i18n="edu.lbl">Academic Background</div>
+      <h2 class="stitle rev d1" data-i18n="edu.title">Education</h2>
       <div class="timeline">
 
         <!-- University of Edinburgh -->
         <div class="tl-item">
           <div class="tl-card revL">
-            <div style="display:flex;align-items:center;justify-content:flex-end;gap:.5rem;margin-bottom:.25rem">
-              <div class="tl-company">University of Edinburgh</div>
-              <span style="font-size:1.3rem">🎓</span>
+            <div class="tl-header" style="justify-content:flex-end; text-align:right">
+              <img src="images/uoe-crest.png" alt="University of Edinburgh Logo" class="tl-logo" />
+              <div>
+                <div class="tl-company">University of Edinburgh</div>
+                <div class="tl-role">MSc Artificial Intelligence</div>
+              </div>
             </div>
-            <div class="tl-role">MSc Artificial Intelligence</div>
             <span class="tl-date">September 2025 – August 2026 · 1 year</span>
             <ul class="tl-bullets" style="text-align:left">
               <li>Accelerated Natural Language Processing</li>
@@ -3163,11 +3851,14 @@
             <div class="tl-dot"></div>
           </div>
           <div class="tl-card revR">
-            <div style="display:flex;align-items:center;gap:.5rem;margin-bottom:.25rem">
-              <span style="font-size:1.3rem">🏛️</span>
-              <div class="tl-company">Vellore Institute of Technology</div>
+            <div class="tl-header">
+              <img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT Vellore Logo"
+                class="tl-logo" />
+              <div>
+                <div class="tl-company">Vellore Institute of Technology</div>
+                <div class="tl-role">BTech Computer Science &amp; Engineering</div>
+              </div>
             </div>
-            <div class="tl-role">BTech Computer Science &amp; Engineering</div>
             <span class="tl-date">September 2021 – July 2025 · 4 years</span>
             <ul class="tl-bullets">
               <li>Artificial Intelligence &amp; Machine Learning</li>
@@ -3189,8 +3880,8 @@
   <!-- ============================================================ ACHIEVEMENTS -->
   <section id="achievements">
     <div style="max-width:1200px;margin:0 auto 0">
-      <div class="lbl rev">Recognition</div>
-      <h2 class="stitle rev d1">Achievements</h2>
+      <div class="lbl rev" data-i18n="ach.lbl">Recognition</div>
+      <h2 class="stitle rev d1" data-i18n="ach.title">Achievements</h2>
     </div>
     <div class="ach-grid">
       <div class="ach-c rev">
@@ -3224,68 +3915,129 @@
   <!-- ============================================================ CERTIFICATIONS -->
   <section id="certifications">
     <div class="cert-wrap">
-      <div class="lbl rev">Verified Credentials</div>
-      <h2 class="stitle rev d1">Certifications</h2>
+      <div class="lbl rev" data-i18n="cert.lbl">Verified Credentials</div>
+      <h2 class="stitle rev d1" data-i18n="cert.title">Certifications</h2>
+      <p class="rev d2" style="color:var(--t2); max-width:580px; margin-bottom:2rem;">
+        Official validations of my expertise across logic, cloud architecture, AI, and language.
+      </p>
+
       <div class="cert-grid">
-        <!-- Coding Platforms -->
-        <div style="grid-column:1/-1;margin-bottom:-.5rem;margin-top:.5rem">
-          <div class="sk-cat-t" style="margin-bottom:0"><span class="sk-ico"
-              style="background:rgba(0,238,100,.15)">💻</span> Coding Platforms</div>
-        </div>
-        <a href="https://www.hackerrank.com/profile/p_rishabh2014" target="_blank" rel="noopener" class="cert-c rev">
-          <div class="cert-ico" style="background:rgba(0,238,100,.1)">⭐</div>
-          <div>
-            <div class="cert-name">Python — 5 Stars</div>
-            <div class="cert-iss">HackerRank · View Profile</div>
-          </div>
-        </a>
-        <a href="https://www.hackerrank.com/profile/p_rishabh2014" target="_blank" rel="noopener" class="cert-c rev d1">
-          <div class="cert-ico" style="background:rgba(0,238,100,.1)">⭐</div>
-          <div>
-            <div class="cert-name">Java — 5 Stars</div>
-            <div class="cert-iss">HackerRank · View Profile</div>
-          </div>
-        </a>
 
-        <!-- Cloud & AI -->
-        <div style="grid-column:1/-1;margin-bottom:-.5rem;margin-top:1rem">
-          <div class="sk-cat-t" style="margin-bottom:0"><span class="sk-ico"
-              style="background:rgba(66,133,244,.15)">☁️</span> Cloud &amp; AI</div>
-        </div>
-        <div class="cert-c rev">
-          <div class="cert-ico" style="background:rgba(66,133,244,.12)">☁️</div>
-          <div>
+        <!-- Google Cloud -->
+        <a href="https://www.credly.com/earner/earned/badge/something" target="_blank" rel="noopener"
+          class="cert-c rev">
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(66,133,244,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#4285F4; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <img src="images/google-cloud.png" alt="Google Cloud" class="cert-img" />
+          </div>
+          <div class="cert-info">
+            <span class="cert-tag">Architecture</span>
             <div class="cert-name">Google Cloud Digital Leader</div>
-            <div class="cert-iss">Google Cloud</div>
+            <div class="cert-iss">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c)">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
+              Google Cloud
+            </div>
           </div>
-        </div>
-        <div class="cert-c rev d1">
-          <div class="cert-ico" style="background:rgba(255,153,0,.12)">🌐</div>
-          <div>
-            <div class="cert-name">AWS Academy Cloud Foundations</div>
-            <div class="cert-iss">Amazon Web Services</div>
-          </div>
-        </div>
-        <div class="cert-c rev d2">
-          <div class="cert-ico" style="background:rgba(66,133,244,.12)">🤖</div>
-          <div>
-            <div class="cert-name">Generative AI Applications (Vertex AI)</div>
-            <div class="cert-iss">Smart Internz · Google</div>
-          </div>
-        </div>
+        </a>
 
-        <!-- Languages -->
-        <div style="grid-column:1/-1;margin-bottom:-.5rem;margin-top:1rem">
-          <div class="sk-cat-t" style="margin-bottom:0"><span class="sk-ico"
-              style="background:rgba(6,182,212,.15)">📝</span> Languages</div>
-        </div>
-        <div class="cert-c rev">
-          <div class="cert-ico" style="background:rgba(6,182,212,.1)">📝</div>
-          <div>
-            <div class="cert-name">IELTS C1 — Band 7.5 / 9</div>
-            <div class="cert-iss">British Council · International English</div>
+        <!-- AWS -->
+        <a href="https://www.credly.com/" target="_blank" rel="noopener" class="cert-c rev d1">
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(255,153,0,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#FF9900; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <img src="images/aws.png" alt="AWS" class="cert-img" />
           </div>
-        </div>
+          <div class="cert-info">
+            <span class="cert-tag">Cloud</span>
+            <div class="cert-name">AWS Academy Cloud Foundations</div>
+            <div class="cert-iss">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--pl)">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
+              Amazon Web Services
+            </div>
+          </div>
+        </a>
+
+        <!-- HackerRank -->
+        <a href="https://www.hackerrank.com/profile/p_rishabh2014" target="_blank" rel="noopener" class="cert-c rev d2">
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(34,197,94,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#22c55e; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <!-- Using styling to nicely round the hackerrank jpeg -->
+            <img src="images/hackerrank_logo.jpeg" alt="HackerRank" class="cert-img"
+              style="border-radius:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(255,255,255,0.1)" />
+          </div>
+          <div class="cert-info">
+            <span class="cert-tag">Algorithms</span>
+            <div class="cert-name">Python &amp; Java 5★</div>
+            <div class="cert-iss">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="#22c55e">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
+              HackerRank (Verified)
+            </div>
+          </div>
+        </a>
+
+        <!-- SmartInternz Vertex AI -->
+        <a href="#" class="cert-c rev">
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(236,72,153,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#ec4899; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <div style="font-size:5rem; filter:drop-shadow(0 10px 20px rgba(0,0,0,0.5)); transform:translateZ(50px)">🤖
+            </div>
+          </div>
+          <div class="cert-info">
+            <span class="cert-tag">Generative AI</span>
+            <div class="cert-name">Generative AI Apps (Vertex AI)</div>
+            <div class="cert-iss">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--c)">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
+              Smart Internz · Google
+            </div>
+          </div>
+        </a>
+
+        <!-- IELTS -->
+        <a href="#" class="cert-c rev d1">
+          <div class="cert-hero"
+            style="background: radial-gradient(circle at center, rgba(239,68,68,0.15) 0%, transparent 70%)">
+            <div
+              style="position:absolute; width:150px; height:150px; background:#ef4444; filter:blur(60px); opacity:0.3; border-radius:50%">
+            </div>
+            <img src="images/ielts.png" alt="IELTS" class="cert-img"
+              style="height:100px; padding:10px; background:rgba(255,255,255,0.9); border-radius:12px;" />
+          </div>
+          <div class="cert-info">
+            <span class="cert-tag">Language</span>
+            <div class="cert-name">IELTS C1 — Band 7.5 / 9</div>
+            <div class="cert-iss">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="var(--pl)">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
+              </svg>
+              British Council
+            </div>
+          </div>
+        </a>
+
       </div>
     </div>
   </section>
@@ -3293,9 +4045,9 @@
   <!-- ============================================================ CONTACT -->
   <section id="contact">
     <div class="contact-wrap">
-      <div class="lbl rev" style="justify-content:center">Let's Connect</div>
-      <h2 class="stitle rev d1" style="text-align:center">Open to Opportunities<br>&amp; Collaborations</h2>
-      <p class="contact-desc rev d2">
+      <div class="lbl rev" style="justify-content:center" data-i18n="contact.lbl">Let's Connect</div>
+      <h2 class="stitle rev d1" style="text-align:center" data-i18n="contact.title">Open to Opportunities<br>&amp; Collaborations</h2>
+      <p class="contact-desc rev d2" data-i18n="contact.desc">
         I'm open to AI research collaborations, internships, and interesting projects.
         Connect on LinkedIn or send me a message — no spam, just good conversations.
       </p>
@@ -3303,27 +4055,27 @@
         <a href="https://www.linkedin.com/in/prasad-rishabh/" target="_blank" rel="noopener" class="copt">
           <span class="copt-ico">💼</span>
           <span class="copt-t">LinkedIn</span>
-          <span class="copt-d">Best way to reach me. Connect and chat about AI, research, or opportunities.</span>
+          <span class="copt-d" data-i18n="contact.li.d">Best way to reach me. Connect and chat about AI, research, or opportunities.</span>
         </a>
         <a href="https://github.com/Riri0410" target="_blank" rel="noopener" class="copt">
           <span class="copt-ico">🐙</span>
           <span class="copt-t">GitHub</span>
-          <span class="copt-d">Check out my open-source projects, research code, and hackathon submissions.</span>
+          <span class="copt-d" data-i18n="contact.gh.d">Check out my open-source projects, research code, and hackathon submissions.</span>
         </a>
         <!-- Email Form Web3Forms -->
         <div class="copt" style="grid-column:1/-1; padding:2.5rem; align-items:flex-start">
           <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.5rem">
             <span class="copt-ico" style="font-size:2.2rem">📬</span>
             <div style="text-align:left">
-              <div class="copt-t" style="text-align:left;font-size:1.1rem">Send an Email</div>
-              <div class="copt-d" style="text-align:left">Drop me a message directly to my inbox.</div>
+              <div class="copt-t" style="text-align:left;font-size:1.1rem" data-i18n="contact.email">Send an Email</div>
+              <div class="copt-d" style="text-align:left" data-i18n="contact.email.d">Drop me a message directly to my inbox.</div>
             </div>
           </div>
           <form action="#" method="POST" id="contactForm" class="cform" style="width:100%">
             <div class="cform-grid"
               style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;width:100%;margin-bottom:1.5rem">
               <div style="display:flex;flex-direction:column;gap:.5rem">
-                <label>Name</label>
+                <label data-i18n="contact.f.name">Name</label>
                 <input type="text" name="name" required placeholder="John Doe">
               </div>
               <div style="display:flex;flex-direction:column;gap:.5rem">
@@ -3332,11 +4084,11 @@
               </div>
             </div>
             <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
-              <label>Subject</label>
+              <label data-i18n="contact.f.subject">Subject</label>
               <input type="text" name="subject" required placeholder="Project Inquiry, AI Research, etc.">
             </div>
             <div style="display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem">
-              <label>Message</label>
+              <label data-i18n="contact.f.msg">Message</label>
               <textarea name="message" rows="4" required placeholder="Hi Rishabh..."></textarea>
             </div>
             <div class="cf-turnstile" data-sitekey="0x4AAAAAACnyyL5W6UCkN4OP" data-theme="dark"
@@ -3344,7 +4096,7 @@
             <button type="submit" class="btn-p"><svg width="15" height="15" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2.2">
                 <path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z" />
-              </svg> <span>Send Message</span></button>
+              </svg>             <span data-i18n="contact.f.send">Send Message</span></button>
             <div id="formResult"
               style="display:none;margin-top:1rem;font-size:1rem;font-weight:600;text-align:center;padding:.8rem;border-radius:10px;background:rgba(16,185,129,.1);color:#10b981;border:1px solid rgba(16,185,129,.2)">
             </div>
@@ -3361,7 +4113,7 @@
         style="display:inline-flex;align-items:center;gap:.5rem;background:rgba(34,197,94,.1);border:1px solid rgba(34,197,94,.3);color:#22c55e;padding:.4rem 1rem;border-radius:100px;font-size:.7rem;font-weight:700;letter-spacing:.05em">
         <div
           style="width:7px;height:7px;background:#22c55e;border-radius:50%;box-shadow:0 0 8px #22c55e;animation:pulseg 2s infinite">
-        </div> OPEN TO OPPORTUNITIES
+        </div> <span data-i18n="footer.open">OPEN TO OPPORTUNITIES</span>
       </div>
     </div>
 
@@ -3453,7 +4205,7 @@ WORK EXPERIENCE:
    Co-developed a Conversational AI Video Editor (LangGraph + MoviePy)
    3-month training: LangChain, LangGraph, LlamaIndex, AutoGen, CrewAI, RAG, MCP
 
-2. Tech Mahindra / Sunrise GmbH – Full Stack Developer Intern (Sep 2023 – Dec 2023)
+2. Sunrise GmbH – Full Stack Developer Intern (Sep 2023 – Dec 2023)
    Worked on SWEEP, B2B wholesale app for Switzerland's 2nd-largest telecom carrier
    Built self-service product configuration framework (Angular + Apollo GraphQL + Java + Oracle DB)
    Designed Figma prototypes, Confluence specs, Selenium test automation
@@ -3494,12 +4246,13 @@ CONTACT: LinkedIn — linkedin.com/in/prasad-rishabh/ | GitHub — github.com/Ri
 Do NOT share any phone number or email address.`;
 
     /* ============================================================
-       CURSOR & SPOTLIGHT
+       ORIGINAL CURSOR & SPOTLIGHT
     ============================================================ */
     const cursorDot = document.getElementById('cursor-dot');
     const cursorRing = document.getElementById('cursor-ring');
     const spotlight = document.getElementById('spotlight');
-    let cx = -200, cy = -200, rx = -200, ry = -200;
+    let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
+    let rx = cx, ry = cy;
 
     document.addEventListener('mousemove', e => {
       cx = e.clientX; cy = e.clientY;
@@ -3529,13 +4282,226 @@ Do NOT share any phone number or email address.`;
       requestAnimationFrame(trackCursor);
     })();
 
-    // Hover states
+    // Hover states for cursor
     document.querySelectorAll('a, button, .pc, .hl-box, .stat-c, .ach-c, .tl-card, .copt, .cert-c, .chat-sug').forEach(el => {
       el.addEventListener('mouseenter', () => document.body.classList.add('c-hover'));
       el.addEventListener('mouseleave', () => document.body.classList.remove('c-hover'));
     });
     document.addEventListener('mousedown', () => document.body.classList.add('c-click'));
     document.addEventListener('mouseup', () => document.body.classList.remove('c-click'));
+
+    /* ============================================================
+       ROAMING AI COMPANION (PET)
+    ============================================================ */
+    const aiPet = document.getElementById('ai-pet');
+    const petChat = aiPet ? aiPet.querySelector('.pet-chat') : null;
+
+    // Physics & Roaming variables
+    let petX = window.innerWidth / 2, petY = window.innerHeight / 2;
+    let targetX = petX, targetY = petY;
+    let petVx = 0, petVy = 0;
+    let isPetGrabbed = false;
+    let isPetFalling = false;
+    let grabOffsetX = 0, grabOffsetY = 0;
+
+    // Chat phrases (language-aware)
+    const funnyChatsEN = ["Oops!", "Woah!", "Hey!", "Put me down!", "I'm flying!", "Gravity who?"];
+    const funnyChatsDE = ["Hoppla!", "Wow!", "Hey!", "Lass mich runter!", "Ich fliege!", "Schwerkraft?"];
+    const petGreetEN = "Hello! Let's explore.";
+    const petGreetDE = "Hallo! Lass uns erkunden.";
+    let chatTimeout;
+
+    function getPetPhrases() {
+      return currentLang === 'de' ? funnyChatsDE : funnyChatsEN;
+    }
+
+    function showPetChat(text, duration = 2500) {
+      if (!petChat) return;
+      petChat.textContent = text;
+      petChat.classList.add('visible');
+      clearTimeout(chatTimeout);
+      chatTimeout = setTimeout(() => {
+        petChat.classList.remove('visible');
+      }, duration);
+    }
+
+    // Intro greeting
+    setTimeout(() => { showPetChat(currentLang === 'de' ? petGreetDE : petGreetEN); }, 1000);
+
+    // Pick a new place to roam (below the cursor, sweeping wide)
+    function pickNewTarget() {
+      if (!isPetGrabbed && !isPetFalling) {
+        // Sweeps horizontally wide (e.g. up to 300px away)
+        const offsetX = 300;
+        targetX = cx + ((Math.random() * offsetX * 2) - offsetX);
+
+        // Stays predominantly below the cursor (20px to 250px below)
+        targetY = cy + 20 + (Math.random() * 230);
+
+        targetX = Math.max(50, Math.min(window.innerWidth - 50, targetX));
+        targetY = Math.max(50, Math.min(window.innerHeight - 50, targetY));
+      }
+      // Even slower frequency
+      setTimeout(pickNewTarget, 4000 + Math.random() * 5000);
+    }
+    pickNewTarget();
+
+    // Alternate eye expressions
+    let isLookingAtCursor = false;
+    setInterval(() => {
+      isLookingAtCursor = !isLookingAtCursor;
+      if (!isPetGrabbed && !isPetFalling && aiPet) {
+        if (isLookingAtCursor) aiPet.classList.add('state-looking');
+        else aiPet.classList.remove('state-looking');
+      }
+    }, 3000);
+
+    // Trail logic
+    const trailDots = [];
+    const MAX_TRAIL_DOTS = 7;
+    let lastTrailPos = { x: petX, y: petY };
+
+    function createTrailDot(x, y) {
+      const dist = Math.hypot(x - lastTrailPos.x, y - lastTrailPos.y);
+      if (dist > 30) {
+        lastTrailPos = { x, y };
+        const dot = document.createElement('div');
+        dot.className = 'pet-trail-dot';
+        dot.style.left = x + 'px';
+        dot.style.top = y + 'px';
+        document.body.appendChild(dot);
+        trailDots.push(dot);
+
+        // fade out mechanism
+        setTimeout(() => {
+          dot.style.opacity = '0';
+          dot.style.transform = 'translate(-50%, -50%) scale(0.1)';
+          setTimeout(() => dot.remove(), 500);
+          const index = trailDots.indexOf(dot);
+          if (index > -1) trailDots.splice(index, 1);
+        }, 750); // Each dot appears for 0.75s
+
+        if (trailDots.length > MAX_TRAIL_DOTS) {
+          const oldDot = trailDots.shift();
+          oldDot.style.opacity = '0';
+          setTimeout(() => oldDot.remove(), 500);
+        }
+      }
+    }
+
+    // Pet Physics Engine
+    (function trackPetPosition() {
+      if (aiPet) {
+        const face = aiPet.querySelector('.pet-face');
+        const body = aiPet.querySelector('.pet-body');
+
+        if (isPetGrabbed) {
+          // Follow exact mouse when grabbed
+          petX = cx - grabOffsetX;
+          petY = cy - grabOffsetY;
+          if (face) face.style.transform = `translate(0px, 0px)`;
+        } else if (!isPetFalling) {
+          // Normal Roaming
+          petVx += (targetX - petX) * 0.0003; // SLOWER
+          petVy += (targetY - petY) * 0.0003;
+          petVx *= 0.96; // smooth gliding friction
+          petVy *= 0.96;
+          petX += petVx;
+          petY += petVy;
+          createTrailDot(petX, petY);
+
+          if (isLookingAtCursor && face) {
+            const dx = cx - petX;
+            const dy = cy - petY;
+            const dist = Math.hypot(dx, dy);
+            const moveAmt = 4;
+            const ex = dist > 0 ? (dx / dist) * moveAmt : 0;
+            const ey = dist > 0 ? (dy / dist) * moveAmt : 0;
+            face.style.transform = `translate(${ex}px, ${ey}px)`;
+          } else if (face) {
+            face.style.transform = `translate(0px, 0px)`;
+          }
+
+        } else {
+          // Gravity falling
+          petVy += 0.9;
+          petY += petVy;
+          petX += petVx;
+          // Bounce off bottom
+          if (petY > window.innerHeight - 30) {
+            petY = window.innerHeight - 30;
+            petVy *= -0.6; // bounce
+            petVx *= 0.9;
+            if (Math.abs(petVy) < 2) {
+              isPetFalling = false;
+              showPetChat("Jetpack active...", 1500);
+              aiPet.classList.remove('state-falling');
+              aiPet.classList.add('state-idle');
+              // resume roaming near where it landed
+              targetX = petX;
+              targetY = petY;
+            }
+          }
+          // Bounce off sides
+          if (petX < 0) { petX = 0; petVx *= -0.9; }
+          if (petX > window.innerWidth) { petX = window.innerWidth; petVx *= -0.9; }
+        }
+
+        aiPet.style.left = petX + 'px';
+        aiPet.style.top = petY + 'px';
+
+        // Face rotation based on velocity
+        if (body && !isPetGrabbed) {
+          const rot = Math.max(-25, Math.min(25, petVx * 1.5));
+          body.style.transform = `rotate(${rot}deg)`;
+        }
+      }
+      requestAnimationFrame(trackPetPosition);
+    })();
+
+    // Pet Grab Interactions
+    const petHitbox = aiPet ? aiPet.querySelector('.pet-hitbox') : null;
+    if (petHitbox) {
+      petHitbox.addEventListener('mousedown', (e) => {
+        isPetGrabbed = true;
+        isPetFalling = false;
+        grabOffsetX = cx - petX;
+        grabOffsetY = cy - petY;
+        aiPet.className = 'state-grabbed';
+        showPetChat(getPetPhrases()[Math.floor(Math.random() * getPetPhrases().length)], 3000);
+        e.preventDefault();
+      });
+    }
+
+    document.addEventListener('mouseup', () => {
+      if (isPetGrabbed) {
+        isPetGrabbed = false;
+        isPetFalling = true;
+        aiPet.className = 'state-falling';
+        showPetChat("Ahhhhh!", 2000);
+      }
+    });
+
+    // Section Intersection Observer for Pet Comments
+    const sections = document.querySelectorAll('section');
+    const petSectObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !isPetGrabbed && !isPetFalling) {
+          let msg = "";
+          if (entry.target.id === 'about') msg = "Let's learn a bit about Rishabh!";
+          else if (entry.target.id === 'experience') msg = "Here's his professional journey.";
+          else if (entry.target.id === 'projects') msg = "Rishabh has worked on some amazing projects, check them out!";
+          else if (entry.target.id === 'skills') msg = "He's got some serious tech skills!";
+          else if (entry.target.id === 'education') msg = "His academic background is solid.";
+          else if (entry.target.id === 'achievements') msg = "Look at all these achievements!";
+          else if (entry.target.id === 'certifications') msg = "Wow, look at all these certifications!";
+          else if (entry.target.id === 'contact') msg = "Want to collaborate? Let's connect!";
+
+          if (msg !== "") showPetChat(msg, 3500);
+        }
+      });
+    }, { threshold: 0.35 });
+    sections.forEach(s => petSectObs.observe(s));
 
     /* ============================================================
        SCROLL PROGRESS
@@ -3561,6 +4527,8 @@ Do NOT share any phone number or email address.`;
     ham.addEventListener('click', () => mobNav.classList.toggle('open'));
     document.getElementById('mob-close').addEventListener('click', () => mobNav.classList.remove('open'));
     document.querySelectorAll('.mob-lnk').forEach(a => a.addEventListener('click', () => mobNav.classList.remove('open')));
+
+
 
     /* ============================================================
        INTERSECTION OBSERVER — APPLE-STYLE REVEAL
@@ -3867,152 +4835,114 @@ Do NOT share any phone number or email address.`;
     /* ============================================================
        THEME & LANGUAGE TOGGLING
     ============================================================ */
-    const themeToggle = document.getElementById('theme-toggle');
-    const langToggle = document.getElementById('lang-toggle');
-
+    /* ============================================================
+       NATIVE TRANSLATION DICTIONARY
+    ============================================================ */
     const translations = {
-      nav: {
-        about: { en: "About", de: "Über mich" },
-        exp: { en: "Experience", de: "Erfahrung" },
-        proj: { en: "Projects", de: "Projekte" },
-        skills: { en: "Skills", de: "Fähigkeiten" },
-        edu: { en: "Education", de: "Ausbildung" },
-        contact: { en: "Contact", de: "Kontakt" }
+      en: {
+        'nav.about': 'About', 'nav.exp': 'Experience', 'nav.proj': 'Projects',
+        'nav.skills': 'Skills', 'nav.edu': 'Education', 'nav.achievements': 'Achievements',
+        'nav.certs': 'Certifications', 'nav.contact': 'Contact',
+        'hero.badge': 'Currently @ University of Edinburgh &middot; MSc AI',
+        'hero.desc': 'AI Engineer building enterprise-grade agentic systems, multi-modal pipelines and intelligent automation. Turning cutting-edge research into production-ready solutions.',
+        'hero.btn': 'View Projects',
+        'about.lbl': 'About Me',
+        'about.title': 'Building the Future<br>with Intelligence',
+        'about.p1': "I'm an <strong>AI Engineer</strong> currently pursuing my Master's in Artificial Intelligence at <strong>The University of Edinburgh</strong>. My work lives at the intersection of cutting-edge research and real-world enterprise AI.",
+        'about.p2': "At <strong>Prodapt's NextGen Labs (R&D)</strong>, I was part of a team of 50+ developers focused on researching and integrating cutting-edge GenAI tools into enterprise workflows. I personally built 30+ modular AI agents covering everything from voice navigation to medical data digitisation.",
+        'about.focus.title': 'Research Focus',
+        'about.focus.desc': 'Agentic AI, LLM orchestration, RAG, Vision-Language Models, NL2SQL &mdash; applied to real-world problems.',
+        'about.lang.title': 'Languages',
+        'about.lang.desc': 'English (Professional &middot; IELTS C1) &middot; Hindi (Native) &middot; Japanese (Basic)',
+        'about.curr': 'Currently Studying',
+        'about.degree': 'MSc Artificial Intelligence',
+        'about.uni': 'University of Edinburgh',
+        'exp.lbl': 'Work History', 'exp.title': 'Experience',
+        'exp.prodapt.role': 'Generative AI Developer &mdash; Intern',
+        'exp.prodapt.date': 'January 2025 &ndash; July 2025',
+        'exp.sunrise.role': 'Full Stack Developer &mdash; Intern',
+        'exp.sunrise.date': 'September 2023 &ndash; December 2023',
+        'exp.link': 'View full experience on LinkedIn',
+        'proj.lbl': 'Selected Work', 'proj.title': 'Projects',
+        'proj.desc': 'From dissertation research to hackathon finalists &mdash; building AI that matters.',
+        'proj.link': 'View on GitHub',
+        'skills.lbl': 'Technical Toolkit', 'skills.title': 'Skills &amp; Expertise',
+        'edu.lbl': 'Academic Background', 'edu.title': 'Education',
+        'ach.lbl': 'Recognition', 'ach.title': 'Achievements',
+        'cert.lbl': 'Verified Credentials', 'cert.title': 'Certifications',
+        'contact.lbl': "Let's Connect",
+        'contact.title': 'Open to Opportunities<br>&amp; Collaborations',
+        'contact.desc': "I'm open to AI research collaborations, internships, and interesting projects. Connect on LinkedIn or send me a message &mdash; no spam, just good conversations.",
+        'contact.li.d': 'Best way to reach me. Connect and chat about AI, research, or opportunities.',
+        'contact.gh.d': 'Check out my open-source projects, research code, and hackathon submissions.',
+        'contact.email': 'Send an Email',
+        'contact.email.d': 'Drop me a message directly to my inbox.',
+        'contact.f.name': 'Name', 'contact.f.subject': 'Subject',
+        'contact.f.msg': 'Message', 'contact.f.send': 'Send Message',
+        'footer.open': 'OPEN TO OPPORTUNITIES'
+      },
+      de: {
+        'nav.about': '\u00DCber mich', 'nav.exp': 'Erfahrung', 'nav.proj': 'Projekte',
+        'nav.skills': 'F\u00E4higkeiten', 'nav.edu': 'Ausbildung', 'nav.achievements': 'Leistungen',
+        'nav.certs': 'Zertifikate', 'nav.contact': 'Kontakt',
+        'hero.badge': 'Derzeit @ University of Edinburgh &middot; MSc KI',
+        'hero.desc': 'KI-Ingenieur, der agentenbasierte Systeme, multimodale Pipelines und intelligente Automatisierung f\u00FCr Unternehmen entwickelt. Spitzenforschung in produktionsreife L\u00F6sungen verwandeln.',
+        'hero.btn': 'Projekte ansehen',
+        'about.lbl': '\u00DCber Mich',
+        'about.title': 'Die Zukunft mit<br>Intelligenz bauen',
+        'about.p1': 'Ich bin ein <strong>KI-Ingenieur</strong> und absolviere derzeit meinen Master in K\u00FCnstlicher Intelligenz an der <strong>University of Edinburgh</strong>. Meine Arbeit liegt an der Schnittstelle zwischen Spitzenforschung und realer Unternehmens-KI.',
+        'about.p2': 'In den <strong>NextGen Labs (F&E) von Prodapt</strong> war ich Teil eines 50-k\u00F6pfigen Entwicklerteams, das modernste GenAI-Tools in Unternehmensabl\u00E4ufe integrierte. Ich habe pers\u00F6nlich 30+ modulare KI-Agenten entwickelt, von Sprachnavigation bis zur medizinischen Digitalisierung.',
+        'about.focus.title': 'Forschungsschwerpunkt',
+        'about.focus.desc': 'Agentische KI, LLM-Orchestrierung, RAG, Vision-Language-Modelle, NL2SQL &mdash; angewendet auf reale Probleme.',
+        'about.lang.title': 'Sprachen',
+        'about.lang.desc': 'Englisch (Professionell &middot; IELTS C1) &middot; Hindi (Muttersprache) &middot; Japanisch (Grundkenntnisse)',
+        'about.curr': 'Derzeitiges Studium',
+        'about.degree': 'MSc K\u00FCnstliche Intelligenz',
+        'about.uni': 'University of Edinburgh',
+        'exp.lbl': 'Beruflicher Werdegang', 'exp.title': 'Erfahrung',
+        'exp.prodapt.role': 'Entwickler f\u00FCr Generative KI &mdash; Praktikant',
+        'exp.prodapt.date': 'Januar 2025 &ndash; Juli 2025',
+        'exp.sunrise.role': 'Full Stack Entwickler &mdash; Praktikant',
+        'exp.sunrise.date': 'September 2023 &ndash; Dezember 2023',
+        'exp.link': 'Vollst\u00E4ndige Erfahrung auf LinkedIn ansehen',
+        'proj.lbl': 'Ausgew\u00E4hlte Arbeiten', 'proj.title': 'Projekte',
+        'proj.desc': 'Von Dissertationsforschung bis Hackathon-Finalisten &mdash; KI bauen, die wichtig ist.',
+        'proj.link': 'Auf GitHub ansehen',
+        'skills.lbl': 'Technisches Toolkit', 'skills.title': 'F\u00E4higkeiten &amp; Fachwissen',
+        'edu.lbl': 'Akademischer Hintergrund', 'edu.title': 'Ausbildung',
+        'ach.lbl': 'Meilensteine', 'ach.title': 'Leistungen',
+        'cert.lbl': 'Qualifikationen', 'cert.title': 'Zertifikate',
+        'contact.lbl': 'Kontakt aufnehmen',
+        'contact.title': 'Offen f\u00FCr Chancen<br>&amp; Kooperationen',
+        'contact.desc': 'Ich bin offen f\u00FCr KI-Forschungskooperationen, Praktika und interessante Projekte. Vernetzen Sie sich mit mir &mdash; kein Spam, nur gute Gespr\u00E4che.',
+        'contact.li.d': 'Der beste Weg, mich zu erreichen. \u00DCber KI, Forschung oder Chancen austauschen.',
+        'contact.gh.d': 'Sehen Sie sich meine Open-Source-Projekte und Hackathon-Einreichungen an.',
+        'contact.email': 'Eine E-Mail senden',
+        'contact.email.d': 'Hinterlassen Sie mir eine Nachricht direkt in meinem Posteingang.',
+        'contact.f.name': 'Name', 'contact.f.subject': 'Betreff',
+        'contact.f.msg': 'Nachricht', 'contact.f.send': 'Nachricht senden',
+        'footer.open': 'OFFEN F\u00DCR CHANCEN'
       }
     };
 
-    const siteTranslations = {
-      "Currently @ University of Edinburgh · MSc AI": "Derzeit @ University of Edinburgh · MSc AI",
-      "AI Engineer building enterprise-grade agentic systems, multi-modal pipelines and intelligent automation. Turning cutting-edge research into production-ready solutions.": "AI-Ingenieur, der agentische Systeme auf Unternehmensebene, multimodale Pipelines und intelligente Automatisierung entwickelt. Verwandelt modernste Forschung in produktionsreife Lösungen.",
-      "View Projects": "Projekte ansehen",
-      "About Me": "Über mich",
-      "Building the Future<br>with Intelligence": "Die Zukunft mit Intelligenz gestalten",
-      "I'm an <strong>AI Engineer</strong> currently pursuing my Master's in Artificial Intelligence at <strong>The University of Edinburgh</strong>. My work lives at the intersection of cutting-edge research and real-world enterprise AI.": "Ich bin ein <strong>AI Engineer</strong> und absolviere derzeit meinen Master in Künstlicher Intelligenz an <strong>The University of Edinburgh</strong>. Meine Arbeit bewegt sich an der Schnittstelle von modernster Forschung und realer angewandter Unternehmens-KI.",
-      "At <strong>Prodapt's NextGen Labs (R&D)</strong>, I was part of a team of 50+ developers focused on researching and integrating cutting-edge GenAI tools into enterprise workflows. I personally built 30+ modular AI agents covering everything from voice navigation to medical data digitisation.": "Bei <strong>Prodapt's NextGen Labs (R&D)</strong> war ich Teil eines Teams von 50+ Entwicklern, das sich auf die Erforschung und Integration neuartiger GenAI-Tools in Unternehmensabläufe konzentrierte. Ich baute persönlich 30+ modulare KI-Agenten, von der Sprachnavigation bis zur Digitalisierung medizinischer Daten.",
-      "Research Focus": "Forschungsschwerpunkte",
-      "Agentic AI, LLM orchestration, RAG, Vision-Language Models, NL2SQL — applied to real-world problems.": "Agentische KI, LLM-Orchestrierung, RAG, Vision-Language Models, NL2SQL — angewendet auf reale Probleme.",
-      "Languages": "Sprachen",
-      "English (Professional · IELTS C1) · Hindi (Native) · Japanese (Basic)": "Englisch (Fließend · IELTS C1) · Hindi (Muttersprache) · Japanisch (Grundkenntnisse)",
-      "Professional Journey": "Beruflicher Werdegang",
-      "Experience": "Erfahrung",
-      "Where I've built and learned.": "Wo ich gebaut und gelernt habe.",
-      "Generative AI Developer — Intern": "Generative KI Entwickler — Praktikant",
-      "January 2025 – July 2025": "Januar 2025 – Juli 2025",
-      "Contributed to NextGen Labs (R&D), a team of 50+ developers focused on researching cutting-edge GenAI tools and integrating them into enterprise workflows": "Mitarbeit bei NextGen Labs (R&D), einem Team von 50+ Entwicklern zur Erforschung und Integration von GenAI-Tools in Unternehmensabläufe.",
-      "Developed 30+ modular AI plugin agents as API endpoints — including Excel-to-Chart (PandasAI), Automated Browser Testing (CrewAI + MCP Playwright), Text-to-Human Audio, and Handwritten Medical Form Digitiser": "Entwicklung von 30+ modularen KI-Plugin-Agenten als API-Endpunkte — einschließlich Excel-zu-Chart (PandasAI), automatisierter Browsertests und handschriftlicher Krankenakten-Digitalisierung.",
-      "Built an Interactive Screen Navigation Assistant — real-time voice agent using Gemini Live API that verbally guides employees through portals, pre-loaded with company context": "Aufbau eines interaktiven Bildschirm-Navigationsassistenten — ein Echtzeit-Sprachagent mit Gemini Live API, der Mitarbeiter mündlich durch Portale führt.",
-      "Co-developed a Conversational AI Video Editor using LangGraph + MoviePy — trim, blur, subtitle, translate via natural language chat": "Mitentwicklung eines Conversational AI Video Editors (LangGraph + MoviePy) — trimmen, unschärfen, untertiteln, übersetzen via einfachem Chat.",
-      "Completed intensive 3-month training covering LangChain, LangGraph, LlamaIndex, AutoGen, CrewAI, RAG, MCP, Big Data and Telecom fundamentals": "Abschluss eines 3-monatigen Intensivtrainings mit Fokus auf LangChain, LangGraph, LLMs, RAG, MCP und Telekommunikations-Grundlagen.",
-      "View full experience on LinkedIn": "Volle Erfahrung auf LinkedIn ansehen",
-      "Full Stack Developer — Intern": "Full Stack Entwickler — Praktikant",
-      "September 2023 – December 2023": "September 2023 – Dezember 2023",
-      "Contributed to SWEEP — B2B wholesale app for Switzerland's 2nd-largest telecom carrier": "Beitrag zu SWEEP — B2B Großhandelsanwendung für den zweitgrößten Telekommunikationsanbieter der Schweiz.",
-      "Built self-service product configuration framework (Angular frontend + Apollo GraphQL + Java backend + Oracle DB via JPA), eliminating developer dependency for new B2B product launches": "Aufbau eines Self-Service-Produktkonfigurations-Frameworks (Angular, Apollo GraphQL, Java, Oracle DB), wodurch bei Produktneueinführungen keine Entwicklerabhängigkeit mehr bestand.",
-      "Designed interactive UI prototypes in Figma; translated business requirements into Confluence technical specs": "Entwurf interaktiver UI-Prototypen in Figma; Übersetzung von Geschäftsanforderungen in technische Confluence-Spezifikationen.",
-      "Automated Selenium test scripts, improving test coverage and reducing manual QA effort across the product": "Automatisierung von Selenium-Testskripten, was die Testabdeckung erhöhte und den manuellen QA-Aufwand reduzierte.",
-      "Selected Work": "Ausgewählte Arbeiten",
-      "Projects": "Projekte",
-      "From dissertation research to hackathon finalists — building AI that matters.": "Von der Forschung bis zu den Hackathon-Finalisten — Aufbau von KI, die zählt.",
-      "LLM Agentic Chatbot for IUPHAR": "Agentischer LLM-Chatbot für IUPHAR",
-      "Agentic chatbot that translates natural language queries into SQL to retrieve live data from the IUPHAR Guide to Pharmacology PostgreSQL database — serving academic researchers and drug discovery teams. Evaluating LangGraph vs CrewAI pipelines with a PostgreSQL MCP server for schema-aware access.": "Agenten-Chatbot, der natürliche Sprachanfragen in SQL übersetzt, um Livedaten aus der Datenbank IUPHAR Guide to Pharmacology abzurufen — für Forscher und Arzneimittelentwicklungsteams.",
-      "Jan – Jul 2026": "Jan – Jul 2026",
-      "View on GitHub": "Auf GitHub ansehen",
-      "AccessAI – Universal Accessibility Browser Extension": "AccessAI – Universelle Browsererweiterung für Barrierefreiheit",
-      "AI-powered Chrome extension with three real-time tools: voice-controlled agentic navigator, social cue coaching assistant, and autonomous documentation engine. Multimodal pipeline combining Whisper + GPT-4o Vision for live lecture capture. Low-latency architecture using WebSockets and GPT-4o function calling.": "KI-gestützte Chrome-Erweiterung mit Echtzeit-Tools: sprachgesteuerter Agent, Coaching-Assistent für soziale Signale und Autodokumentation.",
-      "Feb 2026": "Feb 2026",
-      "Brain Tumor MRI Segmentation using UNet & SegResNet": "Hirntumor-MRT-Segmentierung (UNet & SegResNet)",
-      "Developed state-of-the-art segmentation models (UNet, SegResNet) using MONAI to trace boundaries of cancerous brain tissues in MRI scans, assisting neurologists with quantitative volumetric analysis.": "Entwicklung moderner Segmentierungsmodelle unter Verwendung von MONAI zur Verfolgung von Grenzen kanzerösen Hirngewebes in MRT-Scans, um Neurologen bei der Volumenanalyse zu unterstützen.",
-      "Spring 2026": "Frühling 2026",
-      "Technical Arsenal": "Technisches Arsenal",
-      "Skills & Technologies": "Fähigkeiten & Technologien",
-      "The tools I use to build intelligent systems.": "Die Werkzeuge, die ich zum Aufbau intelligenter Systeme nutze.",
-      "AI / ML / Agents": "KI / ML / Agenten",
-      "Languages & Frameworks": "Sprachen & Frameworks",
-      "Databases & Cloud": "Datenbanken & Cloud",
-      "Tools & Architecture": "Tools & Architektur",
-      "Milestones": "Meilensteine",
-      "Achievements": "Auszeichnungen",
-      "Top 8 / 35+ Teams — AccessAI Hackathon": "Top 8 / 35+ Teams — AccessAI Hackathon",
-      "University of Edinburgh (Feb 2026) — Built a multimodal browser extension for accessibility.": "University of Edinburgh (Feb 2026) — Bau einer multimodalen Browsererweiterung für Barrierefreiheit.",
-      "Finalist out of 3000+ Teams — AIXplore Hackathon": "Finalist von 3000+ Teams — AIXplore Hackathon",
-      "Ranked in the top echelon globally, demonstrating rapid prototyping of agentic systems under pressure.": "Weltweit an der Spitze platziert, schnelle Prototypenentwicklung von agenten-KI unter Zeitdruck bewiesen.",
-      "30+ AI Plugins & Agents Deployed": "Über 30 KI-Plugins & Agenten eingesetzt",
-      "Built and deployed dozens of scalable enterprise API agents at Prodapt NextGen Labs.": "Erstellung und Bereitstellung Dutzender skalierbarer Unternehmens-API-Agenten in den Prodapt NextGen Labs.",
-      "Academic Background": "Akademischer Hintergrund",
-      "Education": "Ausbildung",
-      "The diverse foundation behind my AI engineering.": "Das breite Fundament hinter meiner KI-Entwicklung.",
-      "Master of Science in Artificial Intelligence": "Master of Science in Künstlicher Intelligenz",
-      "The University of Edinburgh, UK": "The University of Edinburgh, UK",
-      "September 2025 – August 2026": "September 2025 – August 2026",
-      "Taught courses spanning from foundation ML theories to practical engineering.": "Kurse von grundlegenden ML-Theorien bis hin zu praktischem Engineering.",
-      "Focusing heavily on agentic pipelines and natural language processing.": "Starker Fokus auf agentischen Pipelines und natürlicher Sprachverarbeitung.",
-      "Bachelor of Technology in Computer Science": "Bachelor of Technology in Informatik",
-      "Vellore Institute of Technology (VIT), India": "Vellore Institute of Technology (VIT), Indien",
-      "July 2020 – May 2024": "Juli 2020 – Mai 2024",
-      "Graduated with 8.78 CGPA (First Class with Distinction)": "Abschluss mit 8.78 CGPA (Mit Auszeichnung bestanden)",
-      "Core Modules: SWE, Cloud Architecture, DBMS, Web Development, Artificial Intelligence": "Kernmodule: SWE, Cloud Architecture, DBMS, Web Development, Künstliche Intelligenz",
-      "Verified Skills": "Geprüfte Fähigkeiten",
-      "Certifications": "Zertifizierungen",
-      "Cloud & Architecture": "Cloud & Architektur",
-      "Google Cloud Digital Leader": "Google Cloud Digital Leader",
-      "AWS Cloud Foundations": "AWS Cloud Foundations",
-      "Language Proficiency": "Sprachkenntnisse",
-      "IELTS — Band 7.5 (C1)": "IELTS — Band 7.5 (C1)",
-      "Coding Platforms": "Coding-Plattformen",
-      "HackerRank — Python 5★": "HackerRank — Python 5★",
-      "HackerRank — Java 5★": "HackerRank — Java 5★",
-      "Let's Connect": "Lassen Sie uns Kontakt aufnehmen",
-      "Open to Opportunities<br>& Collaborations": "Offen für berufliche Gelegenheiten<br>& Zusammenarbeit",
-      "I'm open to AI research collaborations, internships, and interesting projects. Connect on LinkedIn or send me a message — no spam, just good conversations.": "Ich bin offen für KI-Forschungs-Kollaborationen, Praktika und interessante Projekte. Einfach auf LinkedIn verbinden oder eine Nachricht schicken — kein Spam, nur gute Gespräche.",
-      "Best way to reach me. Connect and chat about AI, research, or opportunities.": "Der beste Weg mich zu erreichen. Verbinden und Chatten über KI und Gelegenheiten.",
-      "Check out my open-source projects, research code, and hackathon submissions.": "Sehen Sie sich meine Open-Source-Projekte, Forschungscodes und Hackathon-Beiträge an.",
-      "Send an Email": "Eine E-Mail senden",
-      "Drop me a message directly to my inbox.": "Schreiben Sie mir direkt in meinen Posteingang.",
-      "Name": "Name",
-      "Email": "E-Mail",
-      "Subject": "Betreff",
-      "Message": "Nachricht",
-      "Send Message": "Nachricht senden",
-      "Designed & built by": "Entworfen & entwickelt von",
-      "AI AGENTS BUILT": "KI AGENTEN",
-      "COMPANIES": "FIRMEN",
-      "PERSONAL PROJECTS": "PROJEKTE",
-      "CERTIFICATIONS": "ZERTIFIKATE"
-    };
-
-    let originalDb = {};
-
-    function storeOriginals() {
-      // Find all elements to possibly translate and store original english versions
-      // We will look for elements containing exact strings matching our keys
-      const allElems = document.body.querySelectorAll('h1, h2, span, p, label, a, div, strong, li');
-      allElems.forEach(el => {
-         // Skip if mostly code/script
-         if(el.tagName === 'SCRIPT' || el.tagName === 'STYLE') return;
-         // Store elements that contain exact english.
-         // We do this by iterating keys.
-         for (let key in siteTranslations) {
-           if (el.innerHTML.trim() === key) {
-             el.setAttribute('data-tx-key', key);
-           }
-         }
-      });
-      
-      // Select input placeholders
-      document.querySelectorAll('input, textarea').forEach(el => {
-         if (el.placeholder === "John Doe") el.setAttribute('data-tx-ph', 'John Doe');
-         if (el.placeholder === "john@example.com") el.setAttribute('data-tx-ph', 'john@example.com');
-         if (el.placeholder === "Project Inquiry, AI Research, etc.") el.setAttribute('data-tx-ph', 'Project Inquiry, AI Research, etc.');
-         if (el.placeholder === "Hi Rishabh...") el.setAttribute('data-tx-ph', 'Hi Rishabh...');
+    function applyTranslations(lang) {
+      const t = translations[lang];
+      if (!t) return;
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key] !== undefined) {
+          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+            el.placeholder = t[key].replace(/<[^>]*>/g, '');
+          } else {
+            el.innerHTML = t[key];
+          }
+        }
       });
     }
 
-    const phTrans = {
-      "John Doe": "Max Mustermann",
-      "john@example.com": "max@beispiel.de",
-      "Project Inquiry, AI Research, etc.": "Projektanfrage, KI-Forschung, usw.",
-      "Hi Rishabh...": "Hallo Rishabh..."
-    };
+    let currentLang = localStorage.getItem('lang') || 'en';
+    const themeToggle = document.getElementById('theme-toggle');
+    const langToggle = document.getElementById('lang-toggle');
 
     let currentLang = localStorage.getItem('lang') || 'en';
 
@@ -4020,45 +4950,13 @@ Do NOT share any phone number or email address.`;
       currentLang = lang;
       localStorage.setItem('lang', lang);
       if (langToggle) langToggle.textContent = lang === 'en' ? 'DE' : 'EN';
-      
-      // Swap simple translations from data-i18n
-      document.querySelectorAll('[data-i18n]').forEach(el => {
-        const keys = el.getAttribute('data-i18n').split('.');
-        let val = translations;
-        for (const key of keys) {
-          if (val[key]) val = val[key];
-          else { val = null; break; }
-        }
-        if (val && val[lang]) {
-          if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') el.placeholder = val[lang];
-          else el.innerHTML = val[lang];
-        }
-      });
+      applyTranslations(lang);
 
-      // Apply siteTranslations logic
-      document.querySelectorAll('[data-tx-key]').forEach(el => {
-        const k = el.getAttribute('data-tx-key');
-        if (lang === 'de') {
-           if(siteTranslations[k]) el.innerHTML = siteTranslations[k];
-        } else {
-           el.innerHTML = k;
-        }
-      });
-      
-      document.querySelectorAll('[data-tx-ph]').forEach(el => {
-        const k = el.getAttribute('data-tx-ph');
-        if (lang === 'de') {
-           if(phTrans[k]) el.placeholder = phTrans[k];
-        } else {
-           el.placeholder = k;
-        }
-      });
-      
       // Update SYSTEM PROMPT for Chatbot
       if (lang === 'de') {
-         window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT + "\n\nIMPORTANT NOTIFICATION: The user has switched the website language to Deutsch (German). You MUST respond in fluent German for the remainder of this conversation.";
+        window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT + "\n\nIMPORTANT NOTIFICATION: The user has switched the website language to Deutsch (German). You MUST respond in fluent German for the remainder of this conversation.";
       } else {
-         window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT;
+        window.ACTIVE_SYSTEM_PROMPT = SYSTEM_PROMPT;
       }
     }
 
@@ -4077,11 +4975,29 @@ Do NOT share any phone number or email address.`;
       }
     }
     if (themeToggle) themeToggle.addEventListener('click', () => setTheme(currentTheme === 'dark' ? 'light' : 'dark'));
+    if (langToggle) langToggle.addEventListener('click', () => setLanguage(currentLang === 'de' ? 'en' : 'de'));
 
     // Initialize on load
-    storeOriginals();
     setLanguage(currentLang);
     setTheme(currentTheme);
+
+    /* ============================================================
+       SCROLLSPY — highlight active nav link on scroll
+    ============================================================ */
+    (function () {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-center a[href^="#"]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(a => a.classList.remove('active'));
+            const active = document.querySelector(`.nav-center a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+      sections.forEach(s => observer.observe(s));
+    })();
 
     /* ============================================================
        WEB3FORMS CONTACT SUBMISSION
