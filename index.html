@@ -532,6 +532,13 @@
       width: 100%
     }
 
+    .nav-center a.active {
+      color: var(--t1);
+    }
+    .nav-center a.active::after {
+      width: 100%;
+    }
+
     .nav-right {
       display: flex;
       align-items: center;
@@ -3041,6 +3048,10 @@
           <span class="dot"></span>
           <span data-i18n="hero.badge">Currently @ University of Edinburgh · MSc AI</span>
         </div>
+        <div class="hero-badge rev" style="margin-top:.5rem;background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.35);color:#22c55e;animation-delay:.1s">
+          <span style="width:7px;height:7px;background:#22c55e;border-radius:50%;box-shadow:0 0 8px #22c55e;display:inline-block;animation:pulseg 2s infinite"></span>
+          <span data-i18n="footer.open">OPEN TO OPPORTUNITIES</span>
+        </div>
         <h1 class="hero-name rev d2">
           <span class="hn-first">Rishabh</span>
           <span class="hn-last">Prasad</span>
@@ -4285,9 +4296,16 @@ Do NOT share any phone number or email address.`;
     let isPetFalling = false;
     let grabOffsetX = 0, grabOffsetY = 0;
 
-    // Chat phrases
-    const funnyChats = ["Oops!", "Woah!", "Hey!", "Put me down!", "I'm flying!", "Gravity who?"];
+    // Chat phrases (language-aware)
+    const funnyChatsEN = ["Oops!", "Woah!", "Hey!", "Put me down!", "I'm flying!", "Gravity who?"];
+    const funnyChatsDE = ["Hoppla!", "Wow!", "Hey!", "Lass mich runter!", "Ich fliege!", "Schwerkraft?"];
+    const petGreetEN = "Hello! Let's explore.";
+    const petGreetDE = "Hallo! Lass uns erkunden.";
     let chatTimeout;
+
+    function getPetPhrases() {
+      return currentLang === 'de' ? funnyChatsDE : funnyChatsEN;
+    }
 
     function showPetChat(text, duration = 2500) {
       if (!petChat) return;
@@ -4300,7 +4318,7 @@ Do NOT share any phone number or email address.`;
     }
 
     // Intro greeting
-    setTimeout(() => { showPetChat("Hello! Let's explore."); }, 1000);
+    setTimeout(() => { showPetChat(currentLang === 'de' ? petGreetDE : petGreetEN); }, 1000);
 
     // Pick a new place to roam (below the cursor, sweeping wide)
     function pickNewTarget() {
@@ -4442,7 +4460,7 @@ Do NOT share any phone number or email address.`;
         grabOffsetX = cx - petX;
         grabOffsetY = cy - petY;
         aiPet.className = 'state-grabbed';
-        showPetChat(funnyChats[Math.floor(Math.random() * funnyChats.length)], 3000);
+        showPetChat(getPetPhrases()[Math.floor(Math.random() * getPetPhrases().length)], 3000);
         e.preventDefault();
       });
     }
@@ -4950,6 +4968,24 @@ Do NOT share any phone number or email address.`;
     // Initialize on load
     setLanguage(currentLang);
     setTheme(currentTheme);
+
+    /* ============================================================
+       SCROLLSPY — highlight active nav link on scroll
+    ============================================================ */
+    (function () {
+      const sections = document.querySelectorAll('section[id]');
+      const navLinks = document.querySelectorAll('.nav-center a[href^="#"]');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            navLinks.forEach(a => a.classList.remove('active'));
+            const active = document.querySelector(`.nav-center a[href="#${entry.target.id}"]`);
+            if (active) active.classList.add('active');
+          }
+        });
+      }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+      sections.forEach(s => observer.observe(s));
+    })();
 
     /* ============================================================
        WEB3FORMS CONTACT SUBMISSION
