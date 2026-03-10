@@ -479,6 +479,10 @@
       border-bottom: 1px solid var(--bd);
     }
 
+    html[data-theme="light"] nav.scrolled {
+      background: rgba(255, 255, 255, 0.9);
+    }
+
     .nav-logo {
       font-family: var(--fc);
       font-size: 1.05rem;
@@ -2980,6 +2984,8 @@
       <li><a href="#projects" data-i18n="nav.proj">Projects</a></li>
       <li><a href="#skills" data-i18n="nav.skills">Skills</a></li>
       <li><a href="#education" data-i18n="nav.edu">Education</a></li>
+      <li><a href="#achievements" data-i18n="nav.achievements">Achievements</a></li>
+      <li><a href="#certifications" data-i18n="nav.certifications">Certifications</a></li>
     </ul>
     <div class="nav-right">
       <a href="https://www.linkedin.com/in/prasad-rishabh/" target="_blank" rel="noopener" class="nav-icon-link"
@@ -3014,6 +3020,7 @@
     <a href="#skills" class="mob-lnk">Skills</a>
     <a href="#education" class="mob-lnk">Education</a>
     <a href="#achievements" class="mob-lnk">Achievements</a>
+    <a href="#certifications" class="mob-lnk">Certifications</a>
     <a href="#contact" class="mob-lnk">Contact</a>
   </div>
 
@@ -3100,7 +3107,7 @@
           <!-- Duplicated for infinite scroll -->
           <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
-            Prodapt R&amp;D</div>
+            Prodapt</div>
           <div class="ticker-item"><img src="images/sunrise-logo.webp" alt="Sunrise"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             Sunrise GmbH</div>
@@ -3113,7 +3120,7 @@
 
           <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
-            Prodapt R&amp;D</div>
+            Prodapt</div>
           <div class="ticker-item"><img src="images/sunrise-logo.webp" alt="Sunrise"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             Sunrise GmbH</div>
@@ -4802,6 +4809,7 @@ Do NOT share any phone number or email address.`;
     /* ============================================================
        THEME & LANGUAGE TOGGLING
     ============================================================ */
+    let currentLang = localStorage.getItem('lang') || 'en';
     const themeToggle = document.getElementById('theme-toggle');
     const langToggle = document.getElementById('lang-toggle');
 
