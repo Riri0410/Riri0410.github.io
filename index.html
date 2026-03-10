@@ -4242,17 +4242,28 @@ Do NOT share any phone number or email address.`;
     let cx = window.innerWidth / 2, cy = window.innerHeight / 2;
     let rx = cx, ry = cy;
 
+    const spotlightEls = Array.from(document.querySelectorAll('.hl-box, .stat-c, .pc, .ach-c, .copt, .tl-card, .cert-c, .hero-left, .cform input, .cform textarea'));
+    let isMoving = false;
     document.addEventListener('mousemove', e => {
       cx = e.clientX; cy = e.clientY;
-      if (spotlight) {
-        spotlight.style.setProperty('--spot-x', `${cx}px`);
-        spotlight.style.setProperty('--spot-y', `${cy}px`);
+      if (!isMoving) {
+        isMoving = true;
+        requestAnimationFrame(() => {
+          if (spotlight) {
+            spotlight.style.setProperty('--spot-x', `${cx}px`);
+            spotlight.style.setProperty('--spot-y', `${cy}px`);
+          }
+          for (let i = 0; i < spotlightEls.length; i++) {
+            const el = spotlightEls[i];
+            const rect = el.getBoundingClientRect();
+            if (rect.top < window.innerHeight && rect.bottom > 0) {
+              el.style.setProperty('--mx', `${cx - rect.left}px`);
+              el.style.setProperty('--my', `${cy - rect.top}px`);
+            }
+          }
+          isMoving = false;
+        });
       }
-      document.querySelectorAll('.hl-box, .stat-c, .pc, .ach-c, .copt, .tl-card, .cert-c, .hero-left, .cform input, .cform textarea').forEach(el => {
-        const rect = el.getBoundingClientRect();
-        el.style.setProperty('--mx', `${cx - rect.left}px`);
-        el.style.setProperty('--my', `${cy - rect.top}px`);
-      });
     });
 
     // Smooth cursor follow
@@ -4495,15 +4506,24 @@ Do NOT share any phone number or email address.`;
        SCROLL PROGRESS
     ============================================================ */
     const prog = document.getElementById('prog');
+    let isScrolling = false;
     const onScroll = () => {
-      const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
-      prog.style.width = pct + '%';
-      document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 30);
-      // Parallax hero
-      const inner = document.getElementById('hero-inner');
-      const bg = document.getElementById('hero-bg');
-      if (inner) inner.style.transform = `translateY(${window.scrollY * 0.25}px)`;
-      if (bg) bg.style.transform = `translateY(${window.scrollY * 0.1}px)`;
+      if (!isScrolling) {
+        isScrolling = true;
+        requestAnimationFrame(() => {
+          const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+          if (prog) prog.style.width = pct + '%';
+          const nav = document.getElementById('nav');
+          if (nav) nav.classList.toggle('scrolled', window.scrollY > 30);
+          
+          // Parallax hero
+          const inner = document.getElementById('hero-inner');
+          const bg = document.getElementById('hero-bg');
+          if (inner) inner.style.transform = `translateY(${window.scrollY * 0.25}px)`;
+          if (bg) bg.style.transform = `translateY(${window.scrollY * 0.1}px)`;
+          isScrolling = false;
+        });
+      }
     };
     window.addEventListener('scroll', onScroll, { passive: true });
 
@@ -4626,8 +4646,9 @@ Do NOT share any phone number or email address.`;
           for (let j = i + 1; j < nodes.length; j++) {
             const b = nodes[j];
             const dx = a.x - b.x, dy = a.y - b.y;
-            const d = Math.sqrt(dx * dx + dy * dy);
-            if (d < 155) {
+            const distSq = dx * dx + dy * dy;
+            if (distSq < 24025) { // 155^2
+              const d = Math.sqrt(distSq);
               const alpha = (1 - d / 155) * .27;
               ctx.beginPath();
               ctx.strokeStyle = `rgba(${Math.round((a.col[0] + b.col[0]) / 2)},${Math.round((a.col[1] + b.col[1]) / 2)},${Math.round((a.col[2] + b.col[2]) / 2)},${alpha})`;
@@ -4639,8 +4660,13 @@ Do NOT share any phone number or email address.`;
         nodes.forEach(n => {
           n.phase += .022;
           const pulse = .32 * Math.sin(n.phase) + .68;
-          const dx = n.x - mX, dy = n.y - mY, d = Math.sqrt(dx * dx + dy * dy);
-          if (d < 125 && d > 0) { const f = (125 - d) / 125 * .55; n.vx += dx / d * f; n.vy += dy / d * f; }
+          const dx = n.x - mX, dy = n.y - mY;
+          const distSq = dx * dx + dy * dy;
+          if (distSq < 15625 && distSq > 0) { // 125^2
+            const d = Math.sqrt(distSq);
+            const f = (125 - d) / 125 * .55;
+            n.vx += dx / d * f; n.vy += dy / d * f;
+          }
           n.vx *= .984; n.vy *= .984;
           n.x += n.vx; n.y += n.vy;
           if (n.x < 0 || n.x > W) { n.vx *= -1; n.x = Math.max(0, Math.min(W, n.x)); }
