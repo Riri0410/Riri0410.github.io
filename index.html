@@ -1540,7 +1540,7 @@
       position: absolute;
       inset: 0;
       opacity: 0;
-      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow-p), transparent 60%);
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow-c), transparent 60%);
       transition: opacity .3s;
       pointer-events: none;
       z-index: 0;
@@ -1556,8 +1556,8 @@
     }
 
     .tl-card:hover {
-      border-color: var(--p);
-      box-shadow: 0 14px 40px rgba(124, 58, 237, .18);
+      border-color: var(--c);
+      box-shadow: 0 14px 40px rgba(6, 182, 212, .18);
       transform: translateY(-4px)
     }
 
@@ -2223,7 +2223,7 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow-p), transparent 60%);
+      background: radial-gradient(circle at var(--mx, 50%) var(--my, 50%), var(--glow-c), transparent 60%);
       opacity: 0;
       transition: opacity .3s;
       pointer-events: none;
@@ -2241,8 +2241,8 @@
 
     .copt:hover {
       transform: translateY(-7px);
-      border-color: var(--p);
-      box-shadow: 0 12px 30px rgba(124, 58, 237, .15)
+      border-color: var(--c);
+      box-shadow: 0 12px 30px rgba(6, 182, 212, .15)
     }
 
     .copt-ico {
