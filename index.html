@@ -4650,8 +4650,6 @@ Do NOT share any phone number or email address.`;
       }
     }
 
-    if (langToggle) langToggle.addEventListener('click', () => setLanguage(currentLang === 'en' ? 'de' : 'en'));
-
     let currentTheme = localStorage.getItem('theme') || 'dark';
     function setTheme(theme) {
       currentTheme = theme;
@@ -4664,7 +4662,61 @@ Do NOT share any phone number or email address.`;
         if (themeToggle) themeToggle.textContent = '☀️';
       }
     }
-    if (themeToggle) themeToggle.addEventListener('click', () => setTheme(currentTheme === 'dark' ? 'light' : 'dark'));
+    if (themeToggle) themeToggle.addEventListener('click', () => {
+      const next = currentTheme === 'dark' ? 'light' : 'dark';
+      setTheme(next);
+      gtag('event', 'theme_switched', { theme: next });
+    });
+
+    if (langToggle) langToggle.addEventListener('click', () => {
+      const next = currentLang === 'en' ? 'de' : 'en';
+      setLanguage(next);
+      gtag('event', 'language_switched', { language: next });
+    });
+
+    // Hero CTA tracking
+    document.querySelectorAll('.hero-ctas a, .hero-ctas button').forEach(el => {
+      el.addEventListener('click', () => {
+        gtag('event', 'hero_cta_click', { cta_label: el.textContent.trim() });
+      });
+    });
+
+    // Section viewed tracking
+    const sectionIds = ['about', 'experience', 'projects', 'skills', 'education', 'achievements', 'certifications', 'contact'];
+    const sectionObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          gtag('event', 'section_viewed', { section_name: e.target.id });
+          sectionObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    sectionIds.forEach(id => { const el = document.getElementById(id); if (el) sectionObs.observe(el); });
+
+    // Pet interaction tracking
+    if (petHitbox) {
+      let petInteractions = 0;
+      petHitbox.addEventListener('mousedown', () => {
+        petInteractions++;
+        if (petInteractions === 1 || petInteractions % 5 === 0) {
+          gtag('event', 'pet_interaction', { interaction_count: petInteractions });
+        }
+      });
+    }
+
+    // Chat suggestion click tracking
+    chatSugs.querySelectorAll('.chat-sug').forEach(btn => {
+      btn.addEventListener('click', () => {
+        gtag('event', 'chat_suggestion_clicked', { suggestion: btn.textContent.trim() });
+      });
+    });
+
+    // HackerRank click tracking
+    document.querySelectorAll('a[href*="hackerrank"]').forEach(el => {
+      el.addEventListener('click', () => {
+        gtag('event', 'hackerrank_clicked');
+      });
+    });
 
     // Initialize on load
     storeOriginals();
