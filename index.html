@@ -4304,6 +4304,14 @@ Do NOT share any phone number or email address.`;
       card.addEventListener('mouseleave', () => { card.style.transform = ''; });
     });
 
+    document.querySelectorAll('.pc-link').forEach(link => {
+      link.addEventListener('click', () => {
+        const card = link.closest('.pc');
+        const title = card ? (card.querySelector('.pc-title') || card.querySelector('h3'))?.textContent?.trim() : 'unknown';
+        gtag('event', 'project_link_click', { project_name: title });
+      });
+    });
+
     /* ============================================================
        SMOOTH ANCHOR
     ============================================================ */
@@ -4353,6 +4361,7 @@ Do NOT share any phone number or email address.`;
       chatOverlay.classList.add('open');
       chatInput.focus();
       if (chatHistory.length === 0) chatSugs.style.display = '';
+      gtag('event', 'chatbot_opened');
     }
     function closeChat() {
       chatOpen = false;
@@ -4412,6 +4421,7 @@ Do NOT share any phone number or email address.`;
       chatSend.disabled = true;
       addMsg(text, 'user');
       chatHistory.push({ role: 'user', parts: [{ text }] });
+      gtag('event', 'chatbot_message_sent', { message_number: chatHistory.length });
       const typing = addTyping();
 
       try {
@@ -4709,6 +4719,7 @@ Do NOT share any phone number or email address.`;
               formResult.style.background = 'rgba(16,185,129,.1)';
               formResult.style.borderColor = 'rgba(16,185,129,.2)';
               formResult.innerHTML = '✅ Message sent successfully! I will get back to you soon.';
+              gtag('event', 'contact_form_submitted');
               contactForm.reset();
               try { turnstile.reset(); } catch (e) { }
             } else {
