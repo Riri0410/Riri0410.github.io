@@ -100,6 +100,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+  <!-- Preload LCP image (profile photo) -->
+  <link rel="preload" as="image" href="images/Profile Photo.jpeg" fetchpriority="high" />
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap"
     rel="stylesheet" />
@@ -2980,7 +2982,7 @@
     <div class="hero-inner" id="hero-inner">
       <!-- Left: photo -->
       <div class="hero-left rev">
-        <img src="images/Profile Photo.jpeg" alt="Rishabh Prasad" class="hero-photo" />
+        <img src="images/Profile Photo.jpeg" alt="Rishabh Prasad" class="hero-photo" width="800" height="800" fetchpriority="high" decoding="sync" />
       </div>
       <!-- Vertical divider -->
       <div class="hero-divider"></div>
@@ -3054,35 +3056,35 @@
       <div class="ticker-wrap flex">
         <div class="ticker-track">
           <!-- Duplicated for infinite scroll -->
-          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt"
+          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt" width="2000" height="956" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             Prodapt R&amp;D</div>
-          <div class="ticker-item"><img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise"
+          <div class="ticker-item"><img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise" width="1200" height="630" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             Sunrise GmbH</div>
-          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Tech Mahindra"
+          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Tech Mahindra" width="310" height="162" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             Tech Mahindra</div>
-          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh"
+          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh" width="347" height="350" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             University of Edinburgh</div>
-          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT"
+          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT" width="1200" height="1264" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             VIT Vellore</div>
 
-          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt"
+          <div class="ticker-item"><img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt" width="2000" height="956" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             Prodapt R&amp;D</div>
-          <div class="ticker-item"><img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise"
+          <div class="ticker-item"><img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise" width="1200" height="630" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             Sunrise GmbH</div>
-          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Tech Mahindra"
+          <div class="ticker-item"><img src="images/Tech_Mahindra.png" alt="Tech Mahindra" width="310" height="162" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             Tech Mahindra</div>
-          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh"
+          <div class="ticker-item"><img src="images/uoe-crest.png" alt="Edinburgh" width="347" height="350" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             University of Edinburgh</div>
-          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT"
+          <div class="ticker-item"><img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT" width="1200" height="1264" loading="lazy" decoding="async"
               style="height:1.5rem; border-radius:4px; padding:2px; background:white; vertical-align:middle; margin-right:0.3rem;" />
             VIT Vellore</div>
         </div>
@@ -3170,7 +3172,7 @@
         <div class="tl-item">
           <div class="tl-card revL">
             <div class="tl-header">
-              <img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt Logo" class="tl-logo" />
+              <img src="images/Prodapt-Logo-Red-with-clearspace-DONT-CROP.png" alt="Prodapt Logo" class="tl-logo" width="2000" height="956" loading="lazy" decoding="async" />
               <div>
                 <div class="tl-company">Prodapt · NextGen Labs (R&D)</div>
                 <div class="tl-role">Generative AI Developer — Intern</div>
@@ -3217,7 +3219,7 @@
           </div>
           <div class="tl-card revR">
             <div class="tl-header">
-              <img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise Logo" class="tl-logo" />
+              <img src="images/Sunrise 1200X630-1748525402148.jpg.webp" alt="Sunrise Logo" class="tl-logo" width="1200" height="630" loading="lazy" decoding="async" />
               <div>
                 <div class="tl-company">Tech Mahindra · Sunrise GmbH</div>
                 <div class="tl-role">Full Stack Developer — Intern</div>
@@ -3552,7 +3554,7 @@
                 <div class="tl-company">University of Edinburgh</div>
                 <div class="tl-role">MSc Artificial Intelligence</div>
               </div>
-              <img src="images/uoe-crest.png" alt="University of Edinburgh Logo" class="tl-logo" />
+              <img src="images/uoe-crest.png" alt="University of Edinburgh Logo" class="tl-logo" width="347" height="350" loading="lazy" decoding="async" />
             </div>
             <span class="tl-date">September 2025 – August 2026 · 1 year</span>
             <ul class="tl-bullets" style="text-align:left">
@@ -3581,7 +3583,7 @@
           <div class="tl-card revR">
             <div class="tl-header">
               <img src="images/Vellore_Institute_of_Technology_seal_2017.svg.png" alt="VIT Vellore Logo"
-                class="tl-logo" />
+                class="tl-logo" width="1200" height="1264" loading="lazy" decoding="async" />
               <div>
                 <div class="tl-company">Vellore Institute of Technology</div>
                 <div class="tl-role">BTech Computer Science &amp; Engineering</div>
